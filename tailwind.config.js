@@ -69,5 +69,38 @@ module.exports = {
     extend: {}
   },
   plugins: [require('tailwindcss-textshadow'), require('daisyui')],
-  daisyui: {}
+  daisyui: {
+    themes: [
+      {
+        mytheme: {
+          /* your theme name */
+          accent: '#42749B' /* Primary color */,
+          'accent-focus': '#204561' /* Primary color - focused */,
+          'accent-content': '#ffffff' /* Foreground content color to use on primary color */,
+
+          secondary: '#B18C19' /* Secondary color */,
+          'secondary-focus': '#f3cc30' /* Secondary color - focused */,
+          'secondary-content': '#ffffff' /* Foreground content color to use on secondary color */,
+
+          primary: '#559D9D' /* Accent color */,
+          'primary-focus': '#2aa79b' /* Accent color - focused */,
+          'primary-content': '#ffffff' /* Foreground content color to use on accent color */,
+
+          neutral: '#2a2e37',
+          'neutral-focus': '#16181d',
+          'neutral-content': '#ffffff',
+
+          'base-100': '#162f42',
+          'base-200': '#092134',
+          'base-300': '#151722',
+          'base-content': '#ebecf0',
+
+          info: '#2094f3' /* Info */,
+          success: '#009485' /* Success */,
+          warning: '#ff9900' /* Warning */,
+          error: '#ff5724' /* Error */
+        }
+      }
+    ]
+  }
 };

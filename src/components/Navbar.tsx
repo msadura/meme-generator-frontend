@@ -4,6 +4,7 @@ import Link from 'next/link';
 import MetamaskButton from '@app/blockchain/MetamaskButton';
 import LogoImg from '@public/fmn_logo.png';
 import SocialIcons from '@app/components/SocialIcons/SocialIcons';
+import LogoText from '@app/components/LogoText/LogoText';
 
 export const Navbar = () => {
   const [active, setActive] = useState(false);
@@ -18,8 +19,9 @@ export const Navbar = () => {
         <Link href="/">
           <a className="flex flex-row py-2 items-center">
             {/* <Image src={LogoImg} width={60} height={60} alt="logo" /> */}
-            <span className="text-5xl font-semibold tracking-wider text-accent-focus uppercase bita tstroke tracking-widest">
-              DAC Meme Generator
+            <LogoText />
+            <span className="ml-3 text-xl font-semibold tracking-wider text-secondary uppercase tracking-widest font-salt">
+              Meme Generator
             </span>
           </a>
         </Link>

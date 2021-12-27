@@ -3,6 +3,7 @@ import { useDrawer } from '@app/hooks/useDrawer';
 import React, { ChangeEvent, useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import Img from 'next/image';
 import debounce from 'lodash/debounce';
+import DogePlaceholder from '@public/doge1.png';
 
 type Props = {};
 
@@ -91,59 +92,105 @@ export function MemeGenerator(): JSX.Element {
   }, [image.base64]);
 
   return (
-    <div className="flex flex-col gap-5">
-      <input
-        type="file"
-        id="meme-file"
-        ref={inputRef}
-        className="hidden"
-        accept="image/*"
-        onChange={onFileChange}
-      />
-      <Button onClick={openFilePicker}>Pick image</Button>
-
-      <div className="form-control">
-        <label className="label">
-          <span className="label-text">Top text</span>
-        </label>
+    <div className="flex flex-col flex-1 md:flex-row gap-5">
+      <div className="flex flex-col flex-initial w-96 gap-5">
+        <span className="text-lg italic">
+          Create your awesome meme!
+          <br />
+          First, let&apos;s select image:
+        </span>
         <input
-          type="text"
-          value={textTop}
-          placeholder="top text"
-          className="input input-bordered"
-          onChange={(e) => setTextTop(e.target.value)}
+          type="file"
+          id="meme-file"
+          ref={inputRef}
+          className="hidden"
+          accept="image/*"
+          onChange={onFileChange}
         />
+
+        <Button className="btn-primary" onClick={openFilePicker}>
+          Pick image
+        </Button>
+
+        <div className="flex justify-center">
+          <span className="text-lg">⎯⎯⎯⎯⎯&nbsp;&nbsp;&nbsp;or&nbsp;&nbsp;&nbsp;⎯⎯⎯⎯⎯</span>
+        </div>
+
+        <div className="form-control">
+          <input
+            type="text"
+            value={textTop}
+            placeholder="PASTE IMAGE URL"
+            className="input input-bordered"
+            onChange={(e) => setTextTop(e.target.value)}
+          />
+        </div>
+
+        <span className="text-lg mt-8">Got your image? give it a bit of life!</span>
+
+        <div className="form-control">
+          <label className="label">
+            <span className="label-text">Top text</span>
+          </label>
+          <input
+            type="text"
+            value={textTop}
+            placeholder="top text"
+            className="input input-bordered"
+            onChange={(e) => setTextTop(e.target.value)}
+          />
+        </div>
+
+        <div className="form-control">
+          <label className="label">
+            <span className="label-text">Bottom text</span>
+          </label>
+          <input
+            type="text"
+            value={textBottom}
+            placeholder="bottom text"
+            className="input input-bordered"
+            onChange={(e) => setTextBottom(e.target.value)}
+          />
+        </div>
+
+        <div className="form-control">
+          <label className="label">
+            <span className="label-text">Font size</span>
+          </label>
+          <input
+            type="number"
+            value={size}
+            placeholder="size"
+            className="input input-bordered"
+            onChange={(e) => setSize(Number(e.target.value))}
+          />
+        </div>
       </div>
 
-      <div className="form-control">
-        <label className="label">
-          <span className="label-text">Bottom text</span>
-        </label>
-        <input
-          type="text"
-          value={textBottom}
-          placeholder="bottom text"
-          className="input input-bordered"
-          onChange={(e) => setTextBottom(e.target.value)}
-        />
-      </div>
+      <div className="flex flex-1 relative">
+        {!!preview && (
+          <Img
+            src={preview}
+            alt="Meme preview"
+            layout="fill"
+            objectFit="contain"
+            objectPosition="left 50%"
+          />
+        )}
 
-      <div className="form-control">
-        <label className="label">
-          <span className="label-text">Font size</span>
-        </label>
-        <input
-          type="number"
-          value={size}
-          placeholder="size"
-          className="input input-bordered"
-          onChange={(e) => setSize(Number(e.target.value))}
-        />
+        {!preview && (
+          <div className="opacity-50">
+            <Img
+              src={DogePlaceholder}
+              alt="Meme preview"
+              layout="fill"
+              objectFit="contain"
+              objectPosition="50% 50%"
+            />
+          </div>
+        )}
       </div>
-
-      {!!preview && (
-        <Img src={preview} alt="Meme preview" width={image.width} height={image.height} />
-      )}
     </div>
   );
 }

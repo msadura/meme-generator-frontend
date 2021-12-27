@@ -16,6 +16,18 @@ body {
   src: url(/Network.ttf);
 }
 
+.font-neon {
+  font-family: Neon;
+}
+
+.font-network {
+  font-family: Network;
+}
+
+.font-salt {
+  font-family: Rock Salt;
+}
+
 .ts-none {
   text-shadow: none;
 }
