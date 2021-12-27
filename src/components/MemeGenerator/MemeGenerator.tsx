@@ -188,6 +188,18 @@ export function MemeGenerator(): JSX.Element {
               objectFit="contain"
               objectPosition="50% 50%"
             />
+
+            <div className="flex absolute left-0 right-0 top-10 w-full items-center justify-center">
+              <p className="font-impact text-5xl tracking-wider absolute tstroke">
+                Wut you lookin&apos;s at?
+              </p>
+            </div>
+
+            <div className="flex absolute left-0 right-0 bottom-10 w-full items-center justify-center">
+              <p className="font-impact text-5xl tracking-wider absolute tstroke">
+                This is just placeholder
+              </p>
+            </div>
           </div>
         )}
       </div>

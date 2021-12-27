@@ -28,6 +28,10 @@ body {
   font-family: Rock Salt;
 }
 
+.font-impact {
+  font-family: Impact;
+}
+
 .ts-none {
   text-shadow: none;
 }
