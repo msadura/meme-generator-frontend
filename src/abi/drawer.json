@@ -1,0 +1,143 @@
+[
+  {
+    "anonymous": false,
+    "inputs": [
+      { "indexed": true, "internalType": "address", "name": "previousOwner", "type": "address" },
+      { "indexed": true, "internalType": "address", "name": "newOwner", "type": "address" }
+    ],
+    "name": "OwnershipTransferred",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      { "indexed": false, "internalType": "address", "name": "account", "type": "address" }
+    ],
+    "name": "Paused",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      { "indexed": false, "internalType": "address", "name": "account", "type": "address" }
+    ],
+    "name": "Unpaused",
+    "type": "event"
+  },
+  {
+    "inputs": [{ "internalType": "address", "name": "addr", "type": "address" }],
+    "name": "addAdmin",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "generator",
+    "outputs": [{ "internalType": "contract IMemeGenerator", "name": "", "type": "address" }],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "components": [
+          { "internalType": "string", "name": "image", "type": "string" },
+          { "internalType": "uint256", "name": "width", "type": "uint256" },
+          { "internalType": "uint256", "name": "height", "type": "uint256" },
+          { "internalType": "string", "name": "textTop", "type": "string" },
+          { "internalType": "string", "name": "textBottom", "type": "string" },
+          { "internalType": "uint256", "name": "textSize", "type": "uint256" },
+          { "internalType": "string", "name": "textColor", "type": "string" },
+          { "internalType": "string", "name": "textStroke", "type": "string" }
+        ],
+        "internalType": "struct IMemeGenerator.MemeTraits",
+        "name": "meme",
+        "type": "tuple"
+      }
+    ],
+    "name": "getMemeImage",
+    "outputs": [{ "internalType": "string", "name": "", "type": "string" }],
+    "stateMutability": "pure",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "components": [
+          { "internalType": "string", "name": "image", "type": "string" },
+          { "internalType": "uint256", "name": "width", "type": "uint256" },
+          { "internalType": "uint256", "name": "height", "type": "uint256" },
+          { "internalType": "string", "name": "textTop", "type": "string" },
+          { "internalType": "string", "name": "textBottom", "type": "string" },
+          { "internalType": "uint256", "name": "textSize", "type": "uint256" },
+          { "internalType": "string", "name": "textColor", "type": "string" },
+          { "internalType": "string", "name": "textStroke", "type": "string" }
+        ],
+        "internalType": "struct IMemeGenerator.MemeTraits",
+        "name": "meme",
+        "type": "tuple"
+      }
+    ],
+    "name": "getMemeSvg",
+    "outputs": [{ "internalType": "string", "name": "", "type": "string" }],
+    "stateMutability": "pure",
+    "type": "function"
+  },
+  {
+    "inputs": [{ "internalType": "uint256", "name": "tokenId", "type": "uint256" }],
+    "name": "getTokenURI",
+    "outputs": [{ "internalType": "string", "name": "", "type": "string" }],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "isAdmin",
+    "outputs": [{ "internalType": "bool", "name": "", "type": "bool" }],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "owner",
+    "outputs": [{ "internalType": "address", "name": "", "type": "address" }],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "paused",
+    "outputs": [{ "internalType": "bool", "name": "", "type": "bool" }],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [{ "internalType": "address", "name": "addr", "type": "address" }],
+    "name": "removeAdmin",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "renounceOwnership",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [{ "internalType": "address", "name": "_generator", "type": "address" }],
+    "name": "setContracts",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [{ "internalType": "address", "name": "newOwner", "type": "address" }],
+    "name": "transferOwnership",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  }
+]

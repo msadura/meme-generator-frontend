@@ -1,0 +1,35 @@
+html,
+body {
+  padding: 0;
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
+    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+}
+
+@font-face {
+  font-family: Neon;
+  src: url(/Neon80S.ttf);
+}
+
+@font-face {
+  font-family: Network;
+  src: url(/Network.ttf);
+}
+
+.ts-none {
+  text-shadow: none;
+}
+
+.ts-i {
+  text-shadow: -1px 0 #fff, 0 1px #fff, 1px 0 #fff, 0 -1px #fff;
+}
+
+.tstroke {
+  text-shadow: -1px 0 #000, 0 1px #000, 1px 0 #000, 0 -1px #000;
+}
+
+.Toastify__toast-body {
+}
+
+.Toastify__toast {
+}
