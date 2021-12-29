@@ -1,5 +1,13 @@
 import { useDebounce } from '@app/hooks/useDebounce';
-import { useState } from 'react';
+import { useState, useMemo } from 'react';
+
+export type MemeText = {
+  top: string;
+  bottom: string;
+  size: number;
+  stroke: string;
+  color: string;
+};
 
 export function useText() {
   const [textTop, setTextTop] = useState('');
@@ -10,6 +18,17 @@ export function useText() {
   const debouncedTextTop = useDebounce(textTop);
   const debouncedTextBottom = useDebounce(textBottom);
   const debouncedSize = useDebounce(size);
+
+  const text = useMemo<MemeText>(
+    () => ({
+      top: debouncedTextTop,
+      bottom: debouncedTextBottom,
+      size: debouncedSize,
+      stroke,
+      color
+    }),
+    [color, debouncedSize, debouncedTextBottom, debouncedTextTop, stroke]
+  );
 
   return {
     textTop,
@@ -24,6 +43,7 @@ export function useText() {
     setStroke,
     debouncedTextTop,
     debouncedTextBottom,
-    debouncedSize
+    debouncedSize,
+    text
   };
 }

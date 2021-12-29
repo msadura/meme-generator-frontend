@@ -3,8 +3,10 @@ import { getImageScale } from '@app/utils/getImageScale';
 import { useState, useEffect, useCallback } from 'react';
 import { toast } from 'react-toastify';
 
+export type MemeImage = { base64: string; width: number; height: number };
+
 export function useImage() {
-  const [image, setImage] = useState({ base64: '', width: 0, height: 0 });
+  const [image, setImage] = useState<MemeImage>({ base64: '', width: 0, height: 0 });
   const [remoteUrl, setRemoteUrl] = useState('');
 
   const selectImage = useCallback(async (file: File | string) => {
@@ -63,6 +65,11 @@ export function useImage() {
     return { width: img.naturalWidth, height: img.naturalHeight };
   };
 
+  const clearImage = () => {
+    setImage({ base64: '', width: 0, height: 0 });
+    setRemoteUrl('');
+  };
+
   useEffect(() => {
     if (remoteUrl) {
       console.log('🔥', 'remote set');
@@ -70,5 +77,5 @@ export function useImage() {
     }
   }, [remoteUrl, selectImage]);
 
-  return { image, selectImage, remoteUrl, setRemoteUrl };
+  return { image, selectImage, remoteUrl, setRemoteUrl, clearImage };
 }

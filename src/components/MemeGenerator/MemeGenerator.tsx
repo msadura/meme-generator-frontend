@@ -8,12 +8,12 @@ import { useFilePicker } from '@app/components/MemeGenerator/hooks/useFilePicker
 import { useText } from '@app/components/MemeGenerator/hooks/useText';
 import { ColorPicker } from '@app/components/ColorPicker/ColorPicker';
 import Spinner from '@app/components/Spinner';
+import { usePreview } from '@app/components/MemeGenerator/hooks/usePreview';
 
 export function MemeGenerator(): JSX.Element {
   const drawer = useDrawer();
-  const [preview, setPreview] = useState('');
 
-  const { image, selectImage, remoteUrl, setRemoteUrl } = useImage();
+  const { image, selectImage, remoteUrl, setRemoteUrl, clearImage } = useImage();
   const {
     size,
     color,
@@ -25,50 +25,10 @@ export function MemeGenerator(): JSX.Element {
     setTextBottom,
     setSize,
     setStroke,
-    debouncedTextBottom,
-    debouncedTextTop,
-    debouncedSize
+    text
   } = useText();
+  const { preview, isLoading } = usePreview({ drawer, image, text });
   const { inputRef, onFileChange, openFilePicker } = useFilePicker(selectImage);
-
-  const loadPreview = useCallback(async () => {
-    try {
-      const res = await drawer?.getMemeSvg([
-        image.base64,
-        image.width,
-        image.height,
-        debouncedTextTop,
-        debouncedTextBottom,
-        debouncedSize,
-        color,
-        stroke
-      ]);
-      console.log('🔥', 'prev loaded', res);
-      setPreview(`data:image/svg+xml,${encodeURIComponent(res)}`);
-    } catch (e) {
-      console.log('🔥', 'fail');
-    }
-  }, [
-    color,
-    debouncedTextBottom,
-    debouncedTextTop,
-    drawer,
-    image.base64,
-    image.height,
-    image.width,
-    debouncedSize,
-    stroke
-  ]);
-
-  useEffect(() => {
-    if (image.base64 && image.width && image.height) {
-      loadPreview();
-    }
-  }, [image.base64, image.height, image.width, loadPreview]);
-
-  useEffect(() => {
-    setPreview('');
-  }, [image.base64]);
 
   return (
     <div className="flex flex-col flex-1 md:flex-row gap-5">
@@ -86,11 +46,16 @@ export function MemeGenerator(): JSX.Element {
           accept="image/*"
           onChange={onFileChange}
         />
-
-        <Button className="btn-primary" onClick={openFilePicker}>
-          Pick image
-        </Button>
-
+        <div className="flex gap-3">
+          <Button className="btn-primary flex flex-1" onClick={openFilePicker}>
+            Pick image
+          </Button>
+          {!!image.base64 && (
+            <Button className="btn-warning flex" onClick={clearImage}>
+              Clear
+            </Button>
+          )}
+        </div>
         <div className="flex justify-center">
           <span className="text-lg">⎯⎯⎯⎯⎯&nbsp;&nbsp;&nbsp;or&nbsp;&nbsp;&nbsp;⎯⎯⎯⎯⎯</span>
         </div>
@@ -124,7 +89,7 @@ export function MemeGenerator(): JSX.Element {
             <input
               type="text"
               value={textTop}
-              placeholder="top text"
+              placeholder="what does doge say?"
               className="w-full pr-12 input input-bordered"
               onChange={(e) => setTextTop(e.target.value)}
             />
@@ -146,7 +111,7 @@ export function MemeGenerator(): JSX.Element {
             <input
               type="text"
               value={textBottom}
-              placeholder="bottom text"
+              placeholder="woof woof!"
               className="w-full pr-12  input input-bordered"
               onChange={(e) => setTextBottom(e.target.value)}
             />
@@ -193,34 +158,60 @@ export function MemeGenerator(): JSX.Element {
       <div className="flex flex-1 relative items-center justify-center">
         {!!preview && (
           <div>
-            <Img
-              src={preview}
-              alt="Meme preview"
-              layout="fill"
-              objectFit="contain"
-              objectPosition="50% 50%"
-            />
+            <div className="md:hidden">
+              <Img
+                src={preview}
+                alt="Meme preview"
+                objectFit="contain"
+                objectPosition="50% 50%"
+                width={image.width}
+                height={image.height}
+              />
+            </div>
+            <div className="hidden md:flex">
+              <Img
+                src={preview}
+                alt="Meme preview"
+                objectFit="contain"
+                layout="fill"
+                objectPosition="50% 50%"
+                width={image.width}
+              />
+            </div>
           </div>
         )}
 
         {!preview && (
-          <div className="opacity-50">
-            <Img
-              src={DogePlaceholder}
-              alt="Meme preview"
-              layout="fill"
-              objectFit="contain"
-              objectPosition="50% 50%"
-            />
+          <div className="opacity-50 flex w-full h-full">
+            <div className="md:hidden">
+              <Img
+                src={DogePlaceholder}
+                alt="Meme preview"
+                objectFit="contain"
+                objectPosition="50% 50%"
+                width={1000}
+                height={1000}
+              />
+            </div>
+
+            <div className="hidden md:flex">
+              <Img
+                src={DogePlaceholder}
+                alt="Meme preview"
+                layout="fill"
+                objectFit="contain"
+                objectPosition="50% 50%"
+              />
+            </div>
 
             <div className="flex absolute left-0 right-0 top-10 w-full items-center justify-center">
-              <p className="font-impact text-5xl tracking-wider absolute tstroke">
-                Wut you lookin&apos;s at?
+              <p className="font-impact text-xl md:text-3xl lg:text-5xl tracking-wider absolute tstroke">
+                Wut you lookin&apos; at?
               </p>
             </div>
 
             <div className="flex absolute left-0 right-0 bottom-10 w-full items-center justify-center">
-              <p className="font-impact text-5xl tracking-wider absolute tstroke">
+              <p className="font-impact text-xl md:text-3xl lg:text-5xl tracking-wider absolute tstroke">
                 This is just placeholder
               </p>
             </div>
@@ -228,7 +219,7 @@ export function MemeGenerator(): JSX.Element {
         )}
 
         <div className="absolute top-0 left-0 right-0 bottom-0 flex items-center justify-center ">
-          <Spinner className="w-16 h-16 md:w-28 md:h-28 text-primary" />
+          {isLoading && <Spinner className="w-16 h-16 md:w-28 md:h-28 text-primary" />}
         </div>
       </div>
     </div>

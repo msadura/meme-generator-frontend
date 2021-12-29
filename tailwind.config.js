@@ -97,7 +97,7 @@ module.exports = {
 
           info: '#2094f3' /* Info */,
           success: '#009485' /* Success */,
-          warning: '#ff9900' /* Warning */,
+          warning: '#f3cc30' /* Warning */,
           error: '#ff5724' /* Error */
         }
       }
