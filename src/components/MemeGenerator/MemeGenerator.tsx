@@ -9,6 +9,7 @@ import { useText } from '@app/components/MemeGenerator/hooks/useText';
 import { ColorPicker } from '@app/components/ColorPicker/ColorPicker';
 import Spinner from '@app/components/Spinner';
 import { usePreview } from '@app/components/MemeGenerator/hooks/usePreview';
+import { useBlockchain } from '@app/blockchain/useBlockchain';
 
 export function MemeGenerator(): JSX.Element {
   const drawer = useDrawer();
@@ -27,6 +28,7 @@ export function MemeGenerator(): JSX.Element {
     setStroke,
     text
   } = useText();
+  const { signer } = useBlockchain();
   const { preview, isLoading } = usePreview({ drawer, image, text });
   const { inputRef, onFileChange, openFilePicker } = useFilePicker(selectImage);
 
@@ -178,6 +180,14 @@ export function MemeGenerator(): JSX.Element {
                 width={image.width}
               />
             </div>
+          </div>
+        )}
+
+        {!signer && !!image.base64 && (
+          <div className="flex absolute h-full w-full items-center justify-center">
+            <p className="font-impact text-xl md:text-3xl lg:text-5xl tracking-wider tstroke text-warning">
+              Connect wallet to see your meme!
+            </p>
           </div>
         )}
 
