@@ -11,16 +11,18 @@ export function ColorPicker({ value, onChange, label }: Props): JSX.Element {
   const [isVisible, setIsVisible] = useState(false);
 
   return (
-    <div className="relative flex flex-col form-control">
+    <div className="relative flex flex-col form-control ">
       {!!label && (
         <label className="label">
           <span className="label-text">{label}</span>
         </label>
       )}
-      <button
-        className="w-16 h-8"
-        style={{ backgroundColor: value }}
-        onClick={() => setIsVisible((v) => !v)}></button>
+      <div className="flex flex-1 items-center">
+        <button
+          className="w-16 h-8 rounded"
+          style={{ backgroundColor: value }}
+          onClick={() => setIsVisible((v) => !v)}></button>
+      </div>
 
       {isVisible && (
         <div className="absolute top-full">
