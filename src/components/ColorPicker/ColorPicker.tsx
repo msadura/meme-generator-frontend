@@ -25,7 +25,8 @@ export function ColorPicker({ value, onChange, label }: Props): JSX.Element {
       </div>
 
       {isVisible && (
-        <div className="absolute top-full">
+        <div className="absolute top-full z-20">
+          <div className="fixed inset-0" onClick={() => setIsVisible(false)} />
           <CompactPicker color={value} onChangeComplete={({ hex }) => onChange(hex)} />
         </div>
       )}

@@ -12,3 +12,5 @@ export const MAX_TO_MINT = 10;
 export const IPFS_IMAGE_BASE = 'https://gateway.pinata.cloud/ipfs/';
 
 export const MAX_IMAGE_SIZE = 1000;
+//use secured one for prod
+export const PUBLIC_RPC = 'https://rinkeby.infura.io/v3/998804b23fd0421e9bbea7c41917c2b3';

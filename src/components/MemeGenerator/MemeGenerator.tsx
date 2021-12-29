@@ -177,19 +177,18 @@ export function MemeGenerator(): JSX.Element {
                 objectFit="contain"
                 layout="fill"
                 objectPosition="50% 50%"
-                width={image.width}
               />
             </div>
           </div>
         )}
 
-        {!signer && !!image.base64 && (
-          <div className="flex absolute h-full w-full items-center justify-center">
-            <p className="font-impact text-xl md:text-3xl lg:text-5xl tracking-wider tstroke text-warning">
+        {/* {!signer && !!image.base64 && (
+          <div className="flex absolute h-full w-full items-center justify-center z-2">
+            <p className="font-impact text-center text-xl md:text-3xl lg:text-5xl tracking-wider tstroke text-warning">
               Connect wallet to see your meme!
             </p>
           </div>
-        )}
+        )} */}
 
         {!preview && (
           <div className="opacity-50 flex w-full h-full">

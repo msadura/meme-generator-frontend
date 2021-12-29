@@ -4,14 +4,17 @@ import 'tailwindcss/tailwind.css';
 import { BlockchainProvider } from '@app/blockchain/BlockchainContext';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { PublicProvider } from '@app/components/PublicProvider/PublicProvider';
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
-    <BlockchainProvider>
-      <Component {...pageProps} />
+    <PublicProvider>
+      <BlockchainProvider>
+        <Component {...pageProps} />
 
-      <ToastContainer />
-    </BlockchainProvider>
+        <ToastContainer />
+      </BlockchainProvider>
+    </PublicProvider>
   );
 }
 export default MyApp;

@@ -1,7 +1,11 @@
 import { MemeImage } from '@app/components/MemeGenerator/hooks/useImage';
 import { MemeText } from '@app/components/MemeGenerator/hooks/useText';
-import { ethers } from 'ethers';
+import { ethers, Signer } from 'ethers';
 import { useCallback, useEffect, useState } from 'react';
+import { useBlockchain } from '@app/blockchain/useBlockchain';
+import { toast } from 'react-toastify';
+import { usePublicProvider } from '@app/components/PublicProvider/PublicProvider';
+import { useDrawer } from '@app/hooks/useDrawer';
 
 type Props = {
   drawer: ethers.Contract | null;
@@ -9,15 +13,22 @@ type Props = {
   image: MemeImage;
 };
 
-export function usePreview({ drawer, image, text }: Props) {
+export function usePreview({ image, text }: Props) {
   const [preview, setPreview] = useState('');
+  const { signer } = useBlockchain();
   const [isLoading, setIsLoading] = useState(false);
+  const publicProvider = usePublicProvider();
+  const drawer = useDrawer(publicProvider);
 
   const loadPreview = useCallback(async () => {
     try {
       setIsLoading(true);
 
-      const res = await drawer?.getMemeSvg([
+      if (!drawer) {
+        return;
+      }
+
+      const res = await drawer?.getMemeImage([
         image.base64,
         image.width,
         image.height,
@@ -28,9 +39,11 @@ export function usePreview({ drawer, image, text }: Props) {
         text.stroke
       ]);
       console.log('🔥', 'prev loaded', res);
-      setPreview(`data:image/svg+xml,${encodeURIComponent(res)}`);
+      // setPreview(`data:image/svg+xml,${encodeURIComponent(res)}`);
+      setPreview(res);
     } catch (e) {
       console.log('🔥', 'fail');
+      setPreview('');
     } finally {
       setIsLoading(false);
     }
@@ -52,7 +65,7 @@ export function usePreview({ drawer, image, text }: Props) {
     } else {
       setPreview('');
     }
-  }, [image.base64, image.height, image.width, loadPreview]);
+  }, [image.base64, image.height, image.width, loadPreview, signer]);
 
   return { preview, isLoading };
 }
