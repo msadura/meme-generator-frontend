@@ -1,3 +1,4 @@
+import { useDebounce } from '@app/hooks/useDebounce';
 import { useState } from 'react';
 
 export function useText() {
@@ -6,6 +7,9 @@ export function useText() {
   const [size, setSize] = useState(30);
   const [color, setColor] = useState('#ffffff');
   const [stroke, setStroke] = useState('#000000');
+  const debouncedTextTop = useDebounce(textTop);
+  const debouncedTextBottom = useDebounce(textBottom);
+  const debouncedSize = useDebounce(size);
 
   return {
     textTop,
@@ -17,6 +21,9 @@ export function useText() {
     color,
     setColor,
     stroke,
-    setStroke
+    setStroke,
+    debouncedTextTop,
+    debouncedTextBottom,
+    debouncedSize
   };
 }

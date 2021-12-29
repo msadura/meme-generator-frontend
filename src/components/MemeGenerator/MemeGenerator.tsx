@@ -6,26 +6,39 @@ import DogePlaceholder from '@public/doge1.png';
 import { useImage } from '@app/components/MemeGenerator/hooks/useImage';
 import { useFilePicker } from '@app/components/MemeGenerator/hooks/useFilePicker';
 import { useText } from '@app/components/MemeGenerator/hooks/useText';
+import { ColorPicker } from '@app/components/ColorPicker/ColorPicker';
 
 export function MemeGenerator(): JSX.Element {
   const drawer = useDrawer();
   const [preview, setPreview] = useState('');
 
   const { image, selectImage, remoteUrl, setRemoteUrl } = useImage();
-  const { size, color, stroke, textTop, textBottom, setTextTop, setTextBottom, setSize } =
-    useText();
+  const {
+    size,
+    color,
+    setColor,
+    stroke,
+    textTop,
+    textBottom,
+    setTextTop,
+    setTextBottom,
+    setSize,
+    setStroke,
+    debouncedTextBottom,
+    debouncedTextTop,
+    debouncedSize
+  } = useText();
   const { inputRef, onFileChange, openFilePicker } = useFilePicker(selectImage);
 
   const loadPreview = useCallback(async () => {
-    console.log('🔥', 'load prev', textTop, textBottom, size);
     try {
       const res = await drawer?.getMemeSvg([
         image.base64,
         image.width,
         image.height,
-        textTop,
-        textBottom,
-        size,
+        debouncedTextTop,
+        debouncedTextBottom,
+        debouncedSize,
         color,
         stroke
       ]);
@@ -34,7 +47,17 @@ export function MemeGenerator(): JSX.Element {
     } catch (e) {
       console.log('🔥', 'fail');
     }
-  }, [color, drawer, image.base64, image.height, image.width, size, stroke, textBottom, textTop]);
+  }, [
+    color,
+    debouncedTextBottom,
+    debouncedTextTop,
+    drawer,
+    image.base64,
+    image.height,
+    image.width,
+    debouncedSize,
+    stroke
+  ]);
 
   useEffect(() => {
     if (image.base64 && image.width && image.height) {
@@ -113,13 +136,27 @@ export function MemeGenerator(): JSX.Element {
           <label className="label">
             <span className="label-text">Font size</span>
           </label>
-          <input
-            type="number"
-            value={size}
-            placeholder="size"
-            className="input input-bordered"
-            onChange={(e) => setSize(Number(e.target.value))}
-          />
+          <div className="flex flex-row items-center gap-5">
+            <input
+              type="range"
+              min="10"
+              max="150"
+              value={size}
+              className="flex-1 flex range range-sm"
+              onChange={(e) => setSize(Number(e.target.value))}
+            />
+            <input
+              type="number"
+              value={size}
+              placeholder="size"
+              className="w-20 input input-bordered"
+              onChange={(e) => setSize(Number(e.target.value))}
+            />
+          </div>
+          <div className="flex flex-row gap-10">
+            <ColorPicker value={color} onChange={setColor} label="Color" />
+            <ColorPicker value={stroke} onChange={setStroke} label="Stroke" />
+          </div>
         </div>
       </div>
 
