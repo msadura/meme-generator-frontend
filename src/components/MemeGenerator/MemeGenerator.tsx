@@ -1,22 +1,20 @@
 import Button from '@app/components/Button/Button';
 import { useDrawer } from '@app/hooks/useDrawer';
-import React, { ChangeEvent, useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import Img from 'next/image';
-import debounce from 'lodash/debounce';
 import DogePlaceholder from '@public/doge1.png';
-
-type Props = {};
+import { useImage } from '@app/components/MemeGenerator/hooks/useImage';
+import { useFilePicker } from '@app/components/MemeGenerator/hooks/useFilePicker';
+import { useText } from '@app/components/MemeGenerator/hooks/useText';
 
 export function MemeGenerator(): JSX.Element {
   const drawer = useDrawer();
-  const inputRef = useRef<HTMLInputElement>(null);
   const [preview, setPreview] = useState('');
-  const [image, setImage] = useState({ base64: '', width: 0, height: 0 });
-  const [textTop, setTextTop] = useState('');
-  const [textBottom, setTextBottom] = useState('');
-  const [size, setSize] = useState(30);
-  const color = '#ffffff';
-  const stroke = '#000000';
+
+  const { image, selectImage, remoteUrl, setRemoteUrl } = useImage();
+  const { size, color, stroke, textTop, textBottom, setTextTop, setTextBottom, setSize } =
+    useText();
+  const { inputRef, onFileChange, openFilePicker } = useFilePicker(selectImage);
 
   const loadPreview = useCallback(async () => {
     console.log('🔥', 'load prev', textTop, textBottom, size);
@@ -36,56 +34,13 @@ export function MemeGenerator(): JSX.Element {
     } catch (e) {
       console.log('🔥', 'fail');
     }
-  }, [drawer, image.base64, image.height, image.width, size, textBottom, textTop]);
-
-  const loadPreviewDebounced = useMemo(() => debounce(loadPreview, 300), [loadPreview]);
-
-  const openFilePicker = () => {
-    inputRef.current?.click();
-  };
-
-  const onFileChange = async (event: ChangeEvent<HTMLInputElement>) => {
-    event.stopPropagation();
-    event.preventDefault();
-
-    var file = event.target.files?.[0];
-    if (file) {
-      const imgDimensions = await getFileDimensions(file);
-      const base64 = await getBase64(file);
-      setImage({ ...imgDimensions, base64 });
-    }
-  };
-
-  const getFileDimensions = async (file: File) => {
-    const url = URL.createObjectURL(file);
-    const img = new Image();
-    const imgLoadPromise = new Promise((resolve, reject) => {
-      img.onload = () => resolve(true);
-    });
-    img.src = url;
-    await imgLoadPromise;
-
-    return { width: img.naturalWidth, height: img.naturalHeight };
-  };
-
-  const getBase64 = async (file: File) => {
-    return new Promise<string>((resolve) => {
-      let baseURL = '';
-      let reader = new FileReader();
-      reader.readAsDataURL(file);
-
-      reader.onload = () => {
-        baseURL = reader.result as string;
-        resolve(baseURL);
-      };
-    });
-  };
+  }, [color, drawer, image.base64, image.height, image.width, size, stroke, textBottom, textTop]);
 
   useEffect(() => {
     if (image.base64 && image.width && image.height) {
-      loadPreviewDebounced();
+      loadPreview();
     }
-  }, [image.base64, image.height, image.width, loadPreviewDebounced]);
+  }, [image.base64, image.height, image.width, loadPreview]);
 
   useEffect(() => {
     setPreview('');
@@ -119,10 +74,10 @@ export function MemeGenerator(): JSX.Element {
         <div className="form-control">
           <input
             type="text"
-            value={textTop}
+            value={remoteUrl}
             placeholder="PASTE IMAGE URL"
             className="input input-bordered"
-            onChange={(e) => setTextTop(e.target.value)}
+            onChange={(e) => setRemoteUrl(e.target.value)}
           />
         </div>
 

@@ -10,3 +10,5 @@ export const ETH_SYMBOL = 'ETH';
 
 export const MAX_TO_MINT = 10;
 export const IPFS_IMAGE_BASE = 'https://gateway.pinata.cloud/ipfs/';
+
+export const MAX_IMAGE_SIZE = 1000;

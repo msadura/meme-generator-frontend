@@ -10,7 +10,7 @@
   },
   "dependencies": {
     "@fullpage/react-fullpage": "^0.1.19",
-    "@shopify/react-form": "^1.1.6",
+    "@shopify/react-form": "^1.1.9",
     "add": "^2.0.6",
     "autoprefixer": "^10.3.7",
     "axios": "^0.24.0",
