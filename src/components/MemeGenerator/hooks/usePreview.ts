@@ -38,11 +38,11 @@ export function usePreview({ image, text }: Props) {
         text.color,
         text.stroke
       ]);
-      console.log('🔥', 'prev loaded', res);
+
       // setPreview(`data:image/svg+xml,${encodeURIComponent(res)}`);
       setPreview(res);
     } catch (e) {
-      console.log('🔥', 'fail');
+      toast.error('Failed to load meme preview from chain');
       setPreview('');
     } finally {
       setIsLoading(false);

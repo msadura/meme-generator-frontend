@@ -17,22 +17,28 @@ export function useImage() {
       }
 
       try {
+        // Try to load image, if cors occur then use internal proxy
         const res = await fetch(file);
         imgFile = await res.blob();
-        console.log('🔥', 'eut?', res);
       } catch (e) {
-        console.log('🔥', 'wroong', e);
-        toast.error('Failed to load image from url');
-        return;
+        try {
+          imgFile = await loadImageProxy(file);
+        } catch (e) {
+          toast.error('Failed to load image from url');
+          return;
+        }
       }
     } else {
       imgFile = file;
     }
-    console.log('🔥', 'load start', imgFile);
+
+    if (!imgFile) {
+      return;
+    }
+
     const image = await loadImage(imgFile);
-    console.log('🔥i', image);
+
     const imgDimensions = getDimensions(image);
-    console.log('🔥', imgDimensions);
     const scale = getImageScale(imgDimensions.width, imgDimensions.height);
 
     if (scale < 1) {
@@ -50,8 +56,6 @@ export function useImage() {
   const loadImage = async (file: Blob | string) => {
     const url = typeof file === 'string' ? file : URL.createObjectURL(file);
     const img = new Image();
-    // img.setAttribute('crossOrigin', '');
-
     const imgLoadPromise = new Promise((resolve, reject) => {
       img.onload = () => resolve(true);
     });
@@ -59,6 +63,15 @@ export function useImage() {
     await imgLoadPromise;
 
     return img;
+  };
+
+  const loadImageProxy = async (url: string) => {
+    const res = await fetch(`/api/remote-image/${encodeURIComponent(url)}`);
+    if (!res.ok) {
+      throw 'Image Failed to load';
+    }
+    const data = await res.json();
+    return data.imgData;
   };
 
   const getDimensions = (img: HTMLImageElement) => {
@@ -72,7 +85,6 @@ export function useImage() {
 
   useEffect(() => {
     if (remoteUrl) {
-      console.log('🔥', 'remote set');
       selectImage(remoteUrl);
     }
   }, [remoteUrl, selectImage]);

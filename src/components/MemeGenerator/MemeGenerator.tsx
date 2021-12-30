@@ -81,7 +81,7 @@ export function MemeGenerator(): JSX.Element {
           </div>
         </div>
 
-        <span className="text-lg mt-5 italic">Got your image? give it a bit of life!</span>
+        <span className="text-lg mt-5 italic">Got your image? give it a bit of fun!</span>
 
         <div className="form-control">
           <label className="label">

@@ -48,7 +48,9 @@ body {
 }
 
 .Toastify__toast-body {
+  color: #fff;
 }
 
 .Toastify__toast {
+  background: #204561 !important;
 }
