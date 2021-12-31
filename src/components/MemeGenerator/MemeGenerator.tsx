@@ -158,11 +158,11 @@ export function MemeGenerator(): JSX.Element {
       </div>
 
       <div className="flex flex-1 relative items-center justify-center">
-        {!!preview && (
+        {!!preview.base64 && (
           <div>
             <div className="md:hidden">
               <Img
-                src={preview}
+                src={preview.base64}
                 alt="Meme preview"
                 objectFit="contain"
                 objectPosition="50% 50%"
@@ -172,7 +172,7 @@ export function MemeGenerator(): JSX.Element {
             </div>
             <div className="hidden md:flex">
               <Img
-                src={preview}
+                src={preview.base64}
                 alt="Meme preview"
                 objectFit="contain"
                 layout="fill"

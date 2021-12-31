@@ -4,6 +4,7 @@ import { useState, useEffect, useCallback } from 'react';
 import { toast } from 'react-toastify';
 
 export type MemeImage = { base64: string; width: number; height: number };
+export const EMPTY_MEME_IMAGE = { base64: '', width: 0, height: 0 };
 
 export function useImage() {
   const [image, setImage] = useState<MemeImage>({ base64: '', width: 0, height: 0 });
@@ -48,6 +49,7 @@ export function useImage() {
       const base64 = cv.toDataURL('image/jpeg');
       setImage({ width: cv.width, height: cv.height, base64 });
     } else {
+      console.log('🔥 size:', image.width, image.height);
       const base64 = getImageCanvas(image).toDataURL('image/jpeg');
       setImage({ ...imgDimensions, base64 });
     }

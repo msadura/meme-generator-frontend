@@ -1,6 +1,6 @@
-import { MemeImage } from '@app/components/MemeGenerator/hooks/useImage';
+import { EMPTY_MEME_IMAGE, MemeImage } from '@app/components/MemeGenerator/hooks/useImage';
 import { MemeText } from '@app/components/MemeGenerator/hooks/useText';
-import { ethers, Signer } from 'ethers';
+import { ethers } from 'ethers';
 import { useCallback, useEffect, useState } from 'react';
 import { useBlockchain } from '@app/blockchain/useBlockchain';
 import { toast } from 'react-toastify';
@@ -14,7 +14,7 @@ type Props = {
 };
 
 export function usePreview({ image, text }: Props) {
-  const [preview, setPreview] = useState('');
+  const [preview, setPreview] = useState<MemeImage>(EMPTY_MEME_IMAGE);
   const { signer } = useBlockchain();
   const [isLoading, setIsLoading] = useState(false);
   const publicProvider = usePublicProvider();
@@ -39,11 +39,10 @@ export function usePreview({ image, text }: Props) {
         text.stroke
       ]);
 
-      // setPreview(`data:image/svg+xml,${encodeURIComponent(res)}`);
-      setPreview(res);
+      setPreview({ base64: res, width: image.width, height: image.height });
     } catch (e) {
       toast.error('Failed to load meme preview from chain');
-      setPreview('');
+      setPreview(EMPTY_MEME_IMAGE);
     } finally {
       setIsLoading(false);
     }
@@ -63,7 +62,7 @@ export function usePreview({ image, text }: Props) {
     if (image.base64) {
       loadPreview();
     } else {
-      setPreview('');
+      setPreview(EMPTY_MEME_IMAGE);
     }
   }, [image.base64, image.height, image.width, loadPreview, signer]);
 
