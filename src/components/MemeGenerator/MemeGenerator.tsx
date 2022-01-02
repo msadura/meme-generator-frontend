@@ -10,11 +10,12 @@ import { ColorPicker } from '@app/components/ColorPicker/ColorPicker';
 import Spinner from '@app/components/Spinner';
 import { usePreview } from '@app/components/MemeGenerator/hooks/usePreview';
 import { useBlockchain } from '@app/blockchain/useBlockchain';
+import { Canvas } from '@app/components/Canvas/Canvas';
+import { useCanvas } from '@app/components/Canvas/CanvasProvider';
 
 export function MemeGenerator(): JSX.Element {
-  const drawer = useDrawer();
-
   const { image, selectImage, remoteUrl, setRemoteUrl, clearImage } = useImage();
+  const { setBackgroundImg, canDisplayCanvas } = useCanvas();
   const {
     size,
     color,
@@ -29,8 +30,11 @@ export function MemeGenerator(): JSX.Element {
     text
   } = useText();
   const { signer } = useBlockchain();
-  const { preview, isLoading } = usePreview({ drawer, image, text });
   const { inputRef, onFileChange, openFilePicker } = useFilePicker(selectImage);
+
+  useEffect(() => {
+    setBackgroundImg(image);
+  }, [image, setBackgroundImg]);
 
   return (
     <div className="flex flex-col flex-1 md:flex-row gap-5">
@@ -157,42 +161,12 @@ export function MemeGenerator(): JSX.Element {
         </div>
       </div>
 
-      <div className="flex flex-1 relative items-center justify-center">
-        {!!preview.base64 && (
-          <div>
-            <div className="md:hidden">
-              <Img
-                src={preview.base64}
-                alt="Meme preview"
-                objectFit="contain"
-                objectPosition="50% 50%"
-                width={image.width}
-                height={image.height}
-              />
-            </div>
-            <div className="hidden md:flex">
-              <Img
-                src={preview.base64}
-                alt="Meme preview"
-                objectFit="contain"
-                layout="fill"
-                objectPosition="50% 50%"
-              />
-            </div>
-          </div>
-        )}
+      <div className="flex flex-1 w-11/12 md:w-2/3 relative items-center justify-center self-center">
+        <Canvas className="flex flex-1 w-full h-full items-center justify-center" />
 
-        {/* {!signer && !!image.base64 && (
-          <div className="flex absolute h-full w-full items-center justify-center z-2">
-            <p className="font-impact text-center text-xl md:text-3xl lg:text-5xl tracking-wider tstroke text-warning">
-              Connect wallet to see your meme!
-            </p>
-          </div>
-        )} */}
-
-        {!preview && (
-          <div className="opacity-50 flex w-full h-full">
-            <div className="md:hidden">
+        {!canDisplayCanvas && (
+          <div className="opacity-50 flex w-full h-full items-center justify-center">
+            <div className="max-w-screen-md">
               <Img
                 src={DogePlaceholder}
                 alt="Meme preview"
@@ -200,16 +174,6 @@ export function MemeGenerator(): JSX.Element {
                 objectPosition="50% 50%"
                 width={1000}
                 height={1000}
-              />
-            </div>
-
-            <div className="hidden md:flex">
-              <Img
-                src={DogePlaceholder}
-                alt="Meme preview"
-                layout="fill"
-                objectFit="contain"
-                objectPosition="50% 50%"
               />
             </div>
 
@@ -227,9 +191,9 @@ export function MemeGenerator(): JSX.Element {
           </div>
         )}
 
-        <div className="absolute top-0 left-0 right-0 bottom-0 flex items-center justify-center ">
+        {/* <div className="absolute top-0 left-0 right-0 bottom-0 flex items-center justify-center ">
           {isLoading && <Spinner className="w-16 h-16 md:w-28 md:h-28 text-primary" />}
-        </div>
+        </div> */}
       </div>
     </div>
   );
