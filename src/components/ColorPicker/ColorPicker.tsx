@@ -19,7 +19,7 @@ export function ColorPicker({ value, onChange, label }: Props): JSX.Element {
       )}
       <div className="flex flex-1 items-center">
         <button
-          className="w-16 h-8 rounded"
+          className="w-12 h-8 rounded"
           style={{ backgroundColor: value }}
           onClick={() => setIsVisible((v) => !v)}></button>
       </div>

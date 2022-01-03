@@ -11,44 +11,21 @@ import { usePreview } from '@app/components/MemeGenerator/hooks/usePreview';
 import { useBlockchain } from '@app/blockchain/useBlockchain';
 import { Canvas } from '@app/components/Canvas/Canvas';
 import { useCanvas } from '@app/components/Canvas/CanvasProvider';
+import TrashIcon from '@public/trash.svg';
 
 export function MemeGenerator(): JSX.Element {
   const { image, selectImage, remoteUrl, setRemoteUrl, clearImage } = useImage();
-  const {
-    setBackgroundImg,
-    hasMemeSelected,
-    hasNonTextLayerSelected,
-    selected,
-    addText,
-    removeSelected,
-    deselectAll,
-    text: { size, color, setColor, stroke, setSize, setStroke, content, setContent }
-  } = useCanvas();
-
+  const { setBackgroundImg, hasMemeSelected, selected, addText, texts } = useCanvas();
   const { signer } = useBlockchain();
   const { inputRef, onFileChange, openFilePicker } = useFilePicker(selectImage);
   const textInputRef = useRef<HTMLInputElement>(null);
-
-  const addAnother = () => {
-    deselectAll();
-    textInputRef.current?.focus?.();
-  };
 
   useEffect(() => {
     setBackgroundImg(image);
   }, [image, setBackgroundImg]);
 
   return (
-    <div
-      className="flex flex-col flex-1 md:flex-row gap-5"
-      onKeyDown={(e) => {
-        // This would have the value set regardless of hitting backspace "test"
-        if (e.keyCode === 8) {
-          console.log('delete');
-          console.log(`Value after clearing input: "}"`);
-          // Value after clearing input: "Test"
-        }
-      }}>
+    <div className="flex flex-col flex-1 md:flex-row gap-5">
       <div className="flex flex-col flex-initial md:w-1/3 gap-3">
         <span className="text-lg italic">
           Create your awesome meme!
@@ -96,33 +73,37 @@ export function MemeGenerator(): JSX.Element {
           </div>
         </div>
 
-        <span className="text-lg mt-5 italic">Got your image? give it a bit of fun!</span>
+        {hasMemeSelected && (
+          <span className="text-lg mt-5 italic">Got your image? give it a bit of fun!</span>
+        )}
 
-        <div className="form-control">
-          <label className="label">
-            <span className="label-text">Add some text:</span>
-          </label>
-          <div className="relative">
-            <input
-              ref={textInputRef}
-              type="text"
-              value={content}
-              placeholder="what does doge say?"
-              className="w-full pr-12 input input-bordered"
-              onChange={(e) => setContent(e.target.value)}
-              disabled={!hasMemeSelected}
-            />
-            {!!content && (
-              <button
-                className="absolute top-0 right-0 rounded-l-none btn btn-primary"
-                onClick={() => setContent('')}>
-                X
-              </button>
-            )}
-          </div>
-        </div>
+        {texts.texts.map((text, index) => (
+          <div key={index} className="mb-5">
+            <div className="form-control">
+              {/* <label className="label">
+                <span className="label-text">Text #{index + 1}:</span>
+              </label> */}
+              <div className="relative">
+                <input
+                  ref={textInputRef}
+                  type="text"
+                  value={text?.content}
+                  placeholder={`Text #${index + 1}`}
+                  className="w-full pr-12 input input-bordered"
+                  onChange={(e) => texts.updateText(index, { content: e.target.value })}
+                  disabled={!hasMemeSelected}
+                />
+                {!!text?.content && (
+                  <button
+                    className="absolute top-0 right-0 rounded-l-none btn btn-primary"
+                    onClick={() => texts.updateText(index, { content: '' })}>
+                    X
+                  </button>
+                )}
+              </div>
+            </div>
 
-        {/* <div className="form-control">
+            {/* <div className="form-control">
           <label className="label">
             <span className="label-text">Bottom text</span>
           </label>
@@ -144,58 +125,56 @@ export function MemeGenerator(): JSX.Element {
           </div>
         </div> */}
 
-        <div className="flex flex-row gap-3 flex-wrap">
-          <div className="form-control">
-            <label className="label">
-              <span className="label-text">Font size</span>
-            </label>
-            <div className="flex flex-row items-center gap-3">
-              <input
-                type="range"
-                min="10"
-                max="150"
-                value={size}
-                className="flex-1 flex range range-sm"
-                onChange={(e) => setSize(Number(e.target.value))}
-              />
-              <input
-                type="number"
-                value={size}
-                placeholder="size"
-                className="w-20 input input-bordered"
-                onChange={(e) => setSize(Number(e.target.value))}
-              />
+            <div className="flex flex-row gap-3 flex-wrap">
+              <div className="form-control">
+                <label className="label">
+                  <span className="label-text">Font size</span>
+                </label>
+                <div className="flex flex-row flex-1 items-center gap-3">
+                  <input
+                    type="range"
+                    min="10"
+                    max="150"
+                    value={text?.size}
+                    className="flex-1 flex range range-sm"
+                    onChange={(e) => texts.updateText(index, { size: Number(e.target.value) })}
+                  />
+                </div>
+              </div>
+              <div className="flex flex-row gap-3 items-end justify-between flex-1">
+                <div className="flex flex-row gap-3">
+                  <ColorPicker
+                    value={text?.color}
+                    onChange={(color: string) => texts.updateText(index, { color })}
+                    label="Color"
+                  />
+                  <ColorPicker
+                    value={text?.stroke}
+                    onChange={(stroke: string) => texts.updateText(index, { stroke })}
+                    label="Stroke"
+                  />
+                </div>
+                <button
+                  className="rounded btn btn-error p-3 text-accent-content"
+                  onClick={() => texts.deleteText(index)}>
+                  <Img src={TrashIcon} width={20} height={20} />
+                </button>
+              </div>
             </div>
           </div>
-          <div className="flex flex-row gap-3">
-            <ColorPicker value={color} onChange={setColor} label="Color" />
-            <ColorPicker value={stroke} onChange={setStroke} label="Stroke" />
-          </div>
-        </div>
+        ))}
 
-        {!selected && (
-          <Button
-            className="btn-primary"
-            onClick={() => addText(content, { size, color, stroke })}
-            disabled={!content || !hasMemeSelected || !!selected}>
-            Add text
-          </Button>
-        )}
-
-        {selected && (
+        {hasMemeSelected && texts.texts.length < 4 && (
           <div className="flex flex-row gap-3">
-            <Button className="btn-primary flex flex-1" onClick={addAnother}>
+            <Button className="btn-primary flex flex-1" onClick={() => addText('')}>
               Add another text
-            </Button>
-            <Button className="btn-warning" onClick={removeSelected}>
-              Remove selected
             </Button>
           </div>
         )}
       </div>
 
-      <div className="flex flex-1 w-11/12 md:w-2/3 relative items-center justify-center self-center">
-        <Canvas className="flex flex-1 w-full h-full items-center justify-center" />
+      <div className="flex flex-1 w-11/12 md:w-2/3 relative justify-center">
+        <Canvas className="flex flex-1 w-full h-full justify-center" />
 
         {!hasMemeSelected && (
           <div className="opacity-50 flex w-full h-full items-center justify-center">

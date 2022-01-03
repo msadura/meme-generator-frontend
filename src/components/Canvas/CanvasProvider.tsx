@@ -3,6 +3,9 @@ import { fabric } from 'fabric';
 import { EMPTY_MEME_IMAGE, MemeImage } from '@app/components/MemeGenerator/hooks/useImage';
 import { useText } from '@app/components/MemeGenerator/hooks/useText';
 import { MemeTextAttrs } from '@app/types';
+import initFabricHandlers from '@app/components/Canvas/utils/initFabricHandlers';
+import { useTexts } from '@app/components/MemeGenerator/hooks/useTexts';
+import { DEFAULT_TEXT } from '../MemeGenerator/hooks/useTexts';
 
 export type CanvasContextType = {
   setCanvas: (canvas: null | fabric.Canvas) => void;
@@ -10,8 +13,8 @@ export type CanvasContextType = {
   selected: fabric.Object | null;
   bgImg: null | fabric.Image;
   setBackgroundImg: (img: null | MemeImage) => void;
-  addText: (text: string, attrs: MemeTextAttrs) => void;
-  text: ReturnType<typeof useText>;
+  addText: (text: string) => void;
+  texts: ReturnType<typeof useTexts>;
   hasMemeSelected: boolean;
   hasNonTextLayerSelected: boolean;
   removeSelected: () => void;
@@ -27,6 +30,10 @@ const CanvasProvider: FC = ({ children }) => {
   const [selected, setSelected] = useState<fabric.Object | null>(null);
   const [bgImg, setBgImg] = useState<null | fabric.Image>(null);
 
+  useEffect(() => {
+    initFabricHandlers();
+  }, []);
+
   const setValue = useCallback(
     (key: keyof fabric.Object, value: string | number) => {
       if (canvas?.getActiveObject() != null) {
@@ -39,6 +46,8 @@ const CanvasProvider: FC = ({ children }) => {
   );
 
   const text = useText(setValue);
+  const texts = useTexts(canvas);
+  const { insertText, clear, canvasTextsRef } = texts;
 
   useEffect(() => {
     const bindEvents = (canvas: fabric.Canvas) => {
@@ -49,17 +58,15 @@ const CanvasProvider: FC = ({ children }) => {
 
       canvas.on('selection:created', (e: any) => {
         setSelected(e.selected[0]);
-        text.setFromCanvasObject(e.selected[0]);
+        console.log('🔥ss', e.selected[0]);
       });
 
       canvas.on('selection:updated', (e: any) => {
         setSelected(e.selected[0]);
-        text.setFromCanvasObject(e.selected[0]);
       });
 
       canvas.on('text:changed', (e: any) => {
         setSelected(e.target);
-        text.setFromCanvasObject(e.target);
       });
     };
 
@@ -96,28 +103,36 @@ const CanvasProvider: FC = ({ children }) => {
   }, [bgImg?.width, canvas]);
 
   const addText = useCallback(
-    (text: string, attrs: MemeTextAttrs) => {
+    (text: string) => {
+      const lastText = canvasTextsRef.current.length
+        ? canvasTextsRef.current[canvasTextsRef.current.length - 1]
+        : null;
+      const topInset = lastText ? lastText.aCoords?.bl.y || 0 : 0;
+
       const PADDING = 10;
       const HANDLERS_INSET = 8;
       const TEXT = {
         type: 'text',
         left: PADDING + HANDLERS_INSET,
-        top: PADDING + HANDLERS_INSET,
-        fontSize: attrs.size,
+        top: topInset + PADDING + HANDLERS_INSET,
+        fontSize: DEFAULT_TEXT.size,
         fontFamily: 'Impact',
-        fill: attrs.color,
-        stroke: attrs.stroke,
+        fill: DEFAULT_TEXT.color,
+        stroke: DEFAULT_TEXT.stroke,
         width: (canvas?.getWidth() || 0) * (1 / getCanvasScale()) - 2 * (PADDING + HANDLERS_INSET),
         textAlign: 'center',
-        padding: PADDING
+        padding: PADDING,
+        editable: false
       };
 
       const object = new fabric.Textbox(text, { ...TEXT });
       object.set({ text });
       canvas?.add(object);
       canvas?.setActiveObject(object);
+
+      insertText(object);
     },
-    [canvas, getCanvasScale]
+    [canvas, canvasTextsRef, getCanvasScale, insertText]
   );
 
   const removeSelected = useCallback(() => {
@@ -131,14 +146,16 @@ const CanvasProvider: FC = ({ children }) => {
   useEffect(() => {
     if (canvas && bgImg) {
       canvas.setBackgroundImage(bgImg, () => canvas?.renderAll());
+      addText('');
     }
-  }, [canvas, bgImg]);
+  }, [canvas, bgImg, addText]);
 
   useEffect(() => {
     if (!canvas) {
       setSelected(null);
+      clear();
     }
-  }, [canvas]);
+  }, [canvas, clear]);
 
   useEffect(() => {
     if (!selected || selected.type === 'text') {
@@ -159,9 +176,9 @@ const CanvasProvider: FC = ({ children }) => {
       deselectAll,
       hasMemeSelected: !!bgImg,
       hasNonTextLayerSelected: !!selected && selected.type !== 'text',
-      text
+      texts
     };
-  }, [addText, bgImg, canvas, deselectAll, removeSelected, selected, setBackgroundImg, text]);
+  }, [addText, bgImg, canvas, deselectAll, removeSelected, selected, setBackgroundImg, texts]);
 
   return <CanvasContext.Provider value={provider}>{children}</CanvasContext.Provider>;
 };
