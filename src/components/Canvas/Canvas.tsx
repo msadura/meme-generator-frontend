@@ -11,7 +11,7 @@ export interface Props {
  * Fabric canvas as component
  */
 export const Canvas = ({ className }: Props) => {
-  const { setCanvas, canDisplayCanvas, bgImg } = useCanvas();
+  const { setCanvas, bgImg } = useCanvas();
   const canvasEl = useRef<HTMLCanvasElement>(null);
   const canvasElParent = useRef<HTMLDivElement>(null);
   const fabricCanvasRef = useRef<null | fabric.Canvas>(null);

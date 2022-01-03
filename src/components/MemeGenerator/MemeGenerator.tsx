@@ -1,5 +1,4 @@
 import Button from '@app/components/Button/Button';
-import { useDrawer } from '@app/hooks/useDrawer';
 import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import Img from 'next/image';
 import DogePlaceholder from '@public/doge1.png';
@@ -15,29 +14,41 @@ import { useCanvas } from '@app/components/Canvas/CanvasProvider';
 
 export function MemeGenerator(): JSX.Element {
   const { image, selectImage, remoteUrl, setRemoteUrl, clearImage } = useImage();
-  const { setBackgroundImg, canDisplayCanvas } = useCanvas();
   const {
-    size,
-    color,
-    setColor,
-    stroke,
-    textTop,
-    textBottom,
-    setTextTop,
-    setTextBottom,
-    setSize,
-    setStroke,
-    text
-  } = useText();
+    setBackgroundImg,
+    hasMemeSelected,
+    hasNonTextLayerSelected,
+    selected,
+    addText,
+    removeSelected,
+    deselectAll,
+    text: { size, color, setColor, stroke, setSize, setStroke, content, setContent }
+  } = useCanvas();
+
   const { signer } = useBlockchain();
   const { inputRef, onFileChange, openFilePicker } = useFilePicker(selectImage);
+  const textInputRef = useRef<HTMLInputElement>(null);
+
+  const addAnother = () => {
+    deselectAll();
+    textInputRef.current?.focus?.();
+  };
 
   useEffect(() => {
     setBackgroundImg(image);
   }, [image, setBackgroundImg]);
 
   return (
-    <div className="flex flex-col flex-1 md:flex-row gap-5">
+    <div
+      className="flex flex-col flex-1 md:flex-row gap-5"
+      onKeyDown={(e) => {
+        // This would have the value set regardless of hitting backspace "test"
+        if (e.keyCode === 8) {
+          console.log('delete');
+          console.log(`Value after clearing input: "}"`);
+          // Value after clearing input: "Test"
+        }
+      }}>
       <div className="flex flex-col flex-initial md:w-1/3 gap-3">
         <span className="text-lg italic">
           Create your awesome meme!
@@ -89,27 +100,29 @@ export function MemeGenerator(): JSX.Element {
 
         <div className="form-control">
           <label className="label">
-            <span className="label-text">Top text</span>
+            <span className="label-text">Add some text:</span>
           </label>
           <div className="relative">
             <input
+              ref={textInputRef}
               type="text"
-              value={textTop}
+              value={content}
               placeholder="what does doge say?"
               className="w-full pr-12 input input-bordered"
-              onChange={(e) => setTextTop(e.target.value)}
+              onChange={(e) => setContent(e.target.value)}
+              disabled={!hasMemeSelected}
             />
-            {!!textTop && (
+            {!!content && (
               <button
                 className="absolute top-0 right-0 rounded-l-none btn btn-primary"
-                onClick={() => setTextTop('')}>
+                onClick={() => setContent('')}>
                 X
               </button>
             )}
           </div>
         </div>
 
-        <div className="form-control">
+        {/* <div className="form-control">
           <label className="label">
             <span className="label-text">Bottom text</span>
           </label>
@@ -129,7 +142,7 @@ export function MemeGenerator(): JSX.Element {
               </button>
             )}
           </div>
-        </div>
+        </div> */}
 
         <div className="flex flex-row gap-3 flex-wrap">
           <div className="form-control">
@@ -159,12 +172,32 @@ export function MemeGenerator(): JSX.Element {
             <ColorPicker value={stroke} onChange={setStroke} label="Stroke" />
           </div>
         </div>
+
+        {!selected && (
+          <Button
+            className="btn-primary"
+            onClick={() => addText(content, { size, color, stroke })}
+            disabled={!content || !hasMemeSelected || !!selected}>
+            Add text
+          </Button>
+        )}
+
+        {selected && (
+          <div className="flex flex-row gap-3">
+            <Button className="btn-primary flex flex-1" onClick={addAnother}>
+              Add another text
+            </Button>
+            <Button className="btn-warning" onClick={removeSelected}>
+              Remove selected
+            </Button>
+          </div>
+        )}
       </div>
 
       <div className="flex flex-1 w-11/12 md:w-2/3 relative items-center justify-center self-center">
         <Canvas className="flex flex-1 w-full h-full items-center justify-center" />
 
-        {!canDisplayCanvas && (
+        {!hasMemeSelected && (
           <div className="opacity-50 flex w-full h-full items-center justify-center">
             <div className="max-w-screen-md">
               <Img
