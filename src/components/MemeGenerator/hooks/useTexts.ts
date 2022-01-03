@@ -63,7 +63,7 @@ export function useTexts(canvas: fabric.Canvas | null) {
         return v.filter((_, i) => i !== index);
       });
       canvas?.remove(canvasTextsRef.current[index]);
-      canvasTextsRef.current.filter((_, i) => i !== index);
+      canvasTextsRef.current = canvasTextsRef.current.filter((_, i) => i !== index);
     },
     [canvas]
   );
