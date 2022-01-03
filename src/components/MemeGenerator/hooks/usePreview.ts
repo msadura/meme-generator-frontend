@@ -1,5 +1,4 @@
 import { EMPTY_MEME_IMAGE, MemeImage } from '@app/components/MemeGenerator/hooks/useImage';
-import { MemeText } from '@app/components/MemeGenerator/hooks/useText';
 import { ethers } from 'ethers';
 import { useCallback, useEffect, useState } from 'react';
 import { useBlockchain } from '@app/blockchain/useBlockchain';
@@ -9,7 +8,7 @@ import { useDrawer } from '@app/hooks/useDrawer';
 
 type Props = {
   drawer: ethers.Contract | null;
-  text: MemeText;
+  text: any;
   image: MemeImage;
 };
 
