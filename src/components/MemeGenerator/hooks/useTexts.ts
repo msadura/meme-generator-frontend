@@ -11,7 +11,6 @@ export function useTexts(canvas: fabric.Canvas | null) {
 
   const updateText = useCallback(
     (index: number, update: Partial<MemeText>) => {
-      console.log('🔥', index, update);
       setTexts((v) => {
         if (!v[index]) {
           return v;

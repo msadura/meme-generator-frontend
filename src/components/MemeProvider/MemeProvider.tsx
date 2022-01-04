@@ -34,7 +34,6 @@ const MemeProvider: FC = ({ children }) => {
       setMintStatus('uploading');
       try {
         const res = await upload(imgBase64);
-        console.log('🔥 upload res', res);
         setMintStatus('done');
       } catch (e: any) {
         setMintStatus('');

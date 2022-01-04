@@ -43,13 +43,10 @@ export function useImage() {
     const scale = getImageScale(imgDimensions.width, imgDimensions.height);
 
     if (scale < 1) {
-      console.log('🔥scale:', scale);
       const cv = downScaleImage(image, scale);
-      console.log('🔥', 'scaled:', cv.width, cv.height);
       const base64 = cv.toDataURL('image/jpeg');
       setImage({ width: cv.width, height: cv.height, base64 });
     } else {
-      console.log('🔥 size:', image.width, image.height);
       const base64 = getImageCanvas(image).toDataURL('image/jpeg');
       setImage({ ...imgDimensions, base64 });
     }

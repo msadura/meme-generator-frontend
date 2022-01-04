@@ -30,7 +30,6 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
 
     res.status(200).json({ imgData });
   } catch (e: any) {
-    console.log('🔥', e);
     const msg = typeof e === 'string' ? e : e.message;
     res.status(400).json({ message: msg || 'Wrong params.' });
   }
