@@ -1,3 +1,4 @@
 import drawer from './drawer.json';
+import generator from './generator.json';
 
-export { drawer };
+export { generator, drawer };

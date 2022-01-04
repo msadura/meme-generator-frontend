@@ -74,8 +74,8 @@ module.exports = {
       {
         mytheme: {
           /* your theme name */
-          accent: '#42749B' /* Primary color */,
-          'accent-focus': '#204561' /* Primary color - focused */,
+          accent: '#204561' /* Primary color */,
+          'accent-focus': '#42749B' /* Primary color - focused */,
           'accent-content': '#ffffff' /* Foreground content color to use on primary color */,
 
           secondary: '#B18C19' /* Secondary color */,

@@ -7,7 +7,7 @@ export function useContract(
   signer: ethers.providers.Provider | Signer | null
 ) {
   const contract = useMemo(() => {
-    if (signer) {
+    if (signer && address) {
       return new ethers.Contract(address, abi, signer);
     }
 

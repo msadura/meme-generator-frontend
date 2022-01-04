@@ -12,13 +12,16 @@ import { useBlockchain } from '@app/blockchain/useBlockchain';
 import { Canvas } from '@app/components/Canvas/Canvas';
 import { useCanvas } from '@app/components/Canvas/CanvasProvider';
 import TrashIcon from '@public/trash.svg';
+import { useMeme } from '@app/components/MemeProvider/MemeProvider';
+import { classNames } from '@app/utils/classNames';
 
 export function MemeGenerator(): JSX.Element {
   const { image, selectImage, remoteUrl, setRemoteUrl, clearImage } = useImage();
-  const { setBackgroundImg, hasMemeSelected, selected, addText, texts } = useCanvas();
+  const { setBackgroundImg, hasMemeSelected, selected, addText, texts, getImageUrl } = useCanvas();
   const { signer } = useBlockchain();
   const { inputRef, onFileChange, openFilePicker } = useFilePicker(selectImage);
   const textInputRef = useRef<HTMLInputElement>(null);
+  const { generate, isUploading, isMinting } = useMeme();
 
   useEffect(() => {
     setBackgroundImg(image);
@@ -166,8 +169,23 @@ export function MemeGenerator(): JSX.Element {
 
         {hasMemeSelected && texts.texts.length < 4 && (
           <div className="flex flex-row gap-3">
-            <Button className="btn-primary flex flex-1" onClick={() => addText('')}>
+            <Button className="btn-accent flex flex-1" onClick={() => addText('')}>
               Add another text
+            </Button>
+          </div>
+        )}
+
+        {hasMemeSelected && (
+          <div className="flex flex-row gap-3">
+            <Button
+              className={classNames(
+                'btn-primary flex flex-1 mt-3',
+                (isUploading || isMinting) && 'loading'
+              )}
+              onClick={() => generate(getImageUrl())}>
+              {!isUploading && !isMinting && 'GENERATE MEME'}
+              {isUploading && 'UPLOADING'}
+              {isMinting && 'MINTING'}
             </Button>
           </div>
         )}

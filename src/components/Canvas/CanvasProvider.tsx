@@ -19,6 +19,7 @@ export type CanvasContextType = {
   hasNonTextLayerSelected: boolean;
   removeSelected: () => void;
   deselectAll: () => void;
+  getImageUrl: () => string;
 };
 
 const CanvasContext = createContext<CanvasContextType>({} as CanvasContextType);
@@ -143,6 +144,14 @@ const CanvasProvider: FC = ({ children }) => {
     canvas?.discardActiveObject().renderAll();
   }, [canvas]);
 
+  const getImageUrl = useCallback(() => {
+    const dataUrl = canvas?.toDataURL({
+      format: 'jpeg'
+    });
+
+    return dataUrl || '';
+  }, [canvas]);
+
   useEffect(() => {
     if (canvas && bgImg) {
       canvas.setBackgroundImage(bgImg, () => canvas?.renderAll());
@@ -176,9 +185,20 @@ const CanvasProvider: FC = ({ children }) => {
       deselectAll,
       hasMemeSelected: !!bgImg,
       hasNonTextLayerSelected: !!selected && selected.type !== 'text',
-      texts
+      texts,
+      getImageUrl
     };
-  }, [addText, bgImg, canvas, deselectAll, removeSelected, selected, setBackgroundImg, texts]);
+  }, [
+    addText,
+    bgImg,
+    canvas,
+    deselectAll,
+    getImageUrl,
+    removeSelected,
+    selected,
+    setBackgroundImg,
+    texts
+  ]);
 
   return <CanvasContext.Provider value={provider}>{children}</CanvasContext.Provider>;
 };
