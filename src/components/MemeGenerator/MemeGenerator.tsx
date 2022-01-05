@@ -18,7 +18,7 @@ import { classNames } from '@app/utils/classNames';
 export function MemeGenerator(): JSX.Element {
   const { image, selectImage, remoteUrl, setRemoteUrl, clearImage } = useImage();
   const { setBackgroundImg, hasMemeSelected, selected, addText, texts, getImageUrl } = useCanvas();
-  const { signer } = useBlockchain();
+  const { isConnectedWithWeb3 } = useBlockchain();
   const { inputRef, onFileChange, openFilePicker } = useFilePicker(selectImage);
   const textInputRef = useRef<HTMLInputElement>(null);
   const { generate, isUploading, isMinting } = useMeme();
@@ -43,7 +43,7 @@ export function MemeGenerator(): JSX.Element {
           accept="image/*"
           onChange={onFileChange}
         />
-        <div className="flex gap-3">
+        <div className="flex gap-1">
           <Button className="btn-primary flex flex-1" onClick={openFilePicker}>
             Pick image
           </Button>
@@ -178,12 +178,14 @@ export function MemeGenerator(): JSX.Element {
         {hasMemeSelected && (
           <div className="flex flex-row gap-3">
             <Button
+              disabled={!isConnectedWithWeb3}
               className={classNames(
                 'btn-primary flex flex-1 mt-3',
                 (isUploading || isMinting) && 'loading'
               )}
               onClick={() => generate(getImageUrl())}>
-              {!isUploading && !isMinting && 'GENERATE MEME'}
+              {!isConnectedWithWeb3 && 'CONNECT TO GENERATE'}
+              {isConnectedWithWeb3 && !isUploading && !isMinting && 'GENERATE MEME'}
               {isUploading && 'UPLOADING'}
               {isMinting && 'MINTING'}
             </Button>

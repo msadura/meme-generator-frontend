@@ -69,8 +69,9 @@ export function useTexts(canvas: fabric.Canvas | null) {
 
   const clear = useCallback(() => {
     setTexts([]);
+    canvasTextsRef.current.forEach((t) => canvas?.remove(t));
     canvasTextsRef.current = [];
-  }, []);
+  }, [canvas]);
 
   return {
     texts,

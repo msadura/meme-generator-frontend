@@ -59,7 +59,6 @@ const CanvasProvider: FC = ({ children }) => {
 
       canvas.on('selection:created', (e: any) => {
         setSelected(e.selected[0]);
-        console.log('🔥ss', e.selected[0]);
       });
 
       canvas.on('selection:updated', (e: any) => {
@@ -155,8 +154,14 @@ const CanvasProvider: FC = ({ children }) => {
   useEffect(() => {
     if (canvas && bgImg) {
       canvas.setBackgroundImage(bgImg, () => canvas?.renderAll());
+
+      if (texts.canvasTextsRef.current.length) {
+        texts.clear();
+      }
+
       addText('');
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [canvas, bgImg, addText]);
 
   useEffect(() => {
