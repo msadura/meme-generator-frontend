@@ -1,19 +1,18 @@
 import Button from '@app/components/Button/Button';
-import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import React, { useEffect, useRef } from 'react';
 import Img from 'next/image';
 import DogePlaceholder from '@public/doge1.png';
 import { useImage } from '@app/components/MemeGenerator/hooks/useImage';
 import { useFilePicker } from '@app/components/MemeGenerator/hooks/useFilePicker';
-import { useText } from '@app/components/MemeGenerator/hooks/useText';
 import { ColorPicker } from '@app/components/ColorPicker/ColorPicker';
-import Spinner from '@app/components/Spinner';
-import { usePreview } from '@app/components/MemeGenerator/hooks/usePreview';
 import { useBlockchain } from '@app/blockchain/useBlockchain';
 import { Canvas } from '@app/components/Canvas/Canvas';
 import { useCanvas } from '@app/components/Canvas/CanvasProvider';
 import TrashIcon from '@public/trash.svg';
 import { useMeme } from '@app/components/MemeProvider/MemeProvider';
 import { classNames } from '@app/utils/classNames';
+import { MemeGeneratedModal } from '@app/components/MemeGeneratedModal/MemeGeneratedModal';
+import useResetLastMinted from '@app/components/MemeGenerator/hooks/useResetLastMinted';
 
 export function MemeGenerator(): JSX.Element {
   const { image, selectImage, remoteUrl, setRemoteUrl, clearImage } = useImage();
@@ -21,7 +20,9 @@ export function MemeGenerator(): JSX.Element {
   const { isConnectedWithWeb3 } = useBlockchain();
   const { inputRef, onFileChange, openFilePicker } = useFilePicker(selectImage);
   const textInputRef = useRef<HTMLInputElement>(null);
-  const { generate, isUploading, isMinting } = useMeme();
+  const { generate, isUploading, isMinting, resetLastMinted } = useMeme();
+
+  useResetLastMinted();
 
   useEffect(() => {
     setBackgroundImg(image);
@@ -178,7 +179,7 @@ export function MemeGenerator(): JSX.Element {
         {hasMemeSelected && (
           <div className="flex flex-row gap-3">
             <Button
-              disabled={!isConnectedWithWeb3}
+              // disabled={!isConnectedWithWeb3} //for testsing
               className={classNames(
                 'btn-primary flex flex-1 mt-3',
                 (isUploading || isMinting) && 'loading'
@@ -227,6 +228,8 @@ export function MemeGenerator(): JSX.Element {
           {isLoading && <Spinner className="w-16 h-16 md:w-28 md:h-28 text-primary" />}
         </div> */}
       </div>
+
+      <MemeGeneratedModal />
     </div>
   );
 }

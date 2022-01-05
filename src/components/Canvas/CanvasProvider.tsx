@@ -85,10 +85,9 @@ const CanvasProvider: FC = ({ children }) => {
       return;
     }
 
-    fabric.Image.fromURL(img.base64, (img: fabric.Image) => {
-      img.set({ left: 0, top: 0 });
-
-      setBgImg(img);
+    fabric.Image.fromURL(img.base64, (fimg: fabric.Image) => {
+      fimg.set({ left: 0, top: 0 });
+      setBgImg(fimg);
     });
   }, []);
 
@@ -119,6 +118,7 @@ const CanvasProvider: FC = ({ children }) => {
         fontFamily: 'Impact',
         fill: DEFAULT_TEXT.color,
         stroke: DEFAULT_TEXT.stroke,
+        strokeWidth: 1,
         width: (canvas?.getWidth() || 0) * (1 / getCanvasScale()) - 2 * (PADDING + HANDLERS_INSET),
         textAlign: 'center',
         padding: PADDING,

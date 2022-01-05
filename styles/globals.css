@@ -54,3 +54,7 @@ body {
 .Toastify__toast {
   background: #204561 !important;
 }
+
+.backdrop {
+  background-color: rgba(0, 0, 0, 0.75);
+}

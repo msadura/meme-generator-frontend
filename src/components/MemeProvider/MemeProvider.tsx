@@ -24,6 +24,7 @@ export type MemeProviderContextType = {
   isUploading: boolean;
   isMinting: boolean;
   lastMintedId: number;
+  resetLastMinted: () => void;
 };
 
 const MemeProviderContext = createContext<MemeProviderContextType>({} as MemeProviderContextType);
@@ -44,7 +45,9 @@ const MemeProvider: FC = ({ children }) => {
     async (imgBase64: string, params: MintParams = {}) => {
       setLastMintedId(0);
       let image = uploadedRef.current[imgBase64] || '';
-
+      //for testing
+      setLastMintedId(1);
+      return;
       if (!image) {
         try {
           setMintStatus('uploading');
@@ -100,7 +103,8 @@ const MemeProvider: FC = ({ children }) => {
       generate,
       isUploading: mintStatus === 'uploading',
       isMinting: mintStatus === 'minting',
-      lastMintedId
+      lastMintedId,
+      resetLastMinted: () => setLastMintedId(0)
     }),
     [generate, lastMintedId, mintStatus]
   );
