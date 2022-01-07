@@ -25,7 +25,7 @@ const Home: NextPage<Props> = ({ meme }) => {
         <meta property="og:url" content={`${HOST_URL}${MEME_PATH}${meme.id}`} />
         <meta property="og:type" content="website" />
         <meta property="og:title" content={meme.name} />
-        <meta name="twitter:card" content="summary" />
+        <meta name="twitter:card" content="summary_large_image" />
         <meta property="og:description" content="First NFT memes in the world!" />
         <meta property="og:image" content={`${HOST_URL}${IMAGE_PATH}${meme.imageHash}`} />
       </Head>
