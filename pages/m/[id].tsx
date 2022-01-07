@@ -101,16 +101,20 @@ export async function getStaticPaths() {
 
   return {
     paths,
-    fallback: 'blocking'
+    fallback: true
   };
 }
 
 export async function getStaticProps({ params }: any) {
   const { id } = params;
   let meme: Meme | null = null;
+  console.log('🔥', id);
   try {
     meme = await loadMetadata(Number(id));
-  } catch (e) {}
+    console.log('🔥', meme);
+  } catch (e) {
+    console.log('🔥', e);
+  }
 
   if (!meme) {
     return { notFound: true };
