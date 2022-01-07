@@ -19,7 +19,7 @@ type Props = {
 const MemePage: NextPage<Props> = ({ meme }) => {
   const router = useRouter();
 
-  if (router.isPreview) {
+  if (router.isFallback) {
     return (
       <div className="bg-base-300 min-h-screen w-full main-bg">
         <main className="text-white-primary mx-auto px-0 md:px-5 flex flex-1 items-center jsutify-center">
