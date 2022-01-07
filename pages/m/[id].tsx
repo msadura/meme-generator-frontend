@@ -92,7 +92,8 @@ const MemePage: NextPage<Props> = ({ meme }) => {
 };
 
 export async function getStaticPaths() {
-  const totalSupply = await loadTotalSupply();
+  const totalSupply = 2;
+  // const totalSupply = await loadTotalSupply();
   type Path = { params: { id: string } };
   let paths: Path[] = [];
   if (totalSupply > 0) {
@@ -101,7 +102,7 @@ export async function getStaticPaths() {
 
   return {
     paths,
-    fallback: true
+    fallback: 'blocking'
   };
 }
 
@@ -109,6 +110,14 @@ export async function getStaticProps({ params }: any) {
   const { id } = params;
   let meme: Meme | null = null;
   console.log('🔥', id);
+
+  return {
+    id: Number(id),
+    imageHash: '1234',
+    name: 'test',
+    width: 500,
+    height: 500
+  };
   try {
     meme = await loadMetadata(Number(id));
     console.log('🔥', meme);
