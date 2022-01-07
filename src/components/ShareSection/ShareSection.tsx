@@ -61,7 +61,7 @@ export default function ShareSection({ id }: Props): JSX.Element {
 
             <div data-tip="Copy meme link" className="tooltip tooltip-left">
               <Button
-                class="btn btn-square btn-accent text-primary-content"
+                className="btn btn-square btn-accent text-primary-content"
                 onClick={() => copyShareUrl(memeUrl)}>
                 <div className="relative w-5 h-5">
                   <Image src={CopyImg} alt="copy" layout="fill" />
@@ -92,7 +92,7 @@ export default function ShareSection({ id }: Props): JSX.Element {
 
             <div data-tip="Copy opensea link" className="tooltip tooltip-left">
               <Button
-                class="btn btn-square btn-accent text-primary-content"
+                className="btn btn-square btn-accent text-primary-content"
                 onClick={() => copyShareUrl(openseaUrl)}>
                 <div className="relative w-5 h-5">
                   <Image src={CopyImg} alt="copy" layout="fill" />

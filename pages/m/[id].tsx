@@ -30,10 +30,6 @@ const MemePage: NextPage<Props> = ({ meme }) => {
     );
   }
 
-  if (!meme) {
-    return <div></div>;
-  }
-
   return (
     <div className="bg-base-300 min-h-screen w-full main-bg">
       <Head>
