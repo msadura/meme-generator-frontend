@@ -102,18 +102,14 @@ export async function getStaticPaths() {
 
   return {
     paths,
-    fallback: 'blocking'
+    fallback: true
   };
 }
 
 export async function getStaticProps({ params }: any) {
   const { id } = params;
   let meme: Meme | null = null;
-  console.log('🔥', id);
 
-  return {
-    props: { meme: { id: Number(id), imageHash: '1234', name: 'test', width: 500, height: 500 } }
-  };
   try {
     meme = await loadMetadata(Number(id));
     console.log('🔥', meme);
