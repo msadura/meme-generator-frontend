@@ -48,7 +48,7 @@ const MemePage: NextPage<Props> = ({ meme }) => {
         <div className="mx-auto">
           {!!meme.width && !!meme.height && (
             <div className="flex flex-1 items-center justify-center relative my-5">
-              <div className="relative" style={{ width: meme.height, height: meme.height }}>
+              <div className="relative">
                 {!loaderHidden && (
                   <div className="absolute inset-0 flex items-center justify-center border flex-col gap-5 opacity-40">
                     <div className="w-1/4 h-1/4 relative">
@@ -62,7 +62,6 @@ const MemePage: NextPage<Props> = ({ meme }) => {
                   height={meme.height}
                   width={meme.width}
                   alt={meme.name}
-                  className="mx-auto"
                   onLoadingComplete={() => setLoaderHidden(true)}
                 />
               </div>
@@ -92,8 +91,7 @@ const MemePage: NextPage<Props> = ({ meme }) => {
 };
 
 export async function getStaticPaths() {
-  const totalSupply = 2;
-  // const totalSupply = await loadTotalSupply();
+  const totalSupply = await loadTotalSupply();
   type Path = { params: { id: string } };
   let paths: Path[] = [];
   if (totalSupply > 0) {
