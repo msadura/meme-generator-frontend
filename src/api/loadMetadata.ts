@@ -7,25 +7,29 @@ export async function loadMetadata(tokenId: number) {
   const provider = new ethers.providers.StaticJsonRpcProvider(process.env.RPC_URL);
   const contract = new ethers.Contract(CONTRACTS.nft, nft, provider);
 
-  const tokenURI = await contract.tokenURI(tokenId);
-  const data = tokenURI.replace(/^data:application\/json;base64,/, '');
-  const buff = Buffer.from(data, 'base64');
-  const metadata = JSON.parse(buff.toString());
+  try {
+    const tokenURI = await contract.tokenURI(tokenId);
+    const data = tokenURI.replace(/^data:application\/json;base64,/, '');
+    const buff = Buffer.from(data, 'base64');
+    const metadata = JSON.parse(buff.toString());
 
-  const theme = getTheme(metadata.attributes);
-  //TODO - handle hashtags
-  const hashtags: string[] = [];
-  const imageHash = metadata.image.replace('ipfs://', '');
+    const theme = getTheme(metadata.attributes);
+    //TODO - handle hashtags
+    const hashtags: string[] = [];
+    const imageHash = metadata.image.replace('ipfs://', '');
 
-  return {
-    id: Number(tokenId),
-    imageHash,
-    theme,
-    hashtags,
-    name: metadata.name,
-    width: Number(metadata.width) || 0,
-    height: Number(metadata.height) || 0
-  };
+    return {
+      id: Number(tokenId),
+      imageHash,
+      theme,
+      hashtags,
+      name: metadata.name,
+      width: Number(metadata.width) || 0,
+      height: Number(metadata.height) || 0
+    };
+  } catch (e) {
+    return null;
+  }
 }
 
 function getTheme(attributes: Attribute[]) {

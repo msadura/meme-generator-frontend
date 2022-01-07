@@ -107,7 +107,14 @@ export async function getStaticPaths() {
 
 export async function getStaticProps({ params }: any) {
   const { id } = params;
-  const meme = await loadMetadata(Number(id));
+  let meme: Meme | null = null;
+  try {
+    meme = await loadMetadata(Number(id));
+  } catch (e) {}
+
+  if (!meme) {
+    return { notFound: true };
+  }
 
   return {
     props: { meme }
