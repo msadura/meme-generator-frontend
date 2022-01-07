@@ -184,7 +184,9 @@ export function MemeGenerator(): JSX.Element {
                 'btn-primary flex flex-1 mt-3',
                 (isUploading || isMinting) && 'loading'
               )}
-              onClick={() => generate(getImageUrl())}>
+              onClick={() =>
+                generate(getImageUrl(), { width: bgImg?.width, height: bgImg?.height })
+              }>
               {!isConnectedWithWeb3 && 'CONNECT TO GENERATE'}
               {isConnectedWithWeb3 && !isUploading && !isMinting && 'GENERATE MEME'}
               {isUploading && 'UPLOADING'}

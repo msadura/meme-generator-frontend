@@ -9,12 +9,14 @@ import ShareSection from '@app/components/ShareSection/ShareSection';
 import MemeNav from '@app/components/MemeNav/MemeNav';
 import { loadTotalSupply } from '@app/api/loadTotalSupply';
 import { Meme } from '@app/types';
+import Image from 'next/image';
 
 type Props = {
   meme: Meme;
 };
 
 const Home: NextPage<Props> = ({ meme }) => {
+  console.log('🔥', meme);
   return (
     <div className="bg-base-300 min-h-screen w-full main-bg">
       <Head>
@@ -34,11 +36,25 @@ const Home: NextPage<Props> = ({ meme }) => {
       <main className="text-white-primary mx-auto px-0 md:px-5">
         <p className="text-lg font-salt text-center">{meme.name}</p>
         <div className="mx-auto">
-          <img
-            src={getImageUrl(meme.imageHash)}
-            alt={meme.name}
-            className="max-w-full object-contain mx-auto my-5"
-          />
+          {!!meme.width && !!meme.height && (
+            <div className="flex flex-1 items-center justify-center relative my-5">
+              <Image
+                src={getImageUrl(meme.imageHash)}
+                height={meme.height}
+                width={meme.width}
+                alt={meme.name}
+                className="mx-auto"
+              />
+            </div>
+          )}
+          {(!meme.width || !meme.height) && (
+            // eslint-disable-next-line @next/next/no-img-element
+            <img
+              src={getImageUrl(meme.imageHash)}
+              alt={meme.name}
+              className="max-w-full object-contain mx-auto my-5"
+            />
+          )}
         </div>
 
         <div className="flex max-w-2xl flex-col flex-1 mx-auto px-3">
@@ -63,7 +79,7 @@ export async function getStaticPaths() {
 
   return {
     paths,
-    fallback: false
+    fallback: true
   };
 }
 

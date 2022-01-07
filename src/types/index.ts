@@ -35,4 +35,6 @@ export type Meme = {
   name: string;
   hashtags?: string[];
   theme: string;
+  height?: number;
+  width?: number;
 };

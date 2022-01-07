@@ -22,7 +22,9 @@ export async function loadMetadata(tokenId: number) {
     imageHash,
     theme,
     hashtags,
-    name: metadata.name
+    name: metadata.name,
+    width: Number(metadata.width) || 0,
+    height: Number(metadata.height) || 0
   };
 }
 
