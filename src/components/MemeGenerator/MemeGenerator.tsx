@@ -16,7 +16,7 @@ import useResetLastMinted from '@app/components/MemeGenerator/hooks/useResetLast
 
 export function MemeGenerator(): JSX.Element {
   const { image, selectImage, remoteUrl, setRemoteUrl, clearImage } = useImage();
-  const { setBackgroundImg, hasMemeSelected, selected, addText, texts, getImageUrl } = useCanvas();
+  const { setBackgroundImg, hasMemeSelected, bgImg, addText, texts, getImageUrl } = useCanvas();
   const { isConnectedWithWeb3 } = useBlockchain();
   const { inputRef, onFileChange, openFilePicker } = useFilePicker(selectImage);
   const textInputRef = useRef<HTMLInputElement>(null);
@@ -48,7 +48,7 @@ export function MemeGenerator(): JSX.Element {
           <Button className="btn-primary flex flex-1" onClick={openFilePicker}>
             Pick image
           </Button>
-          {!!image.base64 && (
+          {!!bgImg && (
             <Button className="btn-warning flex" onClick={clearImage}>
               Clear
             </Button>

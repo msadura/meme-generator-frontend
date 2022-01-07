@@ -28,3 +28,11 @@ export type PendingTx = {
   isError: boolean;
   isSuccess: boolean;
 };
+
+export type Meme = {
+  id: number;
+  imageHash: string;
+  name: string;
+  hashtags?: string[];
+  theme: string;
+};

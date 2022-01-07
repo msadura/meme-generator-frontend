@@ -1,10 +1,19 @@
-import { FC, createContext, useState, useMemo, useContext, useCallback, useRef } from 'react';
+import {
+  FC,
+  createContext,
+  useState,
+  useMemo,
+  useContext,
+  useCallback,
+  useRef,
+  useEffect
+} from 'react';
 import { toast } from 'react-toastify';
 import { useContract } from '../../hooks/useContract';
 import useBlockchain from '@app/blockchain/useBlockchain';
 import { usePublicProvider } from '@app/components/PublicProvider/PublicProvider';
 import { CONTRACTS } from '@app/addresses';
-import { generator } from '@app/abi';
+import { generator, nft } from '@app/abi';
 import { useMemeUpload } from '@app/hooks/useMemeUpload';
 import usePendingTx from '@app/blockchain/usePendingTx';
 import getErrorMessage from '@app/blockchain/getErrorMessage';
@@ -24,7 +33,8 @@ export type MemeProviderContextType = {
   isUploading: boolean;
   isMinting: boolean;
   lastMintedId: number;
-  resetLastMinted: () => void;
+  resetLastMinted: (id?: number) => void;
+  totalSupply: number;
 };
 
 const MemeProviderContext = createContext<MemeProviderContextType>({} as MemeProviderContextType);
@@ -32,14 +42,23 @@ const MemeProviderContext = createContext<MemeProviderContextType>({} as MemePro
 export const useMeme = () => useContext(MemeProviderContext);
 
 const MemeProvider: FC = ({ children }) => {
-  const { signer, address } = useBlockchain();
+  const { signer, address, isConnectedWithWeb3 } = useBlockchain();
   const provider = usePublicProvider();
-  const generatorContract = useContract(generator, CONTRACTS.generator, signer || provider || null);
+  const generatorContract = useContract(generator, CONTRACTS.generator, signer);
+  const nftContract = useContract(nft, CONTRACTS.nft, isConnectedWithWeb3 ? signer : provider);
   const [mintStatus, setMintStatus] = useState<MintStatus>('');
   const upload = useMemeUpload();
   const mintTx = usePendingTx({});
   const uploadedRef = useRef<Record<string, string>>({});
   const [lastMintedId, setLastMintedId] = useState<number>(0);
+  const [totalSupply, setTotalSupply] = useState(0);
+
+  const refreshTotalSupply = useCallback(async () => {
+    const total: ethers.BigNumber = await nftContract?.totalSupply();
+    if (total) {
+      setTotalSupply(total.toNumber());
+    }
+  }, [nftContract]);
 
   const generate = useCallback(
     async (imgBase64: string, params: MintParams = {}) => {
@@ -98,15 +117,20 @@ const MemeProvider: FC = ({ children }) => {
     [address, generatorContract, mintTx, upload]
   );
 
+  useEffect(() => {
+    refreshTotalSupply();
+  }, [refreshTotalSupply]);
+
   const value = useMemo(
     () => ({
       generate,
       isUploading: mintStatus === 'uploading',
       isMinting: mintStatus === 'minting',
       lastMintedId,
-      resetLastMinted: () => setLastMintedId(0)
+      resetLastMinted: (id?: number) => setLastMintedId(id || 0),
+      totalSupply
     }),
-    [generate, lastMintedId, mintStatus]
+    [generate, lastMintedId, mintStatus, totalSupply]
   );
 
   return <MemeProviderContext.Provider value={value}>{children}</MemeProviderContext.Provider>;

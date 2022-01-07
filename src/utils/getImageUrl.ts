@@ -1,10 +1,6 @@
-import { IPFS_IMAGE_BASE } from '@app/constants';
+import { HOST_URL, IMAGE_PATH } from '@app/constants';
 
-export function getImageUrl(ipfsUrl: string) {
-  if (!ipfsUrl.startsWith('ipfs://')) {
-    return ipfsUrl;
-  }
-
-  const id = ipfsUrl.replace('ipfs://', '');
-  return `${IPFS_IMAGE_BASE}${id}`;
+export function getImageUrl(hash: string, host?: string) {
+  const hostUrl = host || HOST_URL;
+  return `${hostUrl}${IMAGE_PATH}${hash}`;
 }

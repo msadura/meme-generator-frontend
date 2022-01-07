@@ -3,32 +3,34 @@ import { pinata, testAuth, upload } from '@app/utils/pinata';
 import type { NextApiRequest, NextApiResponse } from 'next';
 import { Readable } from 'stream';
 import { v4 as uuid } from 'uuid';
+import { ethers } from 'ethers';
+import { CONTRACTS } from '@app/addresses';
+import { nft } from '@app/abi';
+import { loadImageBufffer } from '@app/api/loadImageBuffer';
 
 type Data =
-  | {
-      imgData: string;
-    }
+  | Buffer
   | {
       message: string;
     };
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse<Data>) {
-  if (req.method !== 'POST') {
+  if (req.method !== 'GET') {
     res.status(405).json({ message: 'Wrong method.' });
     return;
   }
 
-  try {
-    const body = JSON.parse(req.body.body);
-    const img = body.img;
-    const data = img.replace(/^data:image\/(.*);base64,/, '');
-    const buff = Buffer.from(data, 'base64');
-    const stream = Readable.from(buff);
-    (stream as any).path = `${uuid()}.jpeg`;
-    const hash = await upload(stream);
-    const imgData = `ipfs://${hash}`;
+  const { hash } = req.query;
+  if (!hash) {
+    res.status(400).json({ message: 'No image hash provided.' });
+    return;
+  }
 
-    res.status(200).json({ imgData });
+  try {
+    const imgBuffer = await loadImageBufffer(hash as string);
+    res.setHeader('Content-Type', 'image/jpg');
+    res.status(200);
+    res.send(imgBuffer);
   } catch (e: any) {
     const msg = typeof e === 'string' ? e : e.message;
     res.status(400).json({ message: msg || 'Wrong params.' });

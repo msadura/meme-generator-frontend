@@ -24,7 +24,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
     const theme = body.theme || '';
     const hashtags = body.hashtags || [];
 
-    const data = img.replace(/^data:image\/(.*);base64,/, '');
+    const data = img.replace(/^data:image\/(x.*);base64,/, '');
     const buff = Buffer.from(data, 'base64');
     const stream = Readable.from(buff);
     (stream as any).path = `${uuid()}.jpeg`;

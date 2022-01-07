@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { useCallback } from 'react';
 
-const URL = '/api/upload-image';
+const URL = '/api/upload-meme';
 
 export function useMemeUpload() {
   const upload = useCallback(async (base64: string) => {
