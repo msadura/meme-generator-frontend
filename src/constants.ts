@@ -6,6 +6,11 @@ if (IS_DEV) {
   HOST_URL = 'http://localhost:3000/';
 }
 
+if (!HOST_URL) {
+  //TODO - change to prod domain
+  HOST_URL = 'https://meme-generator-frontend.vercel.app/';
+}
+
 export const DISCORD_URL = 'https://discord.gg/';
 export const TWITTER_URL = 'https://twitter.com/';
 export const INSTAGRAM_URL = 'https://www.instagram.com/';
