@@ -11,6 +11,9 @@ import { loadTotalSupply } from '@app/api/loadTotalSupply';
 import { Meme } from '@app/types';
 import Image from 'next/image';
 import Spinner from '@app/components/Spinner';
+import MemePageFallback from '@app/components/MemePageFallback/MemePageFallback';
+import LogoImg from '@public/dac-logo-border.png';
+import { useState } from 'react';
 
 type Props = {
   meme: Meme;
@@ -18,16 +21,10 @@ type Props = {
 
 const MemePage: NextPage<Props> = ({ meme }) => {
   const router = useRouter();
+  const [loaderHidden, setLoaderHidden] = useState(false);
 
   if (router.isFallback) {
-    return (
-      <div className="bg-base-300 min-h-screen w-full main-bg">
-        <main className="text-white-primary mx-auto px-0 md:px-5 flex flex-1 items-center jsutify-center">
-          <p className="text-lg font-salt uppercase">Meme is loading</p>
-          <Spinner />
-        </main>
-      </div>
-    );
+    return <MemePageFallback />;
   }
 
   return (
@@ -51,13 +48,24 @@ const MemePage: NextPage<Props> = ({ meme }) => {
         <div className="mx-auto">
           {!!meme.width && !!meme.height && (
             <div className="flex flex-1 items-center justify-center relative my-5">
-              <Image
-                src={getImageUrl(meme.imageHash)}
-                height={meme.height}
-                width={meme.width}
-                alt={meme.name}
-                className="mx-auto"
-              />
+              <div className="relative" style={{ width: meme.height, height: meme.height }}>
+                {!loaderHidden && (
+                  <div className="absolute inset-0 flex items-center justify-center border flex-col gap-5 opacity-40">
+                    <div className="w-1/4 h-1/4 relative">
+                      <Image src={LogoImg} layout="fill" objectFit="contain" alt="DAC MEME" />
+                    </div>
+                    <Spinner />
+                  </div>
+                )}
+                <Image
+                  src={getImageUrl(meme.imageHash)}
+                  height={meme.height}
+                  width={meme.width}
+                  alt={meme.name}
+                  className="mx-auto"
+                  onLoadingComplete={() => setLoaderHidden(true)}
+                />
+              </div>
             </div>
           )}
           {(!meme.width || !meme.height) && (
