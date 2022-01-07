@@ -112,11 +112,7 @@ export async function getStaticProps({ params }: any) {
   console.log('🔥', id);
 
   return {
-    id: Number(id),
-    imageHash: '1234',
-    name: 'test',
-    width: 500,
-    height: 500
+    props: { meme: { id: Number(id), imageHash: '1234', name: 'test', width: 500, height: 500 } }
   };
   try {
     meme = await loadMetadata(Number(id));
