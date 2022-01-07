@@ -65,8 +65,8 @@ const MemeProvider: FC = ({ children }) => {
       setLastMintedId(0);
       let image = uploadedRef.current[imgBase64] || '';
       //for testing
-      setLastMintedId(1);
-      return;
+      // setLastMintedId(1);
+      // return;
       if (!image) {
         try {
           setMintStatus('uploading');

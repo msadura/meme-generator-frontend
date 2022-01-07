@@ -179,7 +179,7 @@ export function MemeGenerator(): JSX.Element {
         {hasMemeSelected && (
           <div className="flex flex-row gap-3">
             <Button
-              // disabled={!isConnectedWithWeb3} //for testsing
+              disabled={!isConnectedWithWeb3}
               className={classNames(
                 'btn-primary flex flex-1 mt-3',
                 (isUploading || isMinting) && 'loading'
