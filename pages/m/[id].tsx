@@ -10,13 +10,23 @@ import MemeNav from '@app/components/MemeNav/MemeNav';
 import { loadTotalSupply } from '@app/api/loadTotalSupply';
 import { Meme } from '@app/types';
 import Image from 'next/image';
+import Spinner from '@app/components/Spinner';
 
 type Props = {
   meme: Meme;
 };
 
 const Home: NextPage<Props> = ({ meme }) => {
-  console.log('🔥', meme);
+  const router = useRouter();
+  if (router.isPreview) {
+    <div className="bg-base-300 min-h-screen w-full main-bg">
+      <main className="text-white-primary mx-auto px-0 md:px-5 flex flex-1 items-center jsutify-center">
+        <p className="text-lg font-salt uppercase">Meme is loading</p>
+        <Spinner />
+      </main>
+    </div>;
+  }
+
   return (
     <div className="bg-base-300 min-h-screen w-full main-bg">
       <Head>
