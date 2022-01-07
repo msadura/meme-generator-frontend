@@ -4,6 +4,7 @@ import Head from 'next/head';
 import Button from '@app/components/Button/Button';
 import { Header } from '@app/components/Header/Header';
 import { MemeGenerator } from '@app/components/MemeGenerator/MemeGenerator';
+import { CanvasProvider } from '@app/components/Canvas/CanvasProvider';
 
 const Home: NextPage = () => {
   return (
@@ -17,7 +18,9 @@ const Home: NextPage = () => {
       <Navbar />
       <main className="flex flex-1 text-white-primary flex-col gap-5">
         <div className="flex flex-1 px-3 md:px-8">
-          <MemeGenerator />
+          <CanvasProvider>
+            <MemeGenerator />
+          </CanvasProvider>
         </div>
       </main>
       <footer className="flex flex-row items-center justify-center p-5">
