@@ -18,6 +18,11 @@ type Props = {
 
 const Home: NextPage<Props> = ({ meme }) => {
   const router = useRouter();
+
+  if (!meme) {
+    return null;
+  }
+
   if (router.isPreview) {
     <div className="bg-base-300 min-h-screen w-full main-bg">
       <main className="text-white-primary mx-auto px-0 md:px-5 flex flex-1 items-center jsutify-center">
@@ -82,10 +87,11 @@ const Home: NextPage<Props> = ({ meme }) => {
 
 export async function getStaticPaths() {
   const totalSupply = await loadTotalSupply();
-
-  const paths = new Array(totalSupply)
-    .fill(true)
-    .map((_, i) => ({ params: { id: String(i + 1) } }));
+  type Path = { params: { id: string } };
+  let paths: Path[] = [];
+  if (totalSupply > 0) {
+    paths = new Array(totalSupply).fill(true).map((_, i) => ({ params: { id: String(i + 1) } }));
+  }
 
   return {
     paths,
