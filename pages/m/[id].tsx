@@ -16,20 +16,22 @@ type Props = {
   meme: Meme;
 };
 
-const Home: NextPage<Props> = ({ meme }) => {
+const MemePage: NextPage<Props> = ({ meme }) => {
   const router = useRouter();
 
-  if (!meme) {
-    return null;
+  if (router.isPreview) {
+    return (
+      <div className="bg-base-300 min-h-screen w-full main-bg">
+        <main className="text-white-primary mx-auto px-0 md:px-5 flex flex-1 items-center jsutify-center">
+          <p className="text-lg font-salt uppercase">Meme is loading</p>
+          <Spinner />
+        </main>
+      </div>
+    );
   }
 
-  if (router.isPreview) {
-    <div className="bg-base-300 min-h-screen w-full main-bg">
-      <main className="text-white-primary mx-auto px-0 md:px-5 flex flex-1 items-center jsutify-center">
-        <p className="text-lg font-salt uppercase">Meme is loading</p>
-        <Spinner />
-      </main>
-    </div>;
+  if (!meme) {
+    return <div></div>;
   }
 
   return (
@@ -108,4 +110,4 @@ export async function getStaticProps({ params }: any) {
   };
 }
 
-export default Home;
+export default MemePage;
