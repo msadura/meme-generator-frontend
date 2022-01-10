@@ -16,7 +16,7 @@ export const TWITTER_URL = 'https://twitter.com/';
 export const INSTAGRAM_URL = 'https://www.instagram.com/';
 
 export const ETH_SYMBOL = 'ETH';
-export const IPFS_IMAGE_BASE = 'https://gateway.pinata.cloud/ipfs/';
+export const IPFS_IMAGE_BASE = 'https://dogeartclub.mypinata.cloud/ipfs/';
 
 export const MAX_IMAGE_SIZE = 1000;
 //use secured one for prod

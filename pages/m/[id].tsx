@@ -13,7 +13,7 @@ import Image from 'next/image';
 import Spinner from '@app/components/Spinner';
 import MemePageFallback from '@app/components/MemePageFallback/MemePageFallback';
 import LogoImg from '@public/dac-logo-border.png';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 type Props = {
   meme: Meme;
@@ -22,6 +22,10 @@ type Props = {
 const MemePage: NextPage<Props> = ({ meme }) => {
   const router = useRouter();
   const [loaderHidden, setLoaderHidden] = useState(false);
+
+  useEffect(() => {
+    setLoaderHidden(false);
+  }, [meme.id]);
 
   if (router.isFallback) {
     return <MemePageFallback />;
@@ -58,6 +62,7 @@ const MemePage: NextPage<Props> = ({ meme }) => {
                   </div>
                 )}
                 <Image
+                  key={`${meme.id}`}
                   src={getImageUrl(meme.imageHash)}
                   height={meme.height}
                   width={meme.width}
@@ -110,7 +115,6 @@ export async function getStaticProps({ params }: any) {
 
   try {
     meme = await loadMetadata(Number(id));
-    console.log('🔥', meme);
   } catch (e) {
     console.log('🔥', e);
   }

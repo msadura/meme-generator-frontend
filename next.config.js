@@ -12,6 +12,11 @@ if (
 module.exports = {
   reactStrictMode: true,
   images: {
-    domains: ['gateway.pinata.cloud', 'localhost', 'meme-generator-frontend.vercel.app']
+    domains: [
+      'gateway.pinata.cloud',
+      'localhost',
+      'meme-generator-frontend.vercel.app',
+      'dogeartclub.mypinata.cloud'
+    ]
   }
 };
