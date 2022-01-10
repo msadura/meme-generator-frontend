@@ -25,7 +25,7 @@ const MemePage: NextPage<Props> = ({ meme }) => {
 
   useEffect(() => {
     setLoaderHidden(false);
-  }, [meme.id]);
+  }, [meme?.id]);
 
   if (router.isFallback) {
     return <MemePageFallback />;
@@ -60,6 +60,7 @@ const MemePage: NextPage<Props> = ({ meme }) => {
                   width={meme.width}
                   alt={meme.name}
                   onLoadingComplete={() => setLoaderHidden(true)}
+                  loading="eager"
                 />
                 {!loaderHidden && (
                   <div className="absolute inset-0 flex items-center justify-center border flex-col gap-5 bg-base-300">

@@ -11,7 +11,7 @@ export function MemeGeneratedModal(): JSX.Element | null {
   const { getImageUrl, setBackgroundImg, bgImg } = useCanvas();
   const { lastMintedId, resetLastMinted } = useMeme();
   const img = getImageUrl();
-  console.log('🔥s', lastMintedId, isOpen);
+
   const makeAnother = () => {
     setBackgroundImg(null);
     resetLastMinted();
