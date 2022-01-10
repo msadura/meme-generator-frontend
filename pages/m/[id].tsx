@@ -53,14 +53,6 @@ const MemePage: NextPage<Props> = ({ meme }) => {
           {!!meme.width && !!meme.height && (
             <div className="flex flex-1 items-center justify-center relative my-5">
               <div className="relative">
-                {!loaderHidden && (
-                  <div className="absolute inset-0 flex items-center justify-center border flex-col gap-5 opacity-40">
-                    <div className="w-1/4 h-1/4 relative">
-                      <Image src={LogoImg} layout="fill" objectFit="contain" alt="DAC MEME" />
-                    </div>
-                    <Spinner />
-                  </div>
-                )}
                 <Image
                   key={`${meme.id}`}
                   src={getImageUrl(meme.imageHash)}
@@ -69,6 +61,14 @@ const MemePage: NextPage<Props> = ({ meme }) => {
                   alt={meme.name}
                   onLoadingComplete={() => setLoaderHidden(true)}
                 />
+                {!loaderHidden && (
+                  <div className="absolute inset-0 flex items-center justify-center border flex-col gap-5 bg-base-300">
+                    <div className="w-1/4 h-1/4 relative opacity-40">
+                      <Image src={LogoImg} layout="fill" objectFit="contain" alt="DAC MEME" />
+                    </div>
+                    <Spinner />
+                  </div>
+                )}
               </div>
             </div>
           )}
