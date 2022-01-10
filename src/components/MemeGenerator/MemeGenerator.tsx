@@ -15,6 +15,9 @@ import { useMeme } from '@app/components/MemeProvider/MemeProvider';
 import { classNames } from '@app/utils/classNames';
 import { MemeGeneratedModal } from '@app/components/MemeGeneratedModal/MemeGeneratedModal';
 import useResetLastMinted from '@app/components/MemeGenerator/hooks/useResetLastMinted';
+import { useLoadThemes } from '@app/components/ThemesGrid/hooks/useLoadThemes';
+import { ThemesGrid } from '@app/components/ThemesGrid/ThemesGrid';
+import { Theme } from '@app/types';
 
 export function MemeGenerator(): JSX.Element {
   const { image, selectImage, remoteUrl, setRemoteUrl, clearImage } = useImage();
@@ -23,6 +26,8 @@ export function MemeGenerator(): JSX.Element {
   const { inputRef, onFileChange, openFilePicker } = useFilePicker(selectImage);
   const textInputRef = useRef<HTMLInputElement>(null);
   const { generate, isUploading, isMinting, resetLastMinted } = useMeme();
+  const { themes } = useLoadThemes();
+  console.log('🔥t', themes);
 
   useResetLastMinted();
 
@@ -186,33 +191,12 @@ export function MemeGenerator(): JSX.Element {
         )}
       </div>
 
-      <div className="flex flex-1 flex-col w-11/12 md:w-2/3 relative justify-center">
+      <div className="flex flex-1 flex-col w-11/12 md:w-2/3 relative justify-center mx-auto">
         <Canvas className="flex flex-1 w-full h-full justify-center" />
 
         {!hasMemeSelected && (
-          <div className="opacity-50 flex w-full h-full items-center justify-center">
-            <div className="max-w-screen-md">
-              <Img
-                src={DogePlaceholder}
-                alt="Meme preview"
-                objectFit="contain"
-                objectPosition="50% 50%"
-                width={1000}
-                height={1000}
-              />
-            </div>
-
-            <div className="flex absolute left-0 right-0 top-10 w-full items-center justify-center">
-              <p className="font-impact text-xl md:text-3xl lg:text-5xl tracking-wider absolute tstroke">
-                Wut you lookin&apos; at?
-              </p>
-            </div>
-
-            <div className="flex absolute left-0 right-0 bottom-10 w-full items-center justify-center">
-              <p className="font-impact text-xl md:text-3xl lg:text-5xl tracking-wider absolute tstroke">
-                This is just placeholder
-              </p>
-            </div>
+          <div className="flex w-full h-full items-center justify-center">
+            <ThemesGrid themes={themes} onSelect={(theme: Theme) => setRemoteUrl(theme.url)} />
           </div>
         )}
 

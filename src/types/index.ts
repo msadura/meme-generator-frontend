@@ -38,3 +38,12 @@ export type Meme = {
   height?: number;
   width?: number;
 };
+
+export type Theme = {
+  box_count: number;
+  height: number;
+  width: number;
+  id: string;
+  name: string;
+  url: string;
+};
