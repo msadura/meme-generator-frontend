@@ -9,6 +9,8 @@ import { useBlockchain } from '@app/blockchain/useBlockchain';
 import { Canvas } from '@app/components/Canvas/Canvas';
 import { useCanvas } from '@app/components/Canvas/CanvasProvider';
 import TrashIcon from '@public/trash.svg';
+import AddTextIcon from '@public/add-text.svg';
+import RocketColorIcon from '@public/rocket-color.svg';
 import { useMeme } from '@app/components/MemeProvider/MemeProvider';
 import { classNames } from '@app/utils/classNames';
 import { MemeGeneratedModal } from '@app/components/MemeGeneratedModal/MemeGeneratedModal';
@@ -31,54 +33,53 @@ export function MemeGenerator(): JSX.Element {
   return (
     <div className="flex flex-col flex-1 md:flex-row gap-5">
       <div className="flex flex-col flex-initial md:w-1/3 gap-3">
-        <span className="text-lg italic">
-          Create your awesome meme!
-          <br />
-          First, let&apos;s select image:
-        </span>
-        <input
-          type="file"
-          id="meme-file"
-          ref={inputRef}
-          className="hidden"
-          accept="image/*"
-          onChange={onFileChange}
-        />
-        <div className="flex gap-1">
-          <Button className="btn-primary flex flex-1" onClick={openFilePicker}>
-            Pick image
-          </Button>
-          {!!bgImg && (
-            <Button className="btn-warning flex" onClick={clearImage}>
-              Clear
-            </Button>
-          )}
-        </div>
-        <div className="flex justify-center">
-          <span className="text-lg">⎯⎯⎯⎯⎯&nbsp;&nbsp;&nbsp;or&nbsp;&nbsp;&nbsp;⎯⎯⎯⎯⎯</span>
-        </div>
-
-        <div className="form-control">
-          <div className="relative">
+        {!bgImg && (
+          <>
+            <span className="text-lg italic">
+              Create your awesome meme!
+              <br />
+              First, let&apos;s select image:
+            </span>
             <input
-              type="text"
-              value={remoteUrl}
-              placeholder="PASTE IMAGE URL"
-              className="w-full pr-12 input input-primary input-bordered"
-              onChange={(e) => setRemoteUrl(e.target.value)}
+              type="file"
+              id="meme-file"
+              ref={inputRef}
+              className="hidden"
+              accept="image/*"
+              onChange={onFileChange}
             />
-            {!!remoteUrl && (
-              <button
-                className="absolute top-0 right-0 rounded-l-none btn btn-primary"
-                onClick={() => setRemoteUrl('')}>
-                X
-              </button>
-            )}
-          </div>
-        </div>
+            <div className="flex gap-1">
+              <Button className="btn-primary flex flex-1" onClick={openFilePicker}>
+                Pick image
+              </Button>
+            </div>
+            <div className="flex justify-center">
+              <span className="text-lg">⎯⎯⎯⎯⎯&nbsp;&nbsp;&nbsp;or&nbsp;&nbsp;&nbsp;⎯⎯⎯⎯⎯</span>
+            </div>
+
+            <div className="form-control">
+              <div className="relative">
+                <input
+                  type="text"
+                  value={remoteUrl}
+                  placeholder="PASTE IMAGE URL"
+                  className="w-full pr-12 input input-primary input-bordered"
+                  onChange={(e) => setRemoteUrl(e.target.value)}
+                />
+                {!!remoteUrl && (
+                  <button
+                    className="absolute top-0 right-0 rounded-l-none btn btn-primary"
+                    onClick={() => setRemoteUrl('')}>
+                    X
+                  </button>
+                )}
+              </div>
+            </div>
+          </>
+        )}
 
         {hasMemeSelected && (
-          <span className="text-lg mt-5 italic">Got your image? give it a bit of fun!</span>
+          <span className="text-lg italic">Got your image? give it a bit of fun!</span>
         )}
 
         {texts.texts.map((text, index) => (
@@ -106,28 +107,6 @@ export function MemeGenerator(): JSX.Element {
                 )}
               </div>
             </div>
-
-            {/* <div className="form-control">
-          <label className="label">
-            <span className="label-text">Bottom text</span>
-          </label>
-          <div className="relative">
-            <input
-              type="text"
-              value={textBottom}
-              placeholder="woof woof!"
-              className="w-full pr-12  input input-bordered"
-              onChange={(e) => setTextBottom(e.target.value)}
-            />
-            {!!textBottom && (
-              <button
-                className="absolute top-0 right-0 rounded-l-none btn btn-primary"
-                onClick={() => setTextBottom('')}>
-                X
-              </button>
-            )}
-          </div>
-        </div> */}
 
             <div className="flex flex-row gap-3 flex-wrap">
               <div className="form-control">
@@ -171,9 +150,17 @@ export function MemeGenerator(): JSX.Element {
         {hasMemeSelected && texts.texts.length < 4 && (
           <div className="flex flex-row gap-3">
             <Button className="btn-accent flex flex-1" onClick={() => addText('')}>
-              Add text
+              <Img src={AddTextIcon} width={23} height={23} />
+              <span className="ml-3">Add text</span>
             </Button>
           </div>
+        )}
+
+        {!!hasMemeSelected && (
+          <Button onClick={clearImage}>
+            <Img src={TrashIcon} width={20} height={20} />
+            <span className="ml-3">Change image</span>
+          </Button>
         )}
 
         {hasMemeSelected && (
@@ -187,16 +174,19 @@ export function MemeGenerator(): JSX.Element {
               onClick={() =>
                 generate(getImageUrl(), { width: bgImg?.width, height: bgImg?.height })
               }>
-              {!isConnectedWithWeb3 && 'CONNECT TO GENERATE'}
-              {isConnectedWithWeb3 && !isUploading && !isMinting && 'GENERATE MEME'}
-              {isUploading && 'UPLOADING'}
-              {isMinting && 'MINTING'}
+              {isConnectedWithWeb3 && <Img src={RocketColorIcon} width={25} height={25} />}
+              <span className="ml-3">
+                {!isConnectedWithWeb3 && 'CONNECT TO GENERATE'}
+                {isConnectedWithWeb3 && !isUploading && !isMinting && 'GENERATE MEME'}
+                {isUploading && 'UPLOADING'}
+                {isMinting && 'MINTING'}
+              </span>
             </Button>
           </div>
         )}
       </div>
 
-      <div className="flex flex-1 w-11/12 md:w-2/3 relative justify-center">
+      <div className="flex flex-1 flex-col w-11/12 md:w-2/3 relative justify-center">
         <Canvas className="flex flex-1 w-full h-full justify-center" />
 
         {!hasMemeSelected && (
