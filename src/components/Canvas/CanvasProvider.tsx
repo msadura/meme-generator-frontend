@@ -129,6 +129,7 @@ const CanvasProvider: FC = ({ children }) => {
       object.set({ text });
       canvas?.add(object);
       canvas?.setActiveObject(object);
+      canvas?.renderAll();
 
       insertText(object);
     },

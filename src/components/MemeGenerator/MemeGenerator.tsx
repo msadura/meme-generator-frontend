@@ -171,7 +171,7 @@ export function MemeGenerator(): JSX.Element {
         {hasMemeSelected && texts.texts.length < 4 && (
           <div className="flex flex-row gap-3">
             <Button className="btn-accent flex flex-1" onClick={() => addText('')}>
-              Add another text
+              Add text
             </Button>
           </div>
         )}

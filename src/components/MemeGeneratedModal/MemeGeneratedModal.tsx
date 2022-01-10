@@ -11,7 +11,7 @@ export function MemeGeneratedModal(): JSX.Element | null {
   const { getImageUrl, setBackgroundImg, bgImg } = useCanvas();
   const { lastMintedId, resetLastMinted } = useMeme();
   const img = getImageUrl();
-
+  console.log('🔥s', lastMintedId, isOpen);
   const makeAnother = () => {
     setBackgroundImg(null);
     resetLastMinted();
@@ -33,6 +33,12 @@ export function MemeGeneratedModal(): JSX.Element | null {
     }
   }, [isOpen]);
 
+  useEffect(() => {
+    return () => {
+      document.body.style.overflow = 'auto';
+    };
+  }, []);
+
   if (!isOpen || !img || !bgImg) {
     return null;
   }
@@ -40,7 +46,7 @@ export function MemeGeneratedModal(): JSX.Element | null {
   return (
     <div className="fixed z-50 w-full h-full overflow-y-auto top-0 left-0 backdrop">
       <div className="m-3">
-        <div className="flex flex-col bg-base-200 p-3 md:p-8 mt-20 rounded-md shadow-lg mx-auto max-w-xl">
+        <div className="flex flex-col bg-base-200 p-3 md:p-8 mt-5 rounded-md shadow-lg mx-auto max-w-xl">
           <div className="text-xl font-salt items-center justify-center p-3 pb-5">
             <p className="text-center">Nice piece of art!</p>
           </div>

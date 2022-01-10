@@ -63,6 +63,7 @@ export function useTexts(canvas: fabric.Canvas | null) {
       });
       canvas?.remove(canvasTextsRef.current[index]);
       canvasTextsRef.current = canvasTextsRef.current.filter((_, i) => i !== index);
+      canvas?.renderAll();
     },
     [canvas]
   );
@@ -71,6 +72,7 @@ export function useTexts(canvas: fabric.Canvas | null) {
     setTexts([]);
     canvasTextsRef.current.forEach((t) => canvas?.remove(t));
     canvasTextsRef.current = [];
+    canvas?.renderAll();
   }, [canvas]);
 
   return {

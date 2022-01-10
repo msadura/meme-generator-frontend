@@ -33,7 +33,7 @@ export type MemeProviderContextType = {
   isUploading: boolean;
   isMinting: boolean;
   lastMintedId: number;
-  resetLastMinted: (id?: number) => void;
+  resetLastMinted: () => void;
   totalSupply: number;
 };
 
@@ -117,6 +117,10 @@ const MemeProvider: FC = ({ children }) => {
     [address, generatorContract, mintTx, upload]
   );
 
+  const resetLastMinted = useCallback(() => {
+    setLastMintedId(0);
+  }, []);
+
   useEffect(() => {
     refreshTotalSupply();
   }, [refreshTotalSupply]);
@@ -127,10 +131,10 @@ const MemeProvider: FC = ({ children }) => {
       isUploading: mintStatus === 'uploading',
       isMinting: mintStatus === 'minting',
       lastMintedId,
-      resetLastMinted: (id?: number) => setLastMintedId(id || 0),
+      resetLastMinted,
       totalSupply
     }),
-    [generate, lastMintedId, mintStatus, totalSupply]
+    [generate, lastMintedId, mintStatus, resetLastMinted, totalSupply]
   );
 
   return <MemeProviderContext.Provider value={value}>{children}</MemeProviderContext.Provider>;

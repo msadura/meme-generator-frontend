@@ -1,5 +1,6 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
-import { pinata, testAuth, upload } from '@app/utils/pinata';
+import { doesImageExist } from '@app/api/doesImageExist';
+import { upload } from '@app/utils/pinata';
 import type { NextApiRequest, NextApiResponse } from 'next';
 import { Readable } from 'stream';
 import { v4 as uuid } from 'uuid';
@@ -28,8 +29,17 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
     const buff = Buffer.from(data, 'base64');
     const stream = Readable.from(buff);
     (stream as any).path = `${uuid()}.jpeg`;
-    const hash = await upload(stream);
-    const imgData = `ipfs://${hash}`;
+    let imgData = '';
+
+    const { hash, isDuplicate } = await upload(stream);
+    imgData = `ipfs://${hash}`;
+
+    if (isDuplicate) {
+      const doesMemeExist = await doesImageExist(imgData);
+      if (doesMemeExist) {
+        throw 'This meme already exists!';
+      }
+    }
 
     res.status(200).json({ imgData });
   } catch (e: any) {

@@ -20,8 +20,5 @@ export async function testAuth() {
 
 export async function upload(file: any) {
   const res: any = await pinata.pinFileToIPFS(file);
-  if (res.isDuplicate) {
-    throw 'This file already exists!';
-  }
-  return res.IpfsHash;
+  return { hash: res.IpfsHash, isDuplicate: res.isDuplicate };
 }
