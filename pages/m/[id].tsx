@@ -35,14 +35,20 @@ const MemePage: NextPage<Props> = ({ meme }) => {
     <div className="bg-base-300 min-h-screen w-full main-bg">
       <Head>
         <title>{meme.name}</title>
-        <meta name="description" content="Doge Art Club memes" />
+        <meta
+          name="description"
+          content="NFT Meme Generator by Doge Art Club. Mint memes as NFTs without coding, for free."
+        />
         <link rel="icon" href="/favicon.ico" />
 
         <meta property="og:url" content={`${HOST_URL}${MEME_PATH}${meme.id}`} />
         <meta property="og:type" content="website" />
         <meta property="og:title" content={meme.name} />
         <meta name="twitter:card" content="summary_large_image" />
-        <meta property="og:description" content="First NFT memes in the world!" />
+        <meta
+          property="og:description"
+          content="NFT Meme Generator by Doge Art Club. Mint memes as NFTs without coding, for free."
+        />
         <meta property="og:image" content={`${HOST_URL}${IMAGE_PATH}${meme.imageHash}`} />
       </Head>
 

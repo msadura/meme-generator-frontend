@@ -35,11 +35,26 @@ export function MemeGenerator(): JSX.Element {
     <div className="flex flex-col flex-1 md:flex-row gap-5">
       <div className="flex flex-col flex-initial md:w-1/3 gap-3">
         {!hasMemeSelected && (
-          <MemeBgImagePicker
-            selectImage={selectImage}
-            remoteUrl={remoteUrl}
-            setRemoteUrl={setRemoteUrl}
-          />
+          <div className="flex flex-col">
+            <p className="max-w-md">
+              <h2 className="font-salt text-xl md:text-3xl underline text-primary py-3">
+                Hello Dog!
+              </h2>
+              <p className="text-xl py-3 pb-10">
+                Unleash your inner Memelord and create the world's greatest memes! As NFTs. For
+                free.
+              </p>
+              <p className="text-lg text-secondary-focus py-3 pb-6">
+                LFG? Then pick the image and let's roll! Wanna dive deeper?{' '}
+                <a className="link">Read more</a>.
+              </p>
+            </p>
+            <MemeBgImagePicker
+              selectImage={selectImage}
+              remoteUrl={remoteUrl}
+              setRemoteUrl={setRemoteUrl}
+            />
+          </div>
         )}
 
         {hasMemeSelected && (

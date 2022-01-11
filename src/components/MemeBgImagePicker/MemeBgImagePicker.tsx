@@ -21,11 +21,6 @@ export default function MemeBgImagePicker({
     <>
       {!bgImg && (
         <>
-          <span className="text-lg italic">
-            Create your awesome meme!
-            <br />
-            First, let&apos;s select image:
-          </span>
           <input
             type="file"
             id="meme-file"

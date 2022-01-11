@@ -57,7 +57,9 @@ export function ThemesGrid({ themes, onSelect }: Props): JSX.Element | null {
 
   return (
     <div className="w-full h-full absolute inset-0 overflow-y-auto" ref={containerRef}>
-      <p className="italic text-lg mb-3">Need inspiration? Pick some of trending themes:</p>
+      <p className="text-accent-focus text-lg mb-3">
+        Need inspiration? Pick some of trending themes:
+      </p>
       {Grid && (
         <Grid
           component="ul"

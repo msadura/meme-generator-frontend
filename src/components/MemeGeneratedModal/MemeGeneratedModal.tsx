@@ -48,7 +48,7 @@ export function MemeGeneratedModal(): JSX.Element | null {
       <div className="m-3">
         <div className="flex flex-col bg-base-200 p-3 md:p-8 mt-5 rounded-md shadow-lg mx-auto max-w-xl">
           <div className="text-xl font-salt items-center justify-center p-3 pb-5">
-            <p className="text-center">Nice piece of art!</p>
+            <p className="text-center">Bro, that&apos;s sick!</p>
           </div>
           <div className="flex flex-1 relative items-center justify-center">
             <Img src={img} width={bgImg?.width} height={bgImg?.height} />

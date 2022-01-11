@@ -36,7 +36,7 @@ export default function ShareSection({ id }: Props): JSX.Element {
   return (
     <>
       <div className="text-lg text-secondary italic items-center justify-center mt-3">
-        <p className="">Share it with other doges:</p>
+        <p className="">Now make it viral!</p>
       </div>
 
       <div className="flex flex-col mt-3 mb-3 gap-3">
