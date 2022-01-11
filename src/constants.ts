@@ -21,9 +21,11 @@ export const IPFS_IMAGE_BASE = 'https://dogeartclub.mypinata.cloud/ipfs/';
 
 export const MAX_IMAGE_SIZE = 1000;
 //use secured one for prod
-export const PUBLIC_RPC = 'https://rinkeby.infura.io/v3/998804b23fd0421e9bbea7c41917c2b3';
+// export const PUBLIC_RPC = 'https://rinkeby.infura.io/v3/998804b23fd0421e9bbea7c41917c2b3';
+export const PUBLIC_RPC =
+  'https://polygon-mumbai.g.alchemy.com/v2/p2KQ7TpI9C6Pn7jL8QbZoFpBcqDukHFY';
 export const INFURA_KEY = '998804b23fd0421e9bbea7c41917c2b3';
 export const MEME_PATH = 'm/';
 export const IMAGE_PATH = 'api/i/';
-export const OPENSEA_BASE = 'https://testnets.opensea.io/assets/';
-export const OPENSEA_COLLECTION = 'https://testnets.opensea.io/collection/nft-mm-ekk5r6j4gg';
+export const OPENSEA_BASE = 'https://testnets.opensea.io/assets/mumbai/';
+export const OPENSEA_COLLECTION = 'https://testnets.opensea.io/collection/nft-mm-5uui6gjmvw';
