@@ -1,8 +1,8 @@
 import { useState } from 'react';
 
-export type Tab = 'text' | 'pepe' | 'faces';
+export type Tab = 'text' | 'pepe' | 'ragefaces';
 
-export const TAB_OPTIONS: Tab[] = ['text', 'pepe', 'faces'];
+export const TAB_OPTIONS: Tab[] = ['text', 'pepe', 'ragefaces'];
 
 export default function useTabs() {
   const [tab, setTab] = useState<Tab>('text');

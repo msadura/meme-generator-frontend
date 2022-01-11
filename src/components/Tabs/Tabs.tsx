@@ -4,6 +4,7 @@ import useTabs, { TAB_OPTIONS } from '@app/components/Tabs/hooks/useTabs';
 import { classNames } from '@app/utils/classNames';
 import React from 'react';
 import { useCanvas } from '@app/components/Canvas/CanvasProvider';
+import RagefacePicker from '@app/components/RagefacePicker/RagefacePicker';
 
 type Props = {};
 
@@ -29,7 +30,7 @@ export default function Tabs(props: Props): JSX.Element {
 
       {tab === 'text' && <MemeText />}
       {tab === 'pepe' && <PepePicker onSelect={addImage} />}
-      {tab === 'faces' && <span>faces images</span>}
+      {tab === 'ragefaces' && <RagefacePicker onSelect={addImage} />}
     </div>
   );
 }
