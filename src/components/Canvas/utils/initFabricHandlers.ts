@@ -25,6 +25,7 @@ export default function initFabricHandlers() {
     ctx.restore();
   }
 
+  // Text
   fabric.Textbox.prototype.controls.deleteControl = new fabric.Control({
     x: 0.5,
     y: -0.5,
@@ -38,6 +39,21 @@ export default function initFabricHandlers() {
   fabric.Textbox.prototype.cornerColor = '#ffffff';
   fabric.Textbox.prototype.borderColor = '#2094f3';
   fabric.Textbox.prototype.cornerStrokeColor = '#2094f3';
+
+  //Image
+  fabric.Image.prototype.controls.deleteControl = new fabric.Control({
+    x: 0.5,
+    y: -0.5,
+    offsetY: 10,
+    offsetX: -10,
+    cursorStyle: 'pointer',
+    mouseUpHandler: deleteObject,
+    render: renderIcon
+  });
+  fabric.Image.prototype.setControlVisible('tr', false);
+  fabric.Image.prototype.cornerColor = '#ffffff';
+  fabric.Image.prototype.borderColor = '#2094f3';
+  fabric.Image.prototype.cornerStrokeColor = '#2094f3';
 
   function deleteObject(eventData: any, transform: any) {
     var target = transform.target;

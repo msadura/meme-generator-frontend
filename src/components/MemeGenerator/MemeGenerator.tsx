@@ -17,6 +17,7 @@ import { ThemesGrid } from '@app/components/ThemesGrid/ThemesGrid';
 import { Theme } from '@app/types';
 import { MemeText } from '@app/components/MemeText/MemeText';
 import MemeBgImagePicker from '@app/components/MemeBgImagePicker/MemeBgImagePicker';
+import Tabs from '@app/components/Tabs/Tabs';
 
 export function MemeGenerator(): JSX.Element {
   const { image, selectImage, remoteUrl, setRemoteUrl, clearImage } = useImage();
@@ -35,39 +36,29 @@ export function MemeGenerator(): JSX.Element {
   return (
     <div className="flex flex-col flex-1 md:flex-row gap-5">
       <div className="flex flex-col flex-initial md:w-1/3 gap-3">
-        <MemeBgImagePicker
-          selectImage={selectImage}
-          remoteUrl={remoteUrl}
-          setRemoteUrl={setRemoteUrl}
-        />
-
-        {hasMemeSelected && (
-          <span className="text-lg italic">Got your image? give it a bit of fun!</span>
-        )}
-
-        <div className="tabs">
-          <a className="tab tab-bordered flex-1">TEXT</a>
-          <a className="tab tab-bordered flex-1 tab-lifted font-bold text-secondary-focus opacity-1 border-secondary-focus">
-            PEPE
-          </a>
-          <a className="tab tab-bordered flex-1">FACES</a>
-        </div>
-
-        <MemeText />
-
-        {hasMemeSelected && (
-          <Button onClick={clearImage}>
-            <Img src={TrashIcon} width={20} height={20} />
-            <span className="ml-3">Change image</span>
-          </Button>
+        {!hasMemeSelected && (
+          <MemeBgImagePicker
+            selectImage={selectImage}
+            remoteUrl={remoteUrl}
+            setRemoteUrl={setRemoteUrl}
+          />
         )}
 
         {hasMemeSelected && (
-          <div className="flex flex-row gap-3">
+          <>
+            <span className="text-lg italic">Got your image? give it a bit of fun!</span>
+
+            <Tabs />
+
+            <Button onClick={clearImage}>
+              <Img src={TrashIcon} width={20} height={20} />
+              <span className="ml-3">Change image</span>
+            </Button>
+
             <Button
               disabled={!isConnectedWithWeb3}
               className={classNames(
-                'btn-primary flex flex-1 mt-3',
+                'btn-primary flex mt-3',
                 (isUploading || isMinting) && 'loading'
               )}
               onClick={() =>
@@ -81,7 +72,7 @@ export function MemeGenerator(): JSX.Element {
                 {isMinting && 'MINTING'}
               </span>
             </Button>
-          </div>
+          </>
         )}
       </div>
 
@@ -93,10 +84,6 @@ export function MemeGenerator(): JSX.Element {
             <ThemesGrid themes={themes} onSelect={(theme: Theme) => setRemoteUrl(theme.url)} />
           </div>
         )}
-
-        {/* <div className="absolute top-0 left-0 right-0 bottom-0 flex items-center justify-center ">
-          {isLoading && <Spinner className="w-16 h-16 md:w-28 md:h-28 text-primary" />}
-        </div> */}
       </div>
 
       <MemeGeneratedModal />

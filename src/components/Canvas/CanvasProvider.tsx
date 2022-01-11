@@ -14,6 +14,7 @@ export type CanvasContextType = {
   bgImg: null | fabric.Image;
   setBackgroundImg: (img: null | MemeImage) => void;
   addText: (text: string) => void;
+  addImage: (image: string) => void;
   texts: ReturnType<typeof useTexts>;
   hasMemeSelected: boolean;
   hasNonTextLayerSelected: boolean;
@@ -90,6 +91,31 @@ const CanvasProvider: FC = ({ children }) => {
       setBgImg(fimg);
     });
   }, []);
+
+  const addImage = useCallback(
+    (img: string) => {
+      if (!img || !canvas || !canvas.width || !canvas.height) {
+        return;
+      }
+
+      const quaterWidth = (canvas.width as number) / 4;
+      const quaterHeight = (canvas.height as number) / 4;
+
+      fabric.Image.fromURL(img, (fimg: fabric.Image) => {
+        fimg.set({
+          left: (canvas.width as number) / 3,
+          top: (canvas.height as number) / 3
+        });
+
+        fimg.scaleToWidth(quaterWidth);
+        fimg.scaleToHeight(quaterHeight);
+        canvas.add(fimg);
+        canvas?.setActiveObject(fimg);
+        canvas?.renderAll();
+      });
+    },
+    [canvas]
+  );
 
   const getCanvasScale = useCallback(() => {
     const cw = canvas?.getWidth();
@@ -187,6 +213,7 @@ const CanvasProvider: FC = ({ children }) => {
       setBackgroundImg,
       bgImg,
       addText,
+      addImage,
       removeSelected,
       deselectAll,
       hasMemeSelected: !!bgImg,
@@ -195,6 +222,7 @@ const CanvasProvider: FC = ({ children }) => {
       getImageUrl
     };
   }, [
+    addImage,
     addText,
     bgImg,
     canvas,
