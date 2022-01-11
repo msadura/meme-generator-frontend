@@ -26,3 +26,4 @@ export const INFURA_KEY = '998804b23fd0421e9bbea7c41917c2b3';
 export const MEME_PATH = 'm/';
 export const IMAGE_PATH = 'api/i/';
 export const OPENSEA_BASE = 'https://testnets.opensea.io/assets/';
+export const OPENSEA_COLLECTION = 'https://testnets.opensea.io/collection/nft-mm-ekk5r6j4gg';

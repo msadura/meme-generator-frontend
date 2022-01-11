@@ -17,6 +17,8 @@ import { ThemesGrid } from '@app/components/ThemesGrid/ThemesGrid';
 import { Theme } from '@app/types';
 import MemeBgImagePicker from '@app/components/MemeBgImagePicker/MemeBgImagePicker';
 import Tabs from '@app/components/Tabs/Tabs';
+import Image from 'next/image';
+import { OPENSEA_COLLECTION } from '@app/constants';
 
 export function MemeGenerator(): JSX.Element {
   const { image, selectImage, remoteUrl, setRemoteUrl, clearImage } = useImage();
@@ -35,7 +37,7 @@ export function MemeGenerator(): JSX.Element {
     <div className="flex flex-col flex-1 md:flex-row gap-5">
       <div className="flex flex-col flex-initial md:w-1/3 gap-3">
         {!hasMemeSelected && (
-          <div className="flex flex-col">
+          <div className="flex flex-col flex-1">
             <p className="max-w-md">
               <h2 className="font-salt text-xl md:text-3xl underline text-primary py-3">
                 Hello Dog!
@@ -54,6 +56,18 @@ export function MemeGenerator(): JSX.Element {
               remoteUrl={remoteUrl}
               setRemoteUrl={setRemoteUrl}
             />
+
+            <div className="flex flex-col flex-1 justify-center items-center md:items-start">
+              <p className="text-lg text-accent-focus py-3 font-semibold">Visit our gallery:</p>
+              <a href={OPENSEA_COLLECTION} title="View on OpenSea" target="_blank" rel="noreferrer">
+                <Image
+                  src="https://storage.googleapis.com/opensea-static/Logomark/Badge%20-%20Available%20On%20-%20Dark.png"
+                  alt="Available on OpenSea"
+                  width={220}
+                  height={78}
+                />
+              </a>
+            </div>
           </div>
         )}
 
@@ -93,7 +107,7 @@ export function MemeGenerator(): JSX.Element {
         <Canvas className="flex flex-1 w-full h-full justify-center" />
 
         {!hasMemeSelected && (
-          <div className="flex w-full h-full items-center justify-center">
+          <div className="flex w-full h-full items-center justify-center min-h-screen md:min-h-0">
             <ThemesGrid themes={themes} onSelect={(theme: Theme) => setRemoteUrl(theme.url)} />
           </div>
         )}

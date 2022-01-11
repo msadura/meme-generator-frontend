@@ -16,7 +16,8 @@ module.exports = {
       'gateway.pinata.cloud',
       'localhost',
       'meme-generator-frontend.vercel.app',
-      'dogeartclub.mypinata.cloud'
+      'dogeartclub.mypinata.cloud',
+      'storage.googleapis.com'
     ]
   }
 };
