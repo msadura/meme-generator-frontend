@@ -9,36 +9,35 @@ import { add } from 'lodash';
 import { DESIRED_CHAIN } from '@app/blockchain/constants';
 
 const MetamaskButton: React.FC = () => {
-  const { provider, setAddress, setIsConnectedWithWeb3, address, isConnectedWithWeb3 } =
-    useBlockchain();
+  const { provider, connect, address, isConnectedWithWeb3 } = useBlockchain();
   const [isConnecting, setIsConnecting] = useState(false);
 
-  const connect = async () => {
-    if (isConnectedWithWeb3) {
-      return;
-    }
+  // const connect = async () => {
+  //   if (isConnectedWithWeb3) {
+  //     return;
+  //   }
 
-    if (!window.ethereum) {
-      toast.error('Please install Metamask extension to use the site');
-    }
+  //   if (!window.ethereum) {
+  //     toast.error('Please install Metamask extension to use the site');
+  //   }
 
-    setIsConnecting(true);
-    try {
-      const account = await getAccount(provider);
-      const network = await (provider as any).getNetwork();
+  //   setIsConnecting(true);
+  //   try {
+  //     const account = await getAccount(provider);
+  //     const network = await (provider as any).getNetwork();
 
-      if (network.chainId !== DESIRED_CHAIN.id) {
-        toast.error(`Wrong chain detected. Switch to ${DESIRED_CHAIN.name} and reconnect`);
-        return;
-      }
+  //     if (network.chainId !== DESIRED_CHAIN.id) {
+  //       toast.error(`Wrong chain detected. Switch to ${DESIRED_CHAIN.name} and reconnect`);
+  //       return;
+  //     }
 
-      setAddress(account);
-      setIsConnectedWithWeb3(true);
-    } catch (e) {
-    } finally {
-      setIsConnecting(false);
-    }
-  };
+  //     setAddress(account);
+  //     setIsConnectedWithWeb3(true);
+  //   } catch (e) {
+  //   } finally {
+  //     setIsConnecting(false);
+  //   }
+  // };
 
   const getDisplayAccount = () => {
     if (!address) {

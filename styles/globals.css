@@ -58,3 +58,7 @@ body {
 .backdrop {
   background-color: rgba(0, 0, 0, 0.75);
 }
+
+.bn-onboard-modal {
+  z-index: 10;
+}

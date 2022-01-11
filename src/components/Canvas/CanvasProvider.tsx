@@ -72,10 +72,7 @@ const CanvasProvider: FC = ({ children }) => {
     };
 
     if (canvas) {
-      console.log('🔥', 'bind canvas');
       bindEvents(canvas);
-    } else {
-      console.log('🔥', 'no canvass');
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [canvas]);

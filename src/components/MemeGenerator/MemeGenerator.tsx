@@ -15,7 +15,6 @@ import useResetLastMinted from '@app/components/MemeGenerator/hooks/useResetLast
 import { useLoadThemes } from '@app/components/ThemesGrid/hooks/useLoadThemes';
 import { ThemesGrid } from '@app/components/ThemesGrid/ThemesGrid';
 import { Theme } from '@app/types';
-import { MemeText } from '@app/components/MemeText/MemeText';
 import MemeBgImagePicker from '@app/components/MemeBgImagePicker/MemeBgImagePicker';
 import Tabs from '@app/components/Tabs/Tabs';
 
@@ -25,7 +24,6 @@ export function MemeGenerator(): JSX.Element {
   const { isConnectedWithWeb3 } = useBlockchain();
   const { generate, isUploading, isMinting } = useMeme();
   const { themes } = useLoadThemes();
-  console.log('🔥t', themes);
 
   useEffect(() => {
     setBackgroundImg(image);
