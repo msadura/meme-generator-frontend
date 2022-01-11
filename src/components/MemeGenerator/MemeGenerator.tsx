@@ -41,11 +41,11 @@ export function MemeGenerator(): JSX.Element {
                 Hello Dog!
               </h2>
               <p className="text-xl py-3 pb-10">
-                Unleash your inner Memelord and create the world's greatest memes! As NFTs. For
+                Unleash your inner Memelord and create the world&apos;s greatest memes! As NFTs. For
                 free.
               </p>
               <p className="text-lg text-secondary-focus py-3 pb-6">
-                LFG? Then pick the image and let's roll! Wanna dive deeper?{' '}
+                LFG? Then pick the image and let&apos;s roll! Wanna dive deeper?{' '}
                 <a className="link">Read more</a>.
               </p>
             </p>
