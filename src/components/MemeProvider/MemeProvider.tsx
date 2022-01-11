@@ -92,7 +92,7 @@ const MemeProvider: FC = ({ children }) => {
         ]);
 
         generatorContract?.on('Generate', (from: string, tokenId: ethers.BigNumber) => {
-          if (address.toLowerCase() === String(from).toLowerCase()) {
+          if (address?.toLowerCase() === String(from).toLowerCase()) {
             setLastMintedId(tokenId.toNumber());
             generatorContract?.removeAllListeners();
           }

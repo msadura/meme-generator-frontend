@@ -32,11 +32,8 @@
     "incremental": true
   },
   "include": [
-    "next-env.d.ts",
     "**/*.ts",
     "**/*.tsx",
-    "src/components/LogoText",
-    "pages/api/verify"
   ],
   "exclude": [
     "node_modules"

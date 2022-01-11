@@ -4,7 +4,7 @@ import { useMemo } from 'react';
 export function useContract(
   abi: any,
   address: string,
-  signer: ethers.providers.Provider | Signer | null
+  signer: ethers.providers.Provider | Signer | ethers.providers.JsonRpcSigner | null | undefined
 ) {
   const contract = useMemo(() => {
     if (signer && address) {
