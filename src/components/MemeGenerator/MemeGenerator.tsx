@@ -19,8 +19,12 @@ import MemeBgImagePicker from '@app/components/MemeBgImagePicker/MemeBgImagePick
 import Tabs from '@app/components/Tabs/Tabs';
 import Image from 'next/image';
 import { OPENSEA_COLLECTION } from '@app/constants';
+import { Faq } from '@app/components/Faq/Faq';
 
-export function MemeGenerator(): JSX.Element {
+type Props = {
+  scrollToFaq: () => void;
+};
+export function MemeGenerator({ scrollToFaq }: Props): JSX.Element {
   const { image, selectImage, remoteUrl, setRemoteUrl, clearImage } = useImage();
   const { hasMemeSelected, bgImg, getImageUrl, setBackgroundImg } = useCanvas();
   const { isConnectedWithWeb3 } = useBlockchain();
@@ -34,7 +38,7 @@ export function MemeGenerator(): JSX.Element {
   useResetLastMinted();
 
   return (
-    <div className="flex flex-col flex-1 md:flex-row gap-5">
+    <div className="flex flex-col flex-1 md:flex-row gap-5 generator-content ">
       <div className="flex flex-col flex-initial md:w-1/3 gap-3">
         {!hasMemeSelected && (
           <div className="flex flex-col flex-1">
@@ -48,7 +52,10 @@ export function MemeGenerator(): JSX.Element {
               </p>
               <p className="text-lg text-secondary-focus py-3 pb-6">
                 LFG? Then pick the image and let&apos;s roll! Wanna dive deeper?{' '}
-                <a className="link">Read more</a>.
+                <a className="link" onClick={scrollToFaq}>
+                  Read more
+                </a>
+                .
               </p>
             </div>
             <MemeBgImagePicker
@@ -107,7 +114,7 @@ export function MemeGenerator(): JSX.Element {
         <Canvas className="flex flex-1 w-full h-full justify-center" />
 
         {!hasMemeSelected && (
-          <div className="flex w-full h-full items-center justify-center min-h-screen md:min-h-0">
+          <div className="flex w-full h-full items-center justify-center md:min-h-0">
             <ThemesGrid themes={themes} onSelect={(theme: Theme) => setRemoteUrl(theme.url)} />
           </div>
         )}

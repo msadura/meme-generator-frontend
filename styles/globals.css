@@ -88,3 +88,7 @@ body {
 
   }
 }
+
+.generator-content {
+  min-height: 83vh;
+}

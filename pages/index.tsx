@@ -3,8 +3,11 @@ import type { NextPage } from 'next';
 import Head from 'next/head';
 import { MemeGenerator } from '@app/components/MemeGenerator/MemeGenerator';
 import { CanvasProvider } from '@app/components/Canvas/CanvasProvider';
+import { Faq } from '@app/components/Faq/Faq';
+import { useRef } from 'react';
 
 const Home: NextPage = () => {
+  const faqRef = useRef<HTMLDivElement>(null);
   return (
     <div className="bg-base-300 min-h-screen w-full flex flex-1 flex-col main-bg">
       <Head>
@@ -18,10 +21,19 @@ const Home: NextPage = () => {
 
       <Navbar />
       <main className="flex flex-1 text-white-primary flex-col gap-5">
-        <div className="flex flex-1 px-3 md:px-8">
+        <div className="flex flex-1 flex-col px-3 md:px-8">
           <CanvasProvider>
-            <MemeGenerator />
+            <MemeGenerator
+              scrollToFaq={() =>
+                faqRef.current?.scrollIntoView({
+                  behavior: 'smooth'
+                })
+              }
+            />
           </CanvasProvider>
+          <div ref={faqRef} className="flex mt-16">
+            <Faq />
+          </div>
         </div>
       </main>
       <footer className="flex flex-row items-center justify-center p-5">
