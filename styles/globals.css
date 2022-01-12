@@ -1,3 +1,7 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 html,
 body {
   padding: 0;
@@ -61,4 +65,26 @@ body {
 
 .bn-onboard-modal {
   z-index: 10;
+}
+
+@layer utilities {
+  @variants responsive {
+      .masonry {
+          column-gap: 0;
+          column-count: 3;
+      }
+      .masonry-md {
+        column-gap: 0;
+        column-count: 4;
+      }
+
+      .masonry-lg {
+        column-gap: 0;
+        column-count: 5;
+      }
+      .break-inside {
+          break-inside: avoid;
+      }
+
+  }
 }
