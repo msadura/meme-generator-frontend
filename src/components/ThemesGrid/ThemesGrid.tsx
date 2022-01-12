@@ -1,8 +1,7 @@
 import { ThemeItem } from '@app/components/ThemesGrid/ThemeItem/ThemeItem';
 import { Theme } from '@app/types';
 import { shuffle } from 'lodash';
-import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
-import { CSSGrid, measureItems, makeResponsive, layout } from 'react-stonecutter';
+import React, { useEffect, useRef, useState } from 'react';
 
 type Props = {
   themes: Theme[];

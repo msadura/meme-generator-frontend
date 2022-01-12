@@ -9,7 +9,7 @@ const dappId = BLOCKNATIVE_API_KEY;
 export function initOnboard(subscriptions: Subscriptions) {
   // const onboard = staging ? stagingOnboard : Onboard;
   const onboard = Onboard;
-  return { walletSelect: () => null } as any;
+
   return onboard({
     dappId,
     hideBranding: true,
