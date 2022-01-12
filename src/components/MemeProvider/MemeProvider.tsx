@@ -43,8 +43,14 @@ export const useMeme = () => useContext(MemeProviderContext);
 
 const MemeProvider: FC = ({ children }) => {
   const { signer, address, isConnectedWithWeb3 } = useBlockchain();
+
   const provider = usePublicProvider();
-  const generatorContract = useContract(generator, CONTRACTS.generator, signer);
+  const generatorContract = useContract(
+    generator,
+    CONTRACTS.generator,
+    isConnectedWithWeb3 ? signer : provider
+  );
+
   const nftContract = useContract(nft, CONTRACTS.nft, isConnectedWithWeb3 ? signer : provider);
   const [mintStatus, setMintStatus] = useState<MintStatus>('');
   const upload = useMemeUpload();
@@ -54,10 +60,12 @@ const MemeProvider: FC = ({ children }) => {
   const [totalSupply, setTotalSupply] = useState(0);
 
   const refreshTotalSupply = useCallback(async () => {
-    const total: ethers.BigNumber = await nftContract?.totalSupply();
-    if (total) {
-      setTotalSupply(total.toNumber());
-    }
+    try {
+      const total: ethers.BigNumber = await nftContract?.totalSupply();
+      if (total) {
+        setTotalSupply(total.toNumber());
+      }
+    } catch (e) {}
   }, [nftContract]);
 
   const generate = useCallback(

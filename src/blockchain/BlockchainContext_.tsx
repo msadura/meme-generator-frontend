@@ -26,12 +26,23 @@ export type BlockchainContextType = {
 const BlockchainContext = createContext<BlockchainContextType>({} as BlockchainContextType);
 
 const BlockchainProvider: FC = ({ children }) => {
+  // const [provider, setProvider] = useState<ethers.providers.Web3Provider | null>(null);
+  // const [signer, setSigner] = useState<ethers.providers.JsonRpcSigner | null>(null);
   const [isConnectedWithWeb3, setIsConnectedWithWeb3] = useState(false);
+  // const [address, setAddress] = useState('');
+  // const [chainId, setChainId] = useState<null | number>(null);
   const { signer, provider, address, network, onboard, wallet } = useOnboard();
 
   useEffect(() => {
-    setIsConnectedWithWeb3(!!address);
-  }, [address, wallet]);
+    setIsConnectedWithWeb3(!!wallet.provider);
+  }, [wallet]);
+
+  // const getProviderAndSigner = () => {
+  //   const externalProvider = new ethers.providers.Web3Provider(window.ethereum);
+  //   const externalSigner = externalProvider.getSigner();
+  //   setProvider(externalProvider);
+  //   setSigner(externalSigner);
+  // };
 
   // const changeNetwork = async (chainId?: number) => {
   //   const switchToChainId = chainId;
@@ -52,19 +63,28 @@ const BlockchainProvider: FC = ({ children }) => {
   //   }
   // }, []);
 
-  const connect = useCallback(async () => {
-    const connected = await onboard?.walletSelect();
+  // useEffect(() => {
+  //   const checkNetwork = async () => {
+  //     if (provider) {
+  //       const network = await provider?.getNetwork();
+  //       setChainId(network?.chainId);
+  //     }
+  //   };
 
-    if (connected && wallet.provider && !address) {
-      wallet.connect?.();
-    }
-  }, [address, onboard, wallet]);
+  //   checkNetwork();
+  // }, [provider]);
+
+  const connect = useCallback(async () => {
+    await onboard?.walletSelect();
+  }, [onboard]);
 
   const blockchain = {
     provider,
     signer,
     address,
+    // setAddress,
     isConnectedWithWeb3,
+    // setIsConnectedWithWeb3,
     // changeNetwork,
     chainId: network,
     connect

@@ -24,7 +24,6 @@ export function useOnboard() {
 
           const provider = new ethers.providers.Web3Provider(wallet.provider, 'any');
           setProvider(provider);
-
           window.localStorage.setItem('memes:selectedWallet', wallet.name as string);
         } else {
           setProvider(null);

@@ -38,7 +38,7 @@ export function MemeGenerator(): JSX.Element {
       <div className="flex flex-col flex-initial md:w-1/3 gap-3">
         {!hasMemeSelected && (
           <div className="flex flex-col flex-1">
-            <p className="max-w-md">
+            <div className="max-w-md">
               <h2 className="font-salt text-xl md:text-3xl underline text-primary py-3">
                 Hello Dog!
               </h2>
@@ -50,7 +50,7 @@ export function MemeGenerator(): JSX.Element {
                 LFG? Then pick the image and let&apos;s roll! Wanna dive deeper?{' '}
                 <a className="link">Read more</a>.
               </p>
-            </p>
+            </div>
             <MemeBgImagePicker
               selectImage={selectImage}
               remoteUrl={remoteUrl}
