@@ -62,7 +62,7 @@ const MetamaskButton: React.FC = () => {
 
   return (
     <div
-      data-tip={isWrongChain && `Click to switch to ${DESIRED_CHAIN.name}`}
+      data-tip={isWrongChain ? `Click to switch to ${DESIRED_CHAIN.name}` : ''}
       className="tooltip tooltip-bottom">
       <Button onClick={onClick} className={classNames(isWrongChain ? 'btn-error' : 'btn-primary')}>
         <>
