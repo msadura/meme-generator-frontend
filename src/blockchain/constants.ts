@@ -1,3 +1,4 @@
+import { NETWORKS_CONFIG } from '@app/blockchain/networksConfig';
 import { Chain, ChainType } from '@app/blockchain/types';
 import { IS_DEV, USE_TESTNET_DEV } from '@app/constants';
 
@@ -23,21 +24,24 @@ const CHAINS_CONFIG = {
     token: 'ETH'
   },
   matic: {
-    id: 87,
+    id: 137,
     name: 'Polygon (Matic)',
-    token: 'MATIC'
+    token: 'MATIC',
+    config: NETWORKS_CONFIG.matic
   },
   mumbai: {
     id: 80001,
     name: 'Mumbai Testnet',
-    token: 'MATIC'
+    token: 'MATIC',
+    config: NETWORKS_CONFIG.mumbai
   }
 };
 
 export const CHAINS: Record<ChainType, Chain> = {
   [ChainType.avax]: IS_DEV && USE_TESTNET_DEV ? CHAINS_CONFIG.avaxFuji : CHAINS_CONFIG.avax,
   [ChainType.eth]: IS_DEV && USE_TESTNET_DEV ? CHAINS_CONFIG.mainnet : CHAINS_CONFIG.rinkeby,
-  [ChainType.mumbai]: IS_DEV && USE_TESTNET_DEV ? CHAINS_CONFIG.matic : CHAINS_CONFIG.mumbai
+  [ChainType.matic]: IS_DEV && USE_TESTNET_DEV ? CHAINS_CONFIG.matic : CHAINS_CONFIG.mumbai,
+  [ChainType.mumbai]: CHAINS_CONFIG.mumbai
 };
 
 export const DESIRED_CHAIN = CHAINS_CONFIG.mumbai;

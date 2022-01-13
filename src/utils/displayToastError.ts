@@ -1,3 +1,4 @@
+import getErrorMessage from '@app/blockchain/getErrorMessage';
 import { toast } from 'react-toastify';
 
 type Error = {
@@ -10,5 +11,8 @@ type Error = {
 };
 
 export const displayToastError = (e: Error) => {
-  toast.error(e.response?.data?.message || e.message || 'Unknown error 🐛');
+  const message = getErrorMessage(e);
+  if (message) {
+    toast.error(e.response?.data?.message || e.message || 'Unknown error 🐛');
+  }
 };

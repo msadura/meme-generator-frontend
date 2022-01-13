@@ -12,7 +12,7 @@ import Button from '@app/components/Button/Button';
 import { classNames } from '@app/utils/classNames';
 
 const MetamaskButton: React.FC = () => {
-  const { provider, connect, address, isConnectedWithWeb3, isWrongChain, changeNetwork } =
+  const { provider, connect, address, isConnectedWithWeb3, isWrongChain, addToNetwork } =
     useBlockchain();
   const [isConnecting, setIsConnecting] = useState(false);
 
@@ -45,7 +45,7 @@ const MetamaskButton: React.FC = () => {
 
   const onClick = () => {
     if (isWrongChain) {
-      changeNetwork();
+      addToNetwork(DESIRED_CHAIN);
       return;
     }
 
