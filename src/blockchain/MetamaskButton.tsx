@@ -7,9 +7,13 @@ import useBlockchain from './useBlockchain';
 import Spinner from '@app/components/Spinner';
 import { add } from 'lodash';
 import { DESIRED_CHAIN } from '@app/blockchain/constants';
+import { NetworkButton } from '@app/components/NetworkButton/NetworkButton';
+import Button from '@app/components/Button/Button';
+import { classNames } from '@app/utils/classNames';
 
 const MetamaskButton: React.FC = () => {
-  const { provider, connect, address, isConnectedWithWeb3 } = useBlockchain();
+  const { provider, connect, address, isConnectedWithWeb3, isWrongChain, changeNetwork } =
+    useBlockchain();
   const [isConnecting, setIsConnecting] = useState(false);
 
   // const connect = async () => {
@@ -39,6 +43,15 @@ const MetamaskButton: React.FC = () => {
   //   }
   // };
 
+  const onClick = () => {
+    if (isWrongChain) {
+      changeNetwork();
+      return;
+    }
+
+    connect();
+  };
+
   const getDisplayAccount = () => {
     if (!address) {
       return '';
@@ -48,20 +61,30 @@ const MetamaskButton: React.FC = () => {
   };
 
   return (
-    <>
-      <button type="button" onClick={connect} className="btn btn-primary">
+    <div
+      data-tip={isWrongChain && `Click to switch to ${DESIRED_CHAIN.name}`}
+      className="tooltip tooltip-bottom">
+      <Button onClick={onClick} className={classNames(isWrongChain ? 'btn-error' : 'btn-primary')}>
         <>
           <Image src={foxSvg} alt="metamask" />
-          {isConnecting && (
-            <div className="pl-4">
-              <Spinner />
-            </div>
-          )}
-          {!isConnecting && !address && <span className="pl-2 truncate">Connect</span>}
-          {!isConnecting && !!address && <span className="pl-2">{getDisplayAccount()}</span>}
+
+          <div className="flex flex-col">
+            {isConnecting && (
+              <div className="pl-4">
+                <Spinner />
+              </div>
+            )}
+            {!isConnecting && !address && <span className="pl-2 truncate">Connect</span>}
+            {!isConnecting && !!address && <span className="pl-2">{getDisplayAccount()}</span>}
+            {isConnectedWithWeb3 && isWrongChain && (
+              <div className="px-2">
+                <div className="badge badge-error text-xs">Wrong chain</div>
+              </div>
+            )}
+          </div>
         </>
-      </button>
-    </>
+      </Button>
+    </div>
   );
 };
 

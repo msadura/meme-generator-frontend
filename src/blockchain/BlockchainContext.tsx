@@ -1,7 +1,7 @@
 import { FC, createContext, useEffect, useState, useCallback } from 'react';
 import { ethers } from 'ethers';
 import { toast } from 'react-toastify';
-import { CHAINS } from '@app/blockchain/constants';
+import { CHAINS, DESIRED_CHAIN } from '@app/blockchain/constants';
 import { useOnboard } from './useOnboard';
 import { add } from 'lodash';
 
@@ -18,32 +18,38 @@ export type BlockchainContextType = {
   // setAddress: (address: string) => void;
   isConnectedWithWeb3: boolean;
   // setIsConnectedWithWeb3: (value: boolean) => void;
-  // changeNetwork: (id: number) => void;
+  changeNetwork: (id?: number) => void;
   chainId: number | null;
   connect: () => Promise<void>;
+  isWrongChain: boolean;
 };
 
 const BlockchainContext = createContext<BlockchainContextType>({} as BlockchainContextType);
 
 const BlockchainProvider: FC = ({ children }) => {
   const [isConnectedWithWeb3, setIsConnectedWithWeb3] = useState(false);
+  const [isWrongChain, setIsWrongChain] = useState(false);
   const { signer, provider, address, network, onboard, wallet } = useOnboard();
 
   useEffect(() => {
     setIsConnectedWithWeb3(!!address);
   }, [address, wallet]);
 
-  // const changeNetwork = async (chainId?: number) => {
-  //   const switchToChainId = chainId;
-  //   if (!switchToChainId) {
-  //     return;
-  //   }
+  useEffect(() => {
+    setIsWrongChain(!!network && network !== DESIRED_CHAIN.id);
+  }, [network]);
 
-  //   await window.ethereum.request({
-  //     method: 'wallet_switchEthereumChain',
-  //     params: [{ chainId: `0x${switchToChainId.toString(16)}` }]
-  //   });
-  // };
+  const changeNetwork = async (chainId?: number) => {
+    const switchToChainId = chainId || DESIRED_CHAIN.id;
+    if (!switchToChainId) {
+      return;
+    }
+
+    await window.ethereum.request({
+      method: 'wallet_switchEthereumChain',
+      params: [{ chainId: `0x${switchToChainId.toString(16)}` }]
+    });
+  };
 
   // useEffect(() => {
   //   if (window.ethereum) {
@@ -67,7 +73,9 @@ const BlockchainProvider: FC = ({ children }) => {
     isConnectedWithWeb3,
     // changeNetwork,
     chainId: network,
-    connect
+    connect,
+    isWrongChain,
+    changeNetwork
   };
   return <BlockchainContext.Provider value={blockchain}>{children}</BlockchainContext.Provider>;
 };

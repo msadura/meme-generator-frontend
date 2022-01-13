@@ -5,13 +5,14 @@ import MetamaskButton from '@app/blockchain/MetamaskButton';
 import LogoImg from '@public/fmn_logo.png';
 import SocialIcons from '@app/components/SocialIcons/SocialIcons';
 import LogoText from '@app/components/LogoText/LogoText';
+import Button from '@app/components/Button/Button';
+import { useRouter } from 'next/router';
+import RocketColorIcon from '@public/rocket-color.svg';
+import { NetworkButton } from '@app/components/NetworkButton/NetworkButton';
 
 export const Navbar = () => {
-  const [active, setActive] = useState(false);
-
-  const handleClick = () => {
-    setActive(!active);
-  };
+  const { pathname } = useRouter();
+  const isOnMainPage = pathname === '/';
 
   return (
     <>
@@ -29,6 +30,16 @@ export const Navbar = () => {
           </a>
         </Link>
         <div className="flex flex-wrap gap-5 items-center justify-center">
+          {!isOnMainPage && (
+            <Link href="/">
+              <a>
+                <Button className="btn-accent">
+                  {/* <Image src={RocketColorIcon} width={25} height={25} alt="Add meme" /> */}
+                  <span className="ml-2">CREATE MEME</span>
+                </Button>
+              </a>
+            </Link>
+          )}
           <MetamaskButton />
           <SocialIcons />
         </div>

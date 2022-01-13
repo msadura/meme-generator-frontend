@@ -1,3 +1,5 @@
+import { ChainType } from '@app/blockchain/types';
+
 export const IS_DEV = process.env.NODE_ENV === 'development';
 export const USE_TESTNET_DEV = false;
 export const BLOCKNATIVE_API_KEY = '5ef84c13-720d-4361-acd6-35fe21aeaa77';
@@ -22,6 +24,8 @@ export const IPFS_IMAGE_BASE = 'https://dogeartclub.mypinata.cloud/ipfs/';
 export const MAX_IMAGE_SIZE = 1000;
 //use secured one for prod
 // export const PUBLIC_RPC = 'https://rinkeby.infura.io/v3/998804b23fd0421e9bbea7c41917c2b3';
+export const chain = 80001;
+export const CHAIN_TYPE: ChainType = ChainType.mumbai;
 export const PUBLIC_RPC =
   'https://polygon-mumbai.g.alchemy.com/v2/p2KQ7TpI9C6Pn7jL8QbZoFpBcqDukHFY';
 export const INFURA_KEY = '998804b23fd0421e9bbea7c41917c2b3';

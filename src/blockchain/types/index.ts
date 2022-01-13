@@ -1,6 +1,7 @@
 export enum ChainType {
   avax = 'avax',
-  eth = 'eth'
+  eth = 'eth',
+  mumbai = 'mumbai'
 }
 
 export type Chain = {

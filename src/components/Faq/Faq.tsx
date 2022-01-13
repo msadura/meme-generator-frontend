@@ -75,7 +75,15 @@ export function Faq(): JSX.Element {
 
       <FaqItem title="What is the price for generating NFT meme?">
         You can generate your NFT for free, we are not taking any charge. You only need to pay the
-        transaction gas fee (link) which depends on chain.
+        transaction{' '}
+        <a
+          className="link"
+          href="https://ethereum.org/en/developers/docs/gas/"
+          target="_blank"
+          rel="noreferrer">
+          gas fee
+        </a>{' '}
+        which depends on chain.
       </FaqItem>
 
       <FaqItem title="What chains do you support?">
@@ -99,8 +107,15 @@ export function Faq(): JSX.Element {
         <br />
       </FaqItem>
       <FaqItem title="Where are my images stored?">
-        Your images are uploaded to IPFS (link) service, which offers decentralized and immutable
-        storage.
+        Your images are uploaded to{' '}
+        <a
+          className="link"
+          href="https://docs.ipfs.io/concepts/what-is-ipfs/"
+          target="_blank"
+          rel="noreferrer">
+          IPFS
+        </a>{' '}
+        service, which offers decentralized and immutable storage.
       </FaqItem>
       <FaqItem title="Where can I see or trade my memes?">
         You can see the whole gallery and trade your memes in our opensea gallery{' '}
