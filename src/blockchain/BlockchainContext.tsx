@@ -41,8 +41,8 @@ const BlockchainProvider: FC = ({ children }) => {
   }, [address, wallet]);
 
   useEffect(() => {
-    setIsWrongChain(!!network && network !== DESIRED_CHAIN.id);
-  }, [network]);
+    setIsWrongChain(isConnectedWithWeb3 && !!network && network !== DESIRED_CHAIN.id);
+  }, [isConnectedWithWeb3, network]);
 
   const changeNetwork = async (chainId?: number) => {
     const switchToChainId = chainId || DESIRED_CHAIN.id;
