@@ -6,51 +6,56 @@ import { toast } from 'react-toastify';
 export type MemeImage = { base64: string; width: number; height: number };
 export const EMPTY_MEME_IMAGE = { base64: '', width: 0, height: 0 };
 
-export function useImage() {
+export function useImage(onSelect?: (base64: string) => void) {
   const [image, setImage] = useState<MemeImage>({ base64: '', width: 0, height: 0 });
   const [remoteUrl, setRemoteUrl] = useState('');
 
-  const selectImage = useCallback(async (file: File | string) => {
-    let imgFile: Blob;
-    if (typeof file === 'string') {
-      if (!file.startsWith('http://') && !file.startsWith('https://')) {
+  const selectImage = useCallback(
+    async (file: File | string) => {
+      let imgFile: Blob;
+      if (typeof file === 'string') {
+        if (!file.startsWith('http://') && !file.startsWith('https://')) {
+          return;
+        }
+
+        try {
+          // Try to load image, if cors occur then use internal proxy
+          const res = await fetch(file);
+          imgFile = await res.blob();
+        } catch (e) {
+          try {
+            imgFile = await loadImageProxy(file);
+          } catch (e) {
+            toast.error('Failed to load image from url');
+            return;
+          }
+        }
+      } else {
+        imgFile = file;
+      }
+
+      if (!imgFile) {
         return;
       }
 
-      try {
-        // Try to load image, if cors occur then use internal proxy
-        const res = await fetch(file);
-        imgFile = await res.blob();
-      } catch (e) {
-        try {
-          imgFile = await loadImageProxy(file);
-        } catch (e) {
-          toast.error('Failed to load image from url');
-          return;
-        }
+      const image = await loadImage(imgFile);
+
+      const imgDimensions = getDimensions(image);
+      const scale = getImageScale(imgDimensions.width, imgDimensions.height);
+
+      let base64 = '';
+      if (scale < 1) {
+        const cv = downScaleImage(image, scale);
+        base64 = cv.toDataURL('image/jpeg');
+        setImage({ width: cv.width, height: cv.height, base64 });
+      } else {
+        base64 = getImageCanvas(image).toDataURL('image/jpeg');
+        setImage({ ...imgDimensions, base64 });
       }
-    } else {
-      imgFile = file;
-    }
-
-    if (!imgFile) {
-      return;
-    }
-
-    const image = await loadImage(imgFile);
-
-    const imgDimensions = getDimensions(image);
-    const scale = getImageScale(imgDimensions.width, imgDimensions.height);
-
-    if (scale < 1) {
-      const cv = downScaleImage(image, scale);
-      const base64 = cv.toDataURL('image/jpeg');
-      setImage({ width: cv.width, height: cv.height, base64 });
-    } else {
-      const base64 = getImageCanvas(image).toDataURL('image/jpeg');
-      setImage({ ...imgDimensions, base64 });
-    }
-  }, []);
+      onSelect?.(base64);
+    },
+    [onSelect]
+  );
 
   const loadImage = async (file: Blob | string) => {
     const url = typeof file === 'string' ? file : URL.createObjectURL(file);

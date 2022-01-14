@@ -21,16 +21,18 @@ import Image from 'next/image';
 import { OPENSEA_COLLECTION } from '@app/constants';
 import { Faq } from '@app/components/Faq/Faq';
 import MetamaskButton from '@app/blockchain/MetamaskButton';
+import { StickerImagePicker } from '@app/components/StickerImagePicker/StickerImagePicker';
 
 type Props = {
   scrollToFaq: () => void;
 };
 export function MemeGenerator({ scrollToFaq }: Props): JSX.Element {
   const { image, selectImage, remoteUrl, setRemoteUrl, clearImage } = useImage();
-  const { hasMemeSelected, bgImg, getImageUrl, setBackgroundImg } = useCanvas();
+  const { hasMemeSelected, bgImg, getImageUrl, setBackgroundImg, addImage } = useCanvas();
   const { isConnectedWithWeb3, isWrongChain } = useBlockchain();
   const { generate, isUploading, isMinting } = useMeme();
   const { themes } = useLoadThemes();
+  const stickerImage = useImage(addImage);
 
   useEffect(() => {
     setBackgroundImg(image);
@@ -84,6 +86,8 @@ export function MemeGenerator({ scrollToFaq }: Props): JSX.Element {
             <span className="text-lg italic">Got your image? give it a bit of fun!</span>
 
             <Tabs />
+
+            <StickerImagePicker selectImage={stickerImage.selectImage} />
 
             <Button onClick={clearImage}>
               <Img src={TrashIcon} width={20} height={20} />
