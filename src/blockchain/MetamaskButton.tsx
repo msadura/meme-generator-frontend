@@ -63,8 +63,10 @@ const MetamaskButton: React.FC = () => {
   return (
     <div
       data-tip={isWrongChain ? `Click to switch to ${DESIRED_CHAIN.name}` : undefined}
-      className={classNames(isWrongChain && 'tooltip tooltip-bottom')}>
-      <Button onClick={onClick} className={classNames(isWrongChain ? 'btn-error' : 'btn-primary')}>
+      className={classNames('flex', isWrongChain && 'tooltip tooltip-bottom')}>
+      <Button
+        onClick={onClick}
+        className={classNames(isWrongChain ? 'btn-error' : 'btn-primary', 'flex flex-1')}>
         <>
           <Image src={foxSvg} alt="metamask" />
 

@@ -20,6 +20,7 @@ import Tabs from '@app/components/Tabs/Tabs';
 import Image from 'next/image';
 import { OPENSEA_COLLECTION } from '@app/constants';
 import { Faq } from '@app/components/Faq/Faq';
+import MetamaskButton from '@app/blockchain/MetamaskButton';
 
 type Props = {
   scrollToFaq: () => void;
@@ -27,7 +28,7 @@ type Props = {
 export function MemeGenerator({ scrollToFaq }: Props): JSX.Element {
   const { image, selectImage, remoteUrl, setRemoteUrl, clearImage } = useImage();
   const { hasMemeSelected, bgImg, getImageUrl, setBackgroundImg } = useCanvas();
-  const { isConnectedWithWeb3 } = useBlockchain();
+  const { isConnectedWithWeb3, isWrongChain } = useBlockchain();
   const { generate, isUploading, isMinting } = useMeme();
   const { themes } = useLoadThemes();
 
@@ -89,23 +90,26 @@ export function MemeGenerator({ scrollToFaq }: Props): JSX.Element {
               <span className="ml-3">Change image</span>
             </Button>
 
-            <Button
-              disabled={!isConnectedWithWeb3}
-              className={classNames(
-                'btn-primary flex mt-3',
-                (isUploading || isMinting) && 'loading'
-              )}
-              onClick={() =>
-                generate(getImageUrl(), { width: bgImg?.width, height: bgImg?.height })
-              }>
-              {isConnectedWithWeb3 && <Img src={RocketColorIcon} width={25} height={25} />}
-              <span className="ml-3">
-                {!isConnectedWithWeb3 && 'CONNECT TO GENERATE'}
-                {isConnectedWithWeb3 && !isUploading && !isMinting && 'GENERATE MEME'}
-                {isUploading && 'UPLOADING'}
-                {isMinting && 'MINTING'}
-              </span>
-            </Button>
+            {isConnectedWithWeb3 && !isWrongChain && (
+              <Button
+                disabled={!isConnectedWithWeb3}
+                className={classNames(
+                  'btn-primary flex mt-3',
+                  (isUploading || isMinting) && 'loading'
+                )}
+                onClick={() =>
+                  generate(getImageUrl(), { width: bgImg?.width, height: bgImg?.height })
+                }>
+                <Img src={RocketColorIcon} width={25} height={25} />
+                <span className="ml-3">
+                  {!isConnectedWithWeb3 && 'CONNECT TO GENERATE'}
+                  {isConnectedWithWeb3 && !isUploading && !isMinting && 'GENERATE MEME'}
+                  {isUploading && 'UPLOADING'}
+                  {isMinting && 'MINTING'}
+                </span>
+              </Button>
+            )}
+            {(!isConnectedWithWeb3 || isWrongChain) && <MetamaskButton />}
           </>
         )}
       </div>
