@@ -1,5 +1,6 @@
 import { useDebounce } from '@app/hooks/useDebounce';
 import { MemeText } from '@app/types';
+import { fabric } from 'fabric';
 import { useState, useRef, useCallback } from 'react';
 
 export const DEFAULT_TEXT = { content: '', size: 30, color: '#ffffff', stroke: '#000000' };
@@ -42,6 +43,13 @@ export function useTexts(canvas: fabric.Canvas | null) {
 
       if ('stroke' in update) {
         (canvasText as any).set('stroke', update.stroke);
+        (canvasText as any).set(
+          'shadow',
+          new fabric.Shadow({
+            color: update.stroke,
+            blur: 3
+          })
+        );
       }
 
       canvas?.renderAll();

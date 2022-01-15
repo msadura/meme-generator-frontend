@@ -139,9 +139,15 @@ const CanvasProvider: FC = ({ children }) => {
         top: topInset + PADDING + HANDLERS_INSET,
         fontSize: DEFAULT_TEXT.size,
         fontFamily: 'Impact',
+        fontWeight: 'bold',
         fill: DEFAULT_TEXT.color,
         stroke: DEFAULT_TEXT.stroke,
-        strokeWidth: 1,
+        strokeWidth: 2,
+        charSpacing: 30,
+        shadow: new fabric.Shadow({
+          color: DEFAULT_TEXT.stroke,
+          blur: 3
+        }),
         width: (canvas?.getWidth() || 0) * (1 / getCanvasScale()) - 2 * (PADDING + HANDLERS_INSET),
         textAlign: 'center',
         padding: PADDING,
