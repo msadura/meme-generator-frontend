@@ -53,7 +53,7 @@ export function MemeGenerator({ scrollToFaq }: Props): JSX.Element {
                 Unleash your inner Memelord and create the world&apos;s greatest memes! As NFTs. For
                 free.
               </p>
-              <p className="text-lg text-secondary-focus py-3 pb-6">
+              <p className="text-lg text-primary py-3 pb-6">
                 LFG? Then pick the image and let&apos;s roll! Wanna dive deeper?{' '}
                 <a className="link" onClick={scrollToFaq}>
                   Read more

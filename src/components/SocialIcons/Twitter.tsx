@@ -7,7 +7,7 @@ type Props = {
 export default function Twitter({ url }: Props): JSX.Element {
   return (
     <a href={url} target="_blank" rel="noreferrer">
-      <div className="w-10 h-10 rounded-full bg-white-primary text-primary flex items-center justify-center hover:text-primary-focus">
+      <div className="w-10 h-10 rounded-full bg-primary text-base-300 flex items-center justify-center hover:bg-primary-focus">
         <Icon />
       </div>
     </a>

@@ -1,4 +1,4 @@
-import { Navbar } from '@app/components/Navbar';
+import { Navbar } from '@app/components/NavbarRwd';
 import type { NextPage } from 'next';
 import Head from 'next/head';
 import { MemeGenerator } from '@app/components/MemeGenerator/MemeGenerator';
