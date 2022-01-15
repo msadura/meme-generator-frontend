@@ -56,7 +56,7 @@ export function MemeGenerator({ scrollToFaq }: Props): JSX.Element {
               <p className="text-lg text-primary py-3 pb-6">
                 LFG? Then pick the image and let&apos;s roll! Wanna dive deeper?{' '}
                 <a className="link" onClick={scrollToFaq}>
-                  Read more
+                  Read more in FAQ
                 </a>
                 .
               </p>
