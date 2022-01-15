@@ -143,7 +143,6 @@ const CanvasProvider: FC = ({ children }) => {
         fill: DEFAULT_TEXT.color,
         stroke: DEFAULT_TEXT.stroke,
         strokeWidth: 2,
-        charSpacing: 30,
         shadow: new fabric.Shadow({
           color: DEFAULT_TEXT.stroke,
           blur: 3
