@@ -6,7 +6,11 @@ import Button from '@app/components/Button/Button';
 import Link from 'next/link';
 import ShareSection from '@app/components/ShareSection/ShareSection';
 
-export function MemeGeneratedModal(): JSX.Element | null {
+type Props = {
+  onMakeAnother: () => void;
+};
+
+export function MemeGeneratedModal({ onMakeAnother }: Props): JSX.Element | null {
   const [isOpen, setIsOpen] = useState(false);
   const { getImageUrl, setBackgroundImg, bgImg } = useCanvas();
   const { lastMintedId, resetLastMinted } = useMeme();
@@ -15,6 +19,7 @@ export function MemeGeneratedModal(): JSX.Element | null {
   const makeAnother = () => {
     setBackgroundImg(null);
     resetLastMinted();
+    onMakeAnother?.();
   };
 
   useEffect(() => {

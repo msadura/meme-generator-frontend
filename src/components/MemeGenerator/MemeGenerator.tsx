@@ -1,11 +1,11 @@
 import Button from '@app/components/Button/Button';
 import React, { useEffect, useRef } from 'react';
-import Img from 'next/image';
 import { useImage } from '@app/components/MemeGenerator/hooks/useImage';
 import { useBlockchain } from '@app/blockchain/useBlockchain';
 import { Canvas } from '@app/components/Canvas/Canvas';
 import { useCanvas } from '@app/components/Canvas/CanvasProvider';
 import TrashIcon from '@public/trash.svg';
+import HelpIcon from '@public/help.svg';
 
 import RocketColorIcon from '@public/rocket-color.svg';
 import { useMeme } from '@app/components/MemeProvider/MemeProvider';
@@ -83,14 +83,22 @@ export function MemeGenerator({ scrollToFaq }: Props): JSX.Element {
 
         {hasMemeSelected && (
           <>
-            <span className="text-lg italic">Got your image? give it a bit of fun!</span>
+            <div className="flex flex-row justify-between items-center ">
+              <span className="text-lg italic">Got your image? give it a bit of fun!</span>
+              <span className="text-sm italic">
+                <a className="link inline-flex items-center gap-1" onClick={scrollToFaq}>
+                  FAQ
+                  <Image src={HelpIcon} width={20} height={20} />
+                </a>
+              </span>
+            </div>
 
             <Tabs />
 
             <StickerImagePicker selectImage={stickerImage.selectImage} />
 
             <Button onClick={clearImage}>
-              <Img src={TrashIcon} width={20} height={20} />
+              <Image src={TrashIcon} width={15} height={15} />
               <span className="ml-3">Change image</span>
             </Button>
 
@@ -104,7 +112,7 @@ export function MemeGenerator({ scrollToFaq }: Props): JSX.Element {
                 onClick={() =>
                   generate(getImageUrl(), { width: bgImg?.width, height: bgImg?.height })
                 }>
-                <Img src={RocketColorIcon} width={25} height={25} />
+                <Image src={RocketColorIcon} width={25} height={25} />
                 <span className="ml-3">
                   {!isConnectedWithWeb3 && 'CONNECT TO GENERATE'}
                   {isConnectedWithWeb3 && !isUploading && !isMinting && 'GENERATE MEME'}
@@ -128,7 +136,7 @@ export function MemeGenerator({ scrollToFaq }: Props): JSX.Element {
         )}
       </div>
 
-      <MemeGeneratedModal />
+      <MemeGeneratedModal onMakeAnother={clearImage} />
     </div>
   );
 }
