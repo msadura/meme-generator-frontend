@@ -145,7 +145,7 @@ const CanvasProvider: FC = ({ children }) => {
         strokeWidth: 2,
         shadow: new fabric.Shadow({
           color: DEFAULT_TEXT.stroke,
-          blur: 3
+          blur: 2
         }),
         width: (canvas?.getWidth() || 0) * (1 / getCanvasScale()) - 2 * (PADDING + HANDLERS_INSET),
         textAlign: 'center',
