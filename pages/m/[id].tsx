@@ -3,7 +3,7 @@ import type { NextPage } from 'next';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
 import { loadMetadata } from '@app/api/loadMetadata';
-import { HOST_URL, IMAGE_PATH, MEME_PATH } from '@app/constants';
+import { HOST_URL, IMAGE_PATH, IPFS_IMAGE_BASE, MEME_PATH } from '@app/constants';
 import { getImageUrl } from '@app/utils/getImageUrl';
 import ShareSection from '@app/components/ShareSection/ShareSection';
 import MemeNav from '@app/components/MemeNav/MemeNav';
@@ -41,7 +41,7 @@ const MemePage: NextPage<Props> = ({ meme }) => {
         />
         <link rel="icon" href="/favicon.ico" />
 
-        <meta property="og:url" content={`${HOST_URL}${MEME_PATH}${meme.id}`} />
+        <meta property="og:url" content={`${IPFS_IMAGE_BASE}${meme.id}`} />
         <meta property="og:type" content="website" />
         <meta property="og:title" content={meme.name} />
         <meta name="twitter:card" content="summary_large_image" />
