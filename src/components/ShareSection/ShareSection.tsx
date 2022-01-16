@@ -8,6 +8,7 @@ import { toast } from 'react-toastify';
 import { MEME_PATH, OPENSEA_BASE } from '@app/constants';
 import { CONTRACTS } from '@app/addresses';
 import Button from '@app/components/Button/Button';
+import { SocialShare } from '@app/components/SocialShare/SocialShare';
 
 type Props = {
   id: number;
@@ -35,8 +36,9 @@ export default function ShareSection({ id }: Props): JSX.Element {
   };
   return (
     <>
-      <div className="text-lg text-secondary italic items-center justify-center mt-3">
-        <p className="">Make it viral!</p>
+      <div className="flex flex-row flex-wrap items-center justify-between mt-3">
+        <p className="text-secondary-focus italic text-lg">Make it viral!</p>
+        <SocialShare url={memeUrl} title="Sick DAC meme NFT" />
       </div>
 
       <div className="flex flex-col mt-3 mb-3 gap-3">
