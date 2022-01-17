@@ -35,7 +35,7 @@ export default function MemeNav({ id }: Props): JSX.Element {
       {id > 1 && (
         <Link href={`${id - 1}`}>
           <a onClick={() => setIsPrevLoading(true)}>
-            <div className="fixed left-0 top-1/2 w-7 h-14 md:w-10 md:h-20 bg-primary rotate-180 flex items-center justify-center cursor-pointer rounded">
+            <div className="z-20 fixed left-0 top-1/2 w-7 h-14 md:w-10 md:h-20 bg-primary rotate-180 flex items-center justify-center cursor-pointer rounded">
               {!isPrevLoading && <Image src={ChevronImg} alt="previous" />}
               {isPrevLoading && <Spinner className="-mr-1" />}
             </div>
@@ -45,7 +45,7 @@ export default function MemeNav({ id }: Props): JSX.Element {
       {id < totalSupply && (
         <Link href={`${id + 1}`}>
           <a onClick={() => setIsNextLoading(true)}>
-            <div className="fixed right-0 top-1/2 w-7 h-14 md:w-10 md:h-20 bg-primary flex items-center justify-center cursor-pointer rounded">
+            <div className="z-20 fixed right-0 top-1/2 w-7 h-14 md:w-10 md:h-20 bg-primary flex items-center justify-center cursor-pointer rounded">
               {!isNextLoading && <Image src={ChevronImg} alt="next" />}
               {isNextLoading && <Spinner className="-mr-1" />}
             </div>

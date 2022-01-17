@@ -68,6 +68,13 @@ const MemePage: NextPage<Props> = ({ meme }) => {
                   onLoadingComplete={() => setLoaderHidden(true)}
                   loading="eager"
                 />
+
+                {/* <img
+                  src={getImageUrl(meme.imageHash)}
+                  alt={meme.name}
+                  className="max-w-full object-contain mx-auto relative z-10"
+                  // onLoad={() => setLoaderHidden(true)}
+                /> */}
                 {!loaderHidden && (
                   <div className="absolute inset-0 flex items-center justify-center border flex-col gap-5 bg-base-300">
                     <div className="w-1/4 h-1/4 relative opacity-40">
