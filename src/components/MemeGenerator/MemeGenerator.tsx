@@ -130,7 +130,7 @@ export function MemeGenerator({ scrollToFaq }: Props): JSX.Element {
         <Canvas className="flex flex-1 w-full h-full justify-center" />
 
         {!hasMemeSelected && (
-          <div className="flex w-full h-full items-center justify-center md:min-h-0">
+          <div className="flex w-full h-full items-center justify-center min-h-screen md:min-h-0">
             <ThemesGrid themes={themes} onSelect={(theme: Theme) => setRemoteUrl(theme.url)} />
           </div>
         )}
