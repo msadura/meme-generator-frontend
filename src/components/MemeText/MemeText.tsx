@@ -5,6 +5,8 @@ import Img from 'next/image';
 import TrashIcon from '@public/trash.svg';
 import Button from '@app/components/Button/Button';
 import AddTextIcon from '@public/add-text.svg';
+import { AlignPicker } from '@app/components/AlignPicker/AlignPicker';
+import { TextAlign } from '@app/types';
 
 type Props = {};
 
@@ -44,10 +46,10 @@ export function MemeText(props: Props): JSX.Element | null {
             </div>
           </div>
 
-          <div className="flex flex-row gap-3 flex-wrap">
+          <div className="flex flex-row gap-3 flex-wrap mt-1">
             <div className="form-control">
               <label className="label">
-                <span className="label-text">Font size</span>
+                <span className="label-text text-xs uppercase">Font size</span>
               </label>
               <div className="flex flex-row flex-1 items-center gap-3">
                 <input
@@ -60,21 +62,25 @@ export function MemeText(props: Props): JSX.Element | null {
                 />
               </div>
             </div>
-            <div className="flex flex-row gap-3 items-end justify-between flex-1">
-              <div className="flex flex-row gap-3">
-                <ColorPicker
-                  value={text?.color}
-                  onChange={(color: string) => texts.updateText(index, { color })}
-                  label="Color"
-                />
-                <ColorPicker
-                  value={text?.stroke}
-                  onChange={(stroke: string) => texts.updateText(index, { stroke })}
-                  label="Stroke"
-                />
-              </div>
+
+            <ColorPicker
+              value={text?.color}
+              onChange={(color: string) => texts.updateText(index, { color })}
+              label="Color"
+            />
+            <ColorPicker
+              value={text?.stroke}
+              onChange={(stroke: string) => texts.updateText(index, { stroke })}
+              label="Stroke"
+            />
+            <AlignPicker
+              value={text?.align}
+              onChange={(align: TextAlign) => texts.updateText(index, { align })}
+              label="Align"
+            />
+            <div className="flex flex-1 justify-end ml-3">
               <button
-                className="rounded btn btn-error p-3 text-accent-content"
+                className="rounded btn btn-error p-3 text-accent-content self-end"
                 onClick={() => texts.deleteText(index)}>
                 <Img src={TrashIcon} width={20} height={20} />
               </button>

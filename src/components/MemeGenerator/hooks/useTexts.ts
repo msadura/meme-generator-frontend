@@ -1,9 +1,15 @@
 import { useDebounce } from '@app/hooks/useDebounce';
-import { MemeText } from '@app/types';
+import { MemeText, TextAlign } from '@app/types';
 import { fabric } from 'fabric';
 import { useState, useRef, useCallback } from 'react';
 
-export const DEFAULT_TEXT = { content: '', size: 30, color: '#ffffff', stroke: '#000000' };
+export const DEFAULT_TEXT = {
+  content: '',
+  size: 30,
+  color: '#ffffff',
+  stroke: '#000000',
+  align: TextAlign.center
+};
 
 export function useTexts(canvas: fabric.Canvas | null) {
   const [texts, setTexts] = useState<MemeText[]>([]);
@@ -39,6 +45,10 @@ export function useTexts(canvas: fabric.Canvas | null) {
 
       if ('color' in update) {
         (canvasText as any).set('fill', update.color);
+      }
+
+      if ('align' in update) {
+        (canvasText as any).set('textAlign', update.align);
       }
 
       if ('stroke' in update) {

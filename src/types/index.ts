@@ -3,10 +3,17 @@ import { ethers } from 'ethers';
 
 export type Attribute = { trait_type: string; value: string };
 
+export enum TextAlign {
+  center = 'center',
+  left = 'left',
+  right = 'right'
+}
+
 export type MemeTextAttrs = {
   size: number;
   stroke: string;
   color: string;
+  align: TextAlign;
 };
 
 export type MemeText = {

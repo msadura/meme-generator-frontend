@@ -14,7 +14,7 @@ export function ColorPicker({ value, onChange, label }: Props): JSX.Element {
     <div className="relative flex flex-col form-control ">
       {!!label && (
         <label className="label">
-          <span className="label-text">{label}</span>
+          <span className="label-text text-xs uppercase">{label}</span>
         </label>
       )}
       <div className="flex flex-1 items-center">
