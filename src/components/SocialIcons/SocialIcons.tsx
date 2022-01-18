@@ -9,7 +9,7 @@ type Props = {};
 
 export default function SocialIcons(props: Props): JSX.Element {
   return (
-    <div className="flex flex-row gap-5 transform">
+    <div className="flex flex-row gap-3 transform">
       <Opensea url={OPENSEA_COLLECTION} />
       <Discord url={DISCORD_URL} />
       <Twitter url={TWITTER_URL} />

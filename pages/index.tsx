@@ -5,6 +5,7 @@ import { MemeGenerator } from '@app/components/MemeGenerator/MemeGenerator';
 import { CanvasProvider } from '@app/components/Canvas/CanvasProvider';
 import { Faq } from '@app/components/Faq/Faq';
 import { useRef } from 'react';
+import { Footer } from '@app/components/Footer/Footer';
 
 const Home: NextPage = () => {
   const faqRef = useRef<HTMLDivElement>(null);
@@ -36,9 +37,7 @@ const Home: NextPage = () => {
           </div>
         </div>
       </main>
-      <footer className="flex flex-row items-center justify-center p-5">
-        <div className="text-white-secondary">©dogeartclub 2021.</div>
-      </footer>
+      <Footer />
     </div>
   );
 };
