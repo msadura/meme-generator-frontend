@@ -14,7 +14,7 @@ export type CanvasContextType = {
   bgImg: null | fabric.Image;
   setBackgroundImg: (img: null | MemeImage) => void;
   addText: (text: string) => void;
-  addImage: (image: string) => void;
+  addImage: (image: string | HTMLImageElement) => void;
   texts: ReturnType<typeof useTexts>;
   hasMemeSelected: boolean;
   hasNonTextLayerSelected: boolean;
@@ -89,29 +89,45 @@ const CanvasProvider: FC = ({ children }) => {
     });
   }, []);
 
-  const addImage = useCallback(
-    (img: string) => {
-      if (!img || !canvas || !canvas.width || !canvas.height) {
+  const addImageToCanvas = useCallback(
+    (fimg: fabric.Image) => {
+      if (!canvas) {
         return;
       }
 
       const quaterWidth = (canvas.width as number) / 4;
       const quaterHeight = (canvas.height as number) / 4;
 
-      fabric.Image.fromURL(img, (fimg: fabric.Image) => {
-        fimg.set({
-          left: (canvas.width as number) / 3,
-          top: (canvas.height as number) / 3
-        });
-
-        fimg.scaleToWidth(quaterWidth);
-        fimg.scaleToHeight(quaterHeight);
-        canvas.add(fimg);
-        canvas?.setActiveObject(fimg);
-        canvas?.renderAll();
+      fimg.set({
+        left: (canvas.width as number) / 3,
+        top: (canvas.height as number) / 3
       });
+
+      fimg.scaleToWidth(quaterWidth);
+      fimg.scaleToHeight(quaterHeight);
+      canvas.add(fimg);
+      canvas?.setActiveObject(fimg);
+      canvas?.renderAll();
     },
     [canvas]
+  );
+
+  const addImage = useCallback(
+    (img: string | HTMLImageElement) => {
+      if (!img || !canvas || !canvas.width || !canvas.height) {
+        return;
+      }
+
+      if (typeof img === 'string') {
+        fabric.Image.fromURL(img, (fimg: fabric.Image) => {
+          addImageToCanvas(fimg);
+        });
+      } else {
+        const fimg = new fabric.Image(img);
+        addImageToCanvas(fimg);
+      }
+    },
+    [addImageToCanvas, canvas]
   );
 
   const getCanvasScale = useCallback(() => {

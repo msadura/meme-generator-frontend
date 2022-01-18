@@ -6,9 +6,10 @@ import { toast } from 'react-toastify';
 export type MemeImage = { base64: string; width: number; height: number };
 export const EMPTY_MEME_IMAGE = { base64: '', width: 0, height: 0 };
 
-export function useImage(onSelect?: (base64: string) => void) {
+export function useImage(onSelect?: (img: string | HTMLImageElement) => void) {
   const [image, setImage] = useState<MemeImage>({ base64: '', width: 0, height: 0 });
   const [remoteUrl, setRemoteUrl] = useState('');
+  const [imgObject, setImgObject] = useState<null | HTMLImageElement>(null);
 
   const selectImage = useCallback(
     async (file: File | string) => {
@@ -39,6 +40,7 @@ export function useImage(onSelect?: (base64: string) => void) {
       }
 
       const image = await loadImage(imgFile);
+      setImgObject(image);
 
       const imgDimensions = getDimensions(image);
       const scale = getImageScale(imgDimensions.width, imgDimensions.height);
@@ -52,7 +54,7 @@ export function useImage(onSelect?: (base64: string) => void) {
         base64 = getImageCanvas(image).toDataURL('image/jpeg');
         setImage({ ...imgDimensions, base64 });
       }
-      onSelect?.(base64);
+      onSelect?.(image);
     },
     [onSelect]
   );
@@ -85,6 +87,7 @@ export function useImage(onSelect?: (base64: string) => void) {
   const clearImage = () => {
     setImage({ base64: '', width: 0, height: 0 });
     setRemoteUrl('');
+    setImgObject(null);
   };
 
   useEffect(() => {
