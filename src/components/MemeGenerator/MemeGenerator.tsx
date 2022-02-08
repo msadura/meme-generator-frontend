@@ -46,7 +46,7 @@ export function MemeGenerator({ scrollToFaq }: Props): JSX.Element {
         {!hasMemeSelected && (
           <div className="flex flex-col flex-1">
             <div className="max-w-md">
-              <h2 className="font-network text-3xl md:text-4xl text-primary-content py-1 lg:py-3 text-shadow-green">
+              <h2 className="font-network text-3xl md:text-4xl text-primary-content py-1 lg:py-3 text-shadow-glow">
                 Hello Dog!
               </h2>
               <p className="text-lg py-2 lg:pb-10">
