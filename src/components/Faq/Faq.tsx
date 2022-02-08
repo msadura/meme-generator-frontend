@@ -5,7 +5,7 @@ import React from 'react';
 export function Faq(): JSX.Element {
   return (
     <div className="flex flex-col mx-auto my-5">
-      <p className="font-salt text-primary text-xl ml-5 mb-3">FAQ</p>
+      <p className="font-comic text-secondary-focus text-5xl ml-5 mb-3 tracking-widest">FAQ</p>
 
       <FaqItem title="What is the Meme Generator?">
         It&apos;s a free online image editor that lets you add custom resizable text, images, and

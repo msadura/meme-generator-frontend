@@ -1,15 +1,20 @@
 import React from 'react';
 import LogoImg from '@public/dac-logo-text.png';
-import Logo2Img from '@public/dac-logo-border.png';
+import Logo2Img from '@public/DAC.svg';
 import Link from 'next/link';
 import Image from 'next/image';
+import classNames from 'classnames';
 
-export default function LogoText(): JSX.Element {
+type Props = {
+  className?: string;
+};
+
+export default function LogoText({ className }: Props): JSX.Element {
   return (
     <Link href="/" passHref>
-      <div className="relative flex w-10 md:w-24">
+      <a className={classNames('relative flex w-32 lg:w-44', className)}>
         <Image src={Logo2Img} alt="DAC" />
-      </div>
+      </a>
     </Link>
   );
 }

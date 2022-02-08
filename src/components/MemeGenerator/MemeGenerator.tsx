@@ -46,14 +46,14 @@ export function MemeGenerator({ scrollToFaq }: Props): JSX.Element {
         {!hasMemeSelected && (
           <div className="flex flex-col flex-1">
             <div className="max-w-md">
-              <h2 className="font-salt text-xl md:text-3xl underline text-primary py-3">
+              <h2 className="font-network text-3xl md:text-4xl text-primary py-1 lg:py-3 text-shadow-green">
                 Hello Dog!
               </h2>
-              <p className="text-xl py-3 pb-10">
+              <p className="text-xl py-2 lg:pb-10">
                 Unleash your inner Memelord and create the world&apos;s greatest memes! As NFTs. For
                 free.
               </p>
-              <p className="text-lg text-primary py-3 pb-6">
+              <p className="text-lg py-3 pb-6 text-secondary-focus">
                 LFG? Then pick the image and let&apos;s roll! Wanna dive deeper?{' '}
                 <a className="link" onClick={scrollToFaq}>
                   Read more in FAQ
@@ -68,7 +68,7 @@ export function MemeGenerator({ scrollToFaq }: Props): JSX.Element {
             />
 
             <div className="flex flex-col flex-1 justify-center items-center md:items-start">
-              <p className="text-lg text-accent-focus py-3 font-semibold">Visit our gallery:</p>
+              <p className="text-lg text-secondary-focus py-3 font-semibold">Visit our gallery:</p>
               <a href={OPENSEA_COLLECTION} title="View on OpenSea" target="_blank" rel="noreferrer">
                 <Image
                   src="https://storage.googleapis.com/opensea-static/Logomark/Badge%20-%20Available%20On%20-%20Dark.png"
@@ -130,7 +130,7 @@ export function MemeGenerator({ scrollToFaq }: Props): JSX.Element {
         <Canvas className="flex flex-1 w-full h-full justify-center" />
 
         {!hasMemeSelected && (
-          <div className="flex w-full h-full items-center justify-center min-h-screen md:min-h-0">
+          <div className="flex w-full h-full items-center justify-center min-h-[60vh] md:min-h-0">
             <ThemesGrid themes={themes} onSelect={(theme: Theme) => setRemoteUrl(theme.url)} />
           </div>
         )}

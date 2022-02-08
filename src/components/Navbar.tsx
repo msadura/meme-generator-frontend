@@ -25,7 +25,7 @@ export const Navbar = () => {
             <a className="flex flex-row py-2 items-center relative">
               {/* <Image src={LogoImg} width={60} height={60} alt="logo" /> */}
               <LogoText />
-              <span className="ml-3 text-md md:text-xl font-semibold tracking-wider text-secondary uppercase tracking-widest font-salt">
+              <span className="ml-3 text-md md:text-2xl tracking-wider text-secondary-focus uppercase md:tracking-widest font-comic">
                 NFT Meme Generator
               </span>
               <div className="badge badge-primary absolute -right-2 -bottom-2 md:bottom-4 transform rotate-12">

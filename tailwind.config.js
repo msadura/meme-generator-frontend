@@ -49,13 +49,6 @@ module.exports = {
         xxs: '.6rem'
       }
     },
-    // boxShadow: {
-    //   glow: '0 0 3px 2px #7fd6ed'
-    // },
-    // textShadow: {
-    //   glow: '0 0 3px #FFFFFF',
-    //   green: '0 0 3px #559D9D'
-    // }
     borderWidth: {
       DEFAULT: '1px',
       0: '0',
@@ -63,8 +56,13 @@ module.exports = {
       3: '3px',
       4: '4px',
       8: '8px'
+    },
+    textShadow: {
+      glow: '0 0 3px #FFFFFF',
+      green: '0 0 3px #559D9D'
     }
   },
+
   variants: {
     extend: {}
   },
