@@ -17,6 +17,7 @@ if (!HOST_URL) {
 export const DISCORD_URL = 'https://discord.gg/';
 export const TWITTER_URL = 'https://twitter.com/';
 export const INSTAGRAM_URL = 'https://www.instagram.com/';
+export const DAC_URL = 'https://dogeartclub.com';
 
 export const ETH_SYMBOL = 'ETH';
 // export const IPFS_IMAGE_BASE = 'https://dogeartclub.mypinata.cloud/ipfs/';

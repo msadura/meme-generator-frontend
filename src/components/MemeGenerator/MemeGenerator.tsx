@@ -18,10 +18,12 @@ import { Theme } from '@app/types';
 import MemeBgImagePicker from '@app/components/MemeBgImagePicker/MemeBgImagePicker';
 import Tabs from '@app/components/Tabs/Tabs';
 import Image from 'next/image';
-import { OPENSEA_COLLECTION } from '@app/constants';
+import { DAC_URL, OPENSEA_COLLECTION } from '@app/constants';
 import { Faq } from '@app/components/Faq/Faq';
 import MetamaskButton from '@app/blockchain/MetamaskButton';
 import { StickerImagePicker } from '@app/components/StickerImagePicker/StickerImagePicker';
+import { SecondaryBox } from '@app/components/SecondaryBox/SecondaryBox';
+import { LatestMemes } from '@app/components/LatestMemes/LatestMemes';
 
 type Props = {
   scrollToFaq: () => void;
@@ -67,17 +69,34 @@ export function MemeGenerator({ scrollToFaq }: Props): JSX.Element {
               setRemoteUrl={setRemoteUrl}
             />
 
-            <div className="flex flex-col flex-1 justify-center items-center md:items-start">
-              <p className="text-lg text-secondary-focus py-3 font-semibold">Visit our gallery:</p>
-              <a href={OPENSEA_COLLECTION} title="View on OpenSea" target="_blank" rel="noreferrer">
-                <Image
-                  src="https://storage.googleapis.com/opensea-static/Logomark/Badge%20-%20Available%20On%20-%20Dark.png"
-                  alt="Available on OpenSea"
-                  width={220}
-                  height={78}
-                />
-              </a>
+            <div className="flex flex-row flex-wrap justify-between items-center md:items-start gap-5 mt-5">
+              <div className="flex flex-col flex-1">
+                <p className="text-lg text-primary-content py-3 font-semibold">Founded by:</p>
+                <a href={DAC_URL} title="View on OpenSea" target="_blank" rel="noreferrer">
+                  <SecondaryBox className="!w-44 !px-0">Doge Art Club</SecondaryBox>
+                </a>
+              </div>
+              <div className="flex flex-col flex-1">
+                <p className="text-lg text-primary-content py-3 font-semibold">
+                  Visit our gallery:
+                </p>
+                <a
+                  className="w-[150px]"
+                  href={OPENSEA_COLLECTION}
+                  title="View on OpenSea"
+                  target="_blank"
+                  rel="noreferrer">
+                  <Image
+                    src="https://storage.googleapis.com/opensea-static/Logomark/Badge%20-%20Available%20On%20-%20Dark.png"
+                    alt="Available on OpenSea"
+                    width={150}
+                    height={53}
+                  />
+                </a>
+              </div>
             </div>
+
+            <LatestMemes />
           </div>
         )}
 

@@ -9,7 +9,7 @@ module.exports = {
         // 'white-primary': 'rgba(255, 255, 255, 0.87)',
         // 'white-secondary': 'rgba(255, 255, 255, 0.6)',
         // 'white-faded': 'rgba(255, 255, 255, 0.38)',
-        // 'black-primary': 'rgba(0, 0, 0, 0.87)',
+        'black-primary': 'rgba(0, 0, 0, 0.87)'
         // 'black-secondary': 'rgba(0, 0, 0, 0.6)',
         // 'black-faded': 'rgba(0, 0, 0, 0.38)',
         // 'blue-primary': '#204561',
