@@ -141,14 +141,19 @@ const CanvasProvider: FC = ({ children }) => {
   }, [bgImg?.width, canvas]);
 
   const addText = useCallback(
-    (text: string) => {
+    (text: string, position?: 'bottom' | null, noFocus?: boolean) => {
+      const PADDING = 10;
+      const HANDLERS_INSET = 8;
+
       const lastText = canvasTextsRef.current.length
         ? canvasTextsRef.current[canvasTextsRef.current.length - 1]
         : null;
-      const topInset = lastText ? lastText.aCoords?.bl.y || 0 : 0;
+      let topInset = lastText ? lastText.aCoords?.bl.y || 0 : 0;
 
-      const PADDING = 10;
-      const HANDLERS_INSET = 8;
+      if (position === 'bottom' && canvas?.getHeight()) {
+        topInset = canvas.getHeight() - 2 * DEFAULT_TEXT.size - PADDING;
+      }
+
       const TEXT = {
         type: 'text',
         left: PADDING + HANDLERS_INSET,
@@ -172,7 +177,9 @@ const CanvasProvider: FC = ({ children }) => {
       const object = new fabric.Textbox(text, { ...TEXT });
       object.set({ text });
       canvas?.add(object);
-      canvas?.setActiveObject(object);
+      if (!noFocus) {
+        canvas?.setActiveObject(object);
+      }
       canvas?.renderAll();
 
       insertText(object);
@@ -205,6 +212,7 @@ const CanvasProvider: FC = ({ children }) => {
       }
 
       addText('');
+      addText('', 'bottom', true);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [canvas, bgImg, addText]);
