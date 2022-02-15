@@ -4,7 +4,7 @@ import React from 'react';
 
 export function Faq(): JSX.Element {
   return (
-    <div className="flex flex-col mx-auto my-5">
+    <div className="flex w-full flex-col mx-auto my-5 max-w-2xl gap-1">
       <p className="font-comic text-secondary-focus text-5xl ml-5 mb-3 tracking-widest">FAQ</p>
 
       <FaqItem title="What is the Meme Generator?">

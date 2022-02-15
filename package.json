@@ -10,6 +10,8 @@
   },
   "dependencies": {
     "@fullpage/react-fullpage": "^0.1.19",
+    "@headlessui/react": "^1.4.3",
+    "@heroicons/react": "^1.0.5",
     "@pinata/sdk": "^1.1.23",
     "@shopify/react-form": "^1.1.9",
     "@types/react-dom": "^17.0.11",
