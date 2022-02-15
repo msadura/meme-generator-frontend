@@ -23,7 +23,7 @@ const Home: NextPage = () => {
 
         <Navbar />
         <main className="flex flex-1 text-white-primary flex-col gap-5">
-          <div className="flex flex-1 flex-col px-3 md:px-8">
+          <div className="flex flex-1 flex-col px-3 md:pr-8 md:pl-4">
             <CanvasProvider>
               <MemeGenerator
                 scrollToFaq={() =>

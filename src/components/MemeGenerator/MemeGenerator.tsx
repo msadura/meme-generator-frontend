@@ -43,10 +43,10 @@ export function MemeGenerator({ scrollToFaq }: Props): JSX.Element {
   useResetLastMinted();
 
   return (
-    <div className="flex flex-col flex-1 md:flex-row gap-5 generator-content ">
-      <div className="flex flex-col flex-initial md:w-1/3 gap-3">
+    <div className="flex flex-col flex-1 md:flex-row gap-2 generator-content ">
+      <div className="flex flex-col flex-initial md:w-[40%] gap-3 max-w-lg">
         {!hasMemeSelected && (
-          <div className="flex flex-col flex-1">
+          <div className="flex flex-col flex-1 p-4">
             <div className="max-w-md">
               <h2 className="font-network text-3xl md:text-4xl text-primary-content py-1 lg:py-3 text-shadow-glow">
                 Hello Dog!
@@ -101,7 +101,7 @@ export function MemeGenerator({ scrollToFaq }: Props): JSX.Element {
         )}
 
         {hasMemeSelected && (
-          <>
+          <div className="flex flex-col p-4 rounded drop-shadow bg-base-300 bg-opacity-80 gap-3">
             <div className="flex flex-row justify-between items-center ">
               <span className="text-lg italic">Got your image? give it a bit of fun!</span>
               <span className="text-sm italic">
@@ -141,11 +141,11 @@ export function MemeGenerator({ scrollToFaq }: Props): JSX.Element {
               </Button>
             )}
             {(!isConnectedWithWeb3 || isWrongChain) && <MetamaskButton />}
-          </>
+          </div>
         )}
       </div>
 
-      <div className="flex flex-1 flex-col w-11/12 md:w-2/3 relative justify-center mx-auto">
+      <div className="flex flex-1 flex-col w-11/12 md:w-[60%] relative justify-center mx-auto">
         <Canvas className="flex flex-1 w-full h-full justify-center" />
 
         {!hasMemeSelected && (
