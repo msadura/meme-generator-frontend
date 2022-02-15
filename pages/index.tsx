@@ -10,34 +10,36 @@ import { Footer } from '@app/components/Footer/Footer';
 const Home: NextPage = () => {
   const faqRef = useRef<HTMLDivElement>(null);
   return (
-    <div className="bg-base-300 min-h-screen w-full flex flex-1 flex-col main-bg">
-      <Head>
-        <title>NFT meme generator</title>
-        <meta
-          name="description"
-          content="NFT Meme Generator by Doge Art Club. Mint memes as NFTs without coding, for free."
-        />
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
+    <div className="min-h-screen w-full flex flex-1 flex-col main-bg">
+      <div className="bg-memes">
+        <Head>
+          <title>NFT meme generator</title>
+          <meta
+            name="description"
+            content="NFT Meme Generator by Doge Art Club. Mint memes as NFTs without coding, for free."
+          />
+          <link rel="icon" href="/favicon.ico" />
+        </Head>
 
-      <Navbar />
-      <main className="flex flex-1 text-white-primary flex-col gap-5">
-        <div className="flex flex-1 flex-col px-3 md:px-8">
-          <CanvasProvider>
-            <MemeGenerator
-              scrollToFaq={() =>
-                faqRef.current?.scrollIntoView({
-                  behavior: 'smooth'
-                })
-              }
-            />
-          </CanvasProvider>
-          <div ref={faqRef} className="flex mt-16">
-            <Faq />
+        <Navbar />
+        <main className="flex flex-1 text-white-primary flex-col gap-5">
+          <div className="flex flex-1 flex-col px-3 md:px-8">
+            <CanvasProvider>
+              <MemeGenerator
+                scrollToFaq={() =>
+                  faqRef.current?.scrollIntoView({
+                    behavior: 'smooth'
+                  })
+                }
+              />
+            </CanvasProvider>
+            <div ref={faqRef} className="flex mt-16">
+              <Faq />
+            </div>
           </div>
-        </div>
-      </main>
-      <Footer />
+        </main>
+        <Footer />
+      </div>
     </div>
   );
 };

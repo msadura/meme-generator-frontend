@@ -104,3 +104,24 @@ body {
 .text-stroke-black {
   text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
 }
+
+.bg-memes {
+
+}
+
+.bg-memes::before {
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  opacity: .4;
+  content: "";
+  z-index: -1;
+
+  background: url('https://dai1hr2knmld8.cloudfront.net/bg/memes.jpg') no-repeat center center fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}

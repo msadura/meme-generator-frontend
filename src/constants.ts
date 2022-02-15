@@ -14,9 +14,9 @@ if (!HOST_URL) {
   HOST_URL = 'https://meme-generator-frontend.vercel.app/';
 }
 
-export const DISCORD_URL = 'https://discord.gg/';
-export const TWITTER_URL = 'https://twitter.com/';
-export const INSTAGRAM_URL = 'https://www.instagram.com/';
+export const DISCORD_URL = 'https://discord.gg/dogeartclub';
+export const TWITTER_URL = 'https://twitter.com/DogeArtClub';
+export const INSTAGRAM_URL = 'https://www.instagram.com/dogeartclub';
 export const DAC_URL = 'https://dogeartclub.com';
 
 export const ETH_SYMBOL = 'ETH';

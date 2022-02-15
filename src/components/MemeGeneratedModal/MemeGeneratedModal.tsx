@@ -34,13 +34,13 @@ export function MemeGeneratedModal({ onMakeAnother }: Props): JSX.Element | null
     if (isOpen) {
       document.body.style.overflow = 'hidden';
     } else {
-      document.body.style.overflow = 'auto';
+      document.body.style.overflow = 'unset';
     }
   }, [isOpen]);
 
   useEffect(() => {
     return () => {
-      document.body.style.overflow = 'auto';
+      document.body.style.overflow = 'unset';
     };
   }, []);
 
