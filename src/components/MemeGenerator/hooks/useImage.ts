@@ -84,11 +84,11 @@ export function useImage(onSelect?: (img: string | HTMLImageElement) => void) {
     return { width: img.naturalWidth, height: img.naturalHeight };
   };
 
-  const clearImage = () => {
+  const clearImage = useCallback(() => {
     setImage({ base64: '', width: 0, height: 0 });
     setRemoteUrl('');
     setImgObject(null);
-  };
+  }, []);
 
   useEffect(() => {
     if (remoteUrl) {

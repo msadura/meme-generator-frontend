@@ -24,6 +24,7 @@ import MetamaskButton from '@app/blockchain/MetamaskButton';
 import { StickerImagePicker } from '@app/components/StickerImagePicker/StickerImagePicker';
 import { SecondaryBox } from '@app/components/SecondaryBox/SecondaryBox';
 import { LatestMemes } from '@app/components/LatestMemes/LatestMemes';
+import { useGlobal } from '@app/components/GlobalProvider/GlobalProvider';
 
 type Props = {
   scrollToFaq: () => void;
@@ -35,6 +36,13 @@ export function MemeGenerator({ scrollToFaq }: Props): JSX.Element {
   const { generate, isUploading, isMinting } = useMeme();
   const { themes } = useLoadThemes();
   const stickerImage = useImage(addImage);
+  const { setOnNavLogoClick } = useGlobal();
+
+  useEffect(() => {
+    setOnNavLogoClick(clearImage);
+
+    return () => setOnNavLogoClick(null);
+  }, [clearImage, setOnNavLogoClick]);
 
   useEffect(() => {
     setBackgroundImg(image);

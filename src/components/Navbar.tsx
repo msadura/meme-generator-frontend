@@ -7,11 +7,13 @@ import SocialIcons from '@app/components/SocialIcons/SocialIcons';
 import { useRouter } from 'next/router';
 import MetamaskButton from '@app/blockchain/MetamaskButton';
 import Button from '@app/components/Button/Button';
+import { useGlobal } from '@app/components/GlobalProvider/GlobalProvider';
 
 export const Navbar = () => {
   const { pathname } = useRouter();
   const isOnMainPage = pathname === '/';
   const [active, setActive] = useState(false);
+  const { onNavLogoClickRef } = useGlobal();
 
   const handleClick = () => {
     setActive(!active);
@@ -22,7 +24,11 @@ export const Navbar = () => {
       <nav className="w-full top-0 left-0 right-0 z-50 flex items-center flex-wrap py-5 px-3 md:px-8 gap-5">
         <div className="flex flex-1 flex-row items-center space-between">
           <Link href="/">
-            <a className="flex flex-row py-2 items-center relative">
+            <a
+              className="flex flex-row py-2 items-center relative"
+              onClick={() => {
+                onNavLogoClickRef.current?.();
+              }}>
               {/* <Image src={LogoImg} width={60} height={60} alt="logo" /> */}
               <LogoText />
               <span className="ml-3 text-md md:text-2xl tracking-wider text-secondary-focus uppercase md:tracking-widest font-comic">
