@@ -69,6 +69,23 @@
     "type": "function"
   },
   {
+    "inputs": [],
+    "name": "getLatest",
+    "outputs": [
+      {
+        "components": [
+          { "internalType": "uint256", "name": "id", "type": "uint256" },
+          { "internalType": "string", "name": "tokenURI", "type": "string" }
+        ],
+        "internalType": "struct IMemeGenerator.LastItem[10]",
+        "name": "",
+        "type": "tuple[10]"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
     "inputs": [{ "internalType": "address", "name": "addr", "type": "address" }],
     "name": "hasAdmin",
     "outputs": [{ "internalType": "bool", "name": "", "type": "bool" }],
