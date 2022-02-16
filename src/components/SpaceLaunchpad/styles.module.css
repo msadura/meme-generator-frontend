@@ -1,0 +1,43 @@
+@keyframes takeoff {
+  0% {
+    transform:translate3d(0, 0, 0) rotateX(0deg) scale(1);
+  }
+  20% {
+    transform:translate3d(0, -30%, 0) rotateX(0deg) scale(1);
+  }
+  100% {
+    transform:translate3d(0, -300%, 0)  rotateX(30deg) scale(0.25);
+  }
+}
+
+@keyframes vibrate-1 {
+  0% {
+    transform:translate3d(0, 0, 0);
+  }
+  50% {
+    transform:translate3d(-0.1rem, 0, 0);
+  }
+  100% {
+    transform:translate3d(0.1rem, 0, 0);
+  }
+}
+
+@keyframes vibrate-2 {
+  0% {
+    transform:translate3d(0, 0, 0);
+  }
+  50% {
+    transform:translate3d(-0.3rem, 0, 0);
+  }
+  100% {
+    transform:translate3d(0.3rem, 0, 0);
+  }
+}
+
+.launchpad-go {
+    animation: takeoff 4s 1s linear forwards;
+}
+
+.launch-vibrate {
+  animation: vibrate-1 0.1s 0s 50 linear,  vibrate-2 0.1s 0.5s 150 linear, vibrate-1 0.1s 4s infinite linear;
+}
