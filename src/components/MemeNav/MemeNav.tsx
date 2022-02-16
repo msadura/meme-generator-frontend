@@ -31,10 +31,10 @@ export default function MemeNav({ id }: Props): JSX.Element {
   }, [navCallback, router.events]);
 
   return (
-    <div className="fixed inset-0 max-w-6xl mx-auto">
+    <div className="fixed inset-0 max-w-6xl mx-auto pointer-events-none">
       {id > 1 && (
         <Link href={`${id - 1}`}>
-          <a onClick={() => setIsPrevLoading(true)}>
+          <a onClick={() => setIsPrevLoading(true)} className="pointer-events-auto">
             <div className="z-20 absolute left-0 top-1/3 w-12 h-16 md:w-14 md:h-24 bg-primary rotate-180 flex items-center justify-center cursor-pointer rounded px-2 md:px-4">
               {!isPrevLoading && <Image src={ChevronImg} alt="previous" />}
               {isPrevLoading && <Spinner className="-mr-1" />}
@@ -44,7 +44,7 @@ export default function MemeNav({ id }: Props): JSX.Element {
       )}
       {id < totalSupply && (
         <Link href={`${id + 1}`}>
-          <a onClick={() => setIsNextLoading(true)}>
+          <a onClick={() => setIsNextLoading(true)} className="pointer-events-auto">
             <div className="z-20 absolute right-0 top-1/3 w-12 h-16 md:w-14 md:h-24 bg-primary flex items-center justify-center cursor-pointer rounded px-2 md:px-4">
               {!isNextLoading && <Image src={ChevronImg} alt="next" />}
               {isNextLoading && <Spinner className="-mr-1" />}
