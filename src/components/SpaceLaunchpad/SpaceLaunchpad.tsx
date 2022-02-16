@@ -14,7 +14,7 @@ export const SpaceLaunchpad = (props: Props) => {
       <Image src={Launchpad} layout="fill" />
       <div className="absolute left-[29%] bottom-[25%] top-0 flex items-end justify-center overflow-hidden">
         <div className={styles['launchpad-go']}>
-          <div className={styles['launchpad-go']}>
+          <div className={styles['launch-vibrate']}>
             <SpaceRocket flipped />
           </div>
         </div>
