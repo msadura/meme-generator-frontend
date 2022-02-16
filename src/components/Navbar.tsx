@@ -26,7 +26,7 @@ export const Navbar = () => {
               {/* <Image src={LogoImg} width={60} height={60} alt="logo" /> */}
               <LogoText />
               <span className="ml-3 text-md md:text-2xl tracking-wider text-secondary-focus uppercase md:tracking-widest font-comic">
-                NFT Meme Generator
+                Proof of MEME
               </span>
               <div className="badge badge-primary absolute -right-2 -bottom-2 md:bottom-4 transform rotate-12">
                 BETA

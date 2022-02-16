@@ -13,7 +13,7 @@ const Home: NextPage = () => {
     <div className="min-h-screen w-full flex flex-1 flex-col main-bg">
       <div className="bg-memes">
         <Head>
-          <title>NFT meme generator</title>
+          <title>Proof of MEME</title>
           <meta
             name="description"
             content="NFT Meme Generator by Doge Art Club. Mint memes as NFTs without coding, for free."
