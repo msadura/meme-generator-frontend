@@ -61,16 +61,18 @@ const MemePage: NextPage<Props> = ({ meme }) => {
               <div
                 className="relative flex flex-1 w-full h-full min-h-[60vh] md:min-h-0"
                 style={{ maxWidth: meme.width, maxHeight: meme.height }}>
-                <Image
-                  key={`${meme.id}`}
-                  src={getImageUrl(meme.imageHash)}
-                  layout="fill"
-                  alt={meme.name}
-                  onLoadingComplete={() => setLoaderHidden(true)}
-                  loading="eager"
-                  objectFit="contain"
-                  objectPosition="center center"
-                />
+                <div className="z-20">
+                  <Image
+                    key={`${meme.id}`}
+                    src={getImageUrl(meme.imageHash)}
+                    layout="fill"
+                    alt={meme.name}
+                    onLoadingComplete={() => setLoaderHidden(true)}
+                    loading="eager"
+                    objectFit="contain"
+                    objectPosition="center center"
+                  />
+                </div>
 
                 {/* <img
                   src={getImageUrl(meme.imageHash)}

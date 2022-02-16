@@ -144,9 +144,3 @@ body {
 .logoSpinner2 {
   animation: logoSpin 4s linear infinite;
 }
-
-.clearfix::after {
-  content: "";
-  clear: both;
-  display: table;
-}
