@@ -6,6 +6,7 @@ import { CanvasProvider } from '@app/components/Canvas/CanvasProvider';
 import { Faq } from '@app/components/Faq/Faq';
 import { useRef } from 'react';
 import { Footer } from '@app/components/Footer/Footer';
+import { LatestMemesProvider } from '@app/components/LatestMemes/LatestMemesProvider';
 
 const Home: NextPage = () => {
   const faqRef = useRef<HTMLDivElement>(null);
@@ -24,15 +25,17 @@ const Home: NextPage = () => {
         <Navbar />
         <main className="flex flex-1 text-white-primary flex-col gap-5">
           <div className="flex flex-1 flex-col px-3 md:pr-8 md:pl-4">
-            <CanvasProvider>
-              <MemeGenerator
-                scrollToFaq={() =>
-                  faqRef.current?.scrollIntoView({
-                    behavior: 'smooth'
-                  })
-                }
-              />
-            </CanvasProvider>
+            <LatestMemesProvider>
+              <CanvasProvider>
+                <MemeGenerator
+                  scrollToFaq={() =>
+                    faqRef.current?.scrollIntoView({
+                      behavior: 'smooth'
+                    })
+                  }
+                />
+              </CanvasProvider>
+            </LatestMemesProvider>
             <div ref={faqRef} className="flex mt-16">
               <Faq />
             </div>

@@ -4,12 +4,6 @@ import { toast } from 'react-toastify';
 import { CHAINS } from '@app/blockchain/constants';
 import { PUBLIC_RPC } from '@app/constants';
 
-declare global {
-  interface Window {
-    ethereum?: any;
-  }
-}
-
 export type PublicProviderContextType = ethers.providers.StaticJsonRpcProvider;
 
 const PublicProviderContext = createContext<PublicProviderContextType>(

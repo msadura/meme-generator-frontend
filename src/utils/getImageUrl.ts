@@ -7,5 +7,6 @@ export function getImageUrl(hash: string, host?: string, useGateway = true) {
     return `${IPFS_IMAGE_BASE}${hash}`;
   }
 
+  // use cloudfront as a fallback
   return `${hostUrl}${IMAGE_PATH}${hash}`;
 }
