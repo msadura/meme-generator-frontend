@@ -3,7 +3,7 @@ import type { NextPage } from 'next';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
 import { loadMetadata } from '@app/api/loadMetadata';
-import { HOST_URL, IMAGE_PATH, IPFS_IMAGE_BASE, MEME_PATH } from '@app/constants';
+import { HOST_URL, IMAGE_PATH, IPFS_IMAGE_BASE } from '@app/constants';
 import { getImageUrl } from '@app/utils/getImageUrl';
 import ShareSection from '@app/components/ShareSection/ShareSection';
 import MemeNav from '@app/components/MemeNav/MemeNav';
@@ -12,8 +12,8 @@ import { Meme } from '@app/types';
 import Image from 'next/image';
 import Spinner from '@app/components/Spinner';
 import MemePageFallback from '@app/components/MemePageFallback/MemePageFallback';
-import LogoImg from '@public/dac-logo-border.png';
 import { useState, useEffect } from 'react';
+import LogoText from '@app/components/LogoText/LogoText';
 
 type Props = {
   meme: Meme;
@@ -32,7 +32,7 @@ const MemePage: NextPage<Props> = ({ meme }) => {
   }
 
   return (
-    <div className="bg-base-300 min-h-screen w-full main-bg">
+    <div className="bg-base-300 min-h-screen w-full flex flex-col main-bg">
       <Head>
         <title>{meme.name}</title>
         <meta
@@ -53,20 +53,23 @@ const MemePage: NextPage<Props> = ({ meme }) => {
       </Head>
 
       <Navbar />
-      <main className="text-white-primary mx-auto px-0 md:px-5">
+      <main className="text-white-primary px-0 md:px-5 flex flex-1 flex-col h-screen">
         <p className="text-lg font-salt text-center">{meme.name}</p>
-        <div className="mx-auto">
+        <div className="mx-auto flex flex-1 w-full">
           {!!meme.width && !!meme.height && (
             <div className="flex flex-1 items-center justify-center relative my-5">
-              <div className="relative">
+              <div
+                className="relative flex flex-1 w-full h-full min-h-[60vh] md:min-h-0"
+                style={{ maxWidth: meme.width, maxHeight: meme.height }}>
                 <Image
                   key={`${meme.id}`}
                   src={getImageUrl(meme.imageHash)}
-                  height={meme.height}
-                  width={meme.width}
+                  layout="fill"
                   alt={meme.name}
                   onLoadingComplete={() => setLoaderHidden(true)}
                   loading="eager"
+                  objectFit="contain"
+                  objectPosition="center center"
                 />
 
                 {/* <img
@@ -76,9 +79,9 @@ const MemePage: NextPage<Props> = ({ meme }) => {
                   // onLoad={() => setLoaderHidden(true)}
                 /> */}
                 {!loaderHidden && (
-                  <div className="absolute inset-0 flex items-center justify-center border flex-col gap-5 bg-base-300">
-                    <div className="w-1/4 h-1/4 relative opacity-40">
-                      <Image src={LogoImg} layout="fill" objectFit="contain" alt="DAC MEME" />
+                  <div className="absolute inset-0 flex items-center justify-center flex-col gap-5">
+                    <div className="relative opacity-40">
+                      <LogoText className="!w-40 opacity-50" />
                     </div>
                     <Spinner />
                   </div>
@@ -96,8 +99,10 @@ const MemePage: NextPage<Props> = ({ meme }) => {
           )}
         </div>
 
-        <div className="flex max-w-2xl flex-col flex-1 mx-auto px-3">
-          {<ShareSection id={meme.id} />}
+        <div>
+          <div className="flex-1 max-w-2xl flex-col mx-auto px-3">
+            {<ShareSection id={meme.id} />}
+          </div>
         </div>
 
         <MemeNav id={meme.id} />

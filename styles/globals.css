@@ -140,3 +140,13 @@ body {
 .logoSpinner {
   animation: spin 4s linear infinite;
 }
+
+.logoSpinner2 {
+  animation: logoSpin 4s linear infinite;
+}
+
+.clearfix::after {
+  content: "";
+  clear: both;
+  display: table;
+}
