@@ -65,14 +65,16 @@ export const Navbar = () => {
           <div className="lg:inline-flex lg:flex-row lg:ml-auto lg:w-auto w-full lg:items-center items-start flex flex-col lg:h-auto">
             <div className="flex flex-row justify-center flex-1 items-center w-full lg:inline-flex lg:w-auto gap-5">
               {!isOnMainPage && (
-                <Link href="/">
-                  <a>
-                    <Button className="btn-accent">
-                      {/* <Image src={RocketColorIcon} width={25} height={25} alt="Add meme" /> */}
-                      <span className="ml-2">CREATE MEME</span>
-                    </Button>
-                  </a>
-                </Link>
+                <div className="hidden md:flex">
+                  <Link href="/">
+                    <a>
+                      <Button className="btn-accent">
+                        {/* <Image src={RocketColorIcon} width={25} height={25} alt="Add meme" /> */}
+                        <span className="ml-2">CREATE MEME</span>
+                      </Button>
+                    </a>
+                  </Link>
+                </div>
               )}
               <SocialIcons />
               <MetamaskButton />
