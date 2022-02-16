@@ -11,10 +11,8 @@ type Props = {
 
 export default function LogoText({ className }: Props): JSX.Element {
   return (
-    <Link href="/" passHref>
-      <a className={classNames('relative flex w-32 lg:w-44', className)}>
-        <Image src={Logo2Img} alt="DAC" />
-      </a>
-    </Link>
+    <div className={classNames('relative flex w-32 lg:w-44', className)}>
+      <Image src={Logo2Img} alt="DAC" />
+    </div>
   );
 }

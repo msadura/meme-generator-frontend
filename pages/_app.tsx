@@ -8,6 +8,8 @@ import { PublicProvider } from '@app/components/PublicProvider/PublicProvider';
 import { MemeProvider } from '@app/components/MemeProvider/MemeProvider';
 import { NextPage } from 'next';
 import { ReactElement, ReactNode } from 'react';
+import { LatestMemes } from '@app/components/LatestMemes/LatestMemes';
+import { LatestMemesProvider } from '@app/components/LatestMemes/LatestMemesProvider';
 
 type NextPageWithLayout = NextPage & {
   getLayout?: (page: ReactElement) => ReactNode;
@@ -24,7 +26,9 @@ function MyApp({ Component, pageProps }: AppPropsWithLayout) {
     <PublicProvider>
       <BlockchainProvider>
         <MemeProvider>
-          <Component {...pageProps} />
+          <LatestMemesProvider>
+            <Component {...pageProps} />
+          </LatestMemesProvider>
         </MemeProvider>
 
         <ToastContainer />

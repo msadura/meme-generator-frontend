@@ -126,3 +126,17 @@ body {
   background-size: cover;
 }
 
+@keyframes logoSpin {
+  50% {
+    -webkit-transform: scaleX(-1); 
+    transform:scaleX(-1); 
+  }
+  100% { 
+      -webkit-transform: scaleX(1); 
+      transform:scaleX(1); 
+  } 
+}
+
+.logoSpinner {
+  animation: spin 4s linear infinite;
+}

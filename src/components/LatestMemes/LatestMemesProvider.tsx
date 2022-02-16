@@ -1,4 +1,13 @@
-import { FC, createContext, useEffect, useState, useMemo, useContext, ReactNode } from 'react';
+import {
+  FC,
+  createContext,
+  useEffect,
+  useState,
+  useMemo,
+  useContext,
+  ReactNode,
+  useCallback
+} from 'react';
 import { ethers } from 'ethers';
 import { Meme } from '@app/types';
 import axios from 'axios';
@@ -21,15 +30,11 @@ export const useLatestMemes = () => useContext(LatestMemesProviderContext);
 const LatestMemesProvider = ({ children }: Props) => {
   const [latest, setLatest] = useState<null | Meme[]>(null);
 
-  const refreshLatest = async () => {
+  const refreshLatest = useCallback(async () => {
     try {
       const res = await axios.get<Meme[]>('/api/latest');
       setLatest(res.data);
     } catch (e) {}
-  };
-
-  useEffect(() => {
-    refreshLatest();
   }, []);
 
   const provider = { latest, refreshLatest };
