@@ -1,6 +1,6 @@
 import { Dialog, Transition } from '@headlessui/react';
 import classNames from 'classnames';
-import React, { Fragment, ReactNode, useEffect } from 'react';
+import React, { Fragment, ReactNode, useEffect, useRef } from 'react';
 
 type Props = {
   children: ReactNode;
@@ -13,6 +13,8 @@ type Props = {
 const noop = () => {};
 
 export const Modal = ({ onClose, isOpen, children, sizeClass, className }: Props) => {
+  const bodyRef = useRef<HTMLDivElement>(null);
+
   useEffect(() => {
     document.body.style.overflow = isOpen ? 'hidden' : 'unset';
   }, [isOpen]);
@@ -26,8 +28,12 @@ export const Modal = ({ onClose, isOpen, children, sizeClass, className }: Props
   return (
     <>
       <Transition appear show={isOpen} as={Fragment}>
-        <Dialog as="div" className="fixed inset-0 z-10 overflow-y-auto" onClose={onClose || noop}>
-          <div className="min-h-screen px-4 text-center">
+        <Dialog
+          as="div"
+          initialFocus={bodyRef}
+          className="fixed inset-0 z-10 overflow-y-auto"
+          onClose={onClose || noop}>
+          <div className="min-h-screen px-4 text-center" ref={bodyRef}>
             <Transition.Child
               as={Fragment}
               enter="ease-out duration-300"

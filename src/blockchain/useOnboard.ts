@@ -1,11 +1,10 @@
 import { initOnboard } from '@app/blockchain/utils/initOnboard';
-import { API, Ens, Wallet } from 'bnc-onboard/dist/src/interfaces';
+import { API, Wallet } from 'bnc-onboard/dist/src/interfaces';
 import { ethers } from 'ethers';
 import { useEffect, useState } from 'react';
 
 export function useOnboard() {
   const [address, setAddress] = useState<string | null>(null);
-  const [ens, setEns] = useState<Ens | null>(null);
   const [network, setNetwork] = useState<null | number>(null);
   const [balance, setBalance] = useState<null | string>(null);
   const [wallet, setWallet] = useState<Wallet>({} as Wallet);
@@ -15,7 +14,6 @@ export function useOnboard() {
   useEffect(() => {
     const onboard = initOnboard({
       address: (val: string) => setAddress(val),
-      ens: (val: Ens) => setEns(val),
       network: (val: number) => setNetwork(val),
       balance: (val: string) => setBalance(val),
       wallet: (wallet: Wallet) => {
