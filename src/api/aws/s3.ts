@@ -11,7 +11,7 @@ AWS.config.update({
 
 export const s3 = new AWS.S3();
 
-console.log('🔥conf', process.env.AWS_KEY, process.env.AWS_SECRET);
+// console.log('🔥conf', process.env.AWS_KEY, process.env.AWS_SECRET);
 
 export const uploadS3 = async (body: string | Buffer, filename: string) => {
   const params = {
