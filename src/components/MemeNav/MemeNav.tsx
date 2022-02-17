@@ -31,7 +31,7 @@ export default function MemeNav({ id }: Props): JSX.Element {
   }, [navCallback, router.events]);
 
   return (
-    <div className="fixed inset-0 max-w-6xl mx-auto pointer-events-none">
+    <div className="fixed z-20 inset-0 max-w-6xl mx-auto pointer-events-none">
       {id > 1 && (
         <Link href={`${id - 1}`}>
           <a onClick={() => setIsPrevLoading(true)} className="pointer-events-auto">

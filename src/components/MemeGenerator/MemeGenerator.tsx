@@ -25,6 +25,7 @@ import { StickerImagePicker } from '@app/components/StickerImagePicker/StickerIm
 import { SecondaryBox } from '@app/components/SecondaryBox/SecondaryBox';
 import { LatestMemes } from '@app/components/LatestMemes/LatestMemes';
 import { useGlobal } from '@app/components/GlobalProvider/GlobalProvider';
+import { MemeGeneratorModal } from '@app/components/MemeGeneratorModal/MemeGeneratorModal';
 
 type Props = {
   scrollToFaq: () => void;
@@ -162,6 +163,7 @@ export function MemeGenerator({ scrollToFaq }: Props): JSX.Element {
           )}
         </div>
 
+        <MemeGeneratorModal />
         <MemeGeneratedModal onMakeAnother={clearImage} />
       </div>
 

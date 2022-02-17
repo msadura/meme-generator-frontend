@@ -15,9 +15,9 @@ type Props = {
 export function MemeGeneratedModal({ onMakeAnother }: Props): JSX.Element | null {
   const [isOpen, setIsOpen] = useState(false);
   const { getImageUrl, setBackgroundImg, bgImg } = useCanvas();
-  let { lastMintedId, resetLastMinted } = useMeme();
+  const { lastMintedId, resetLastMinted } = useMeme();
   const img = getImageUrl();
-  lastMintedId = 1;
+
   const makeAnother = () => {
     setBackgroundImg(null);
     resetLastMinted();
@@ -31,24 +31,6 @@ export function MemeGeneratedModal({ onMakeAnother }: Props): JSX.Element | null
       setIsOpen(false);
     }
   }, [img, bgImg, lastMintedId]);
-
-  useEffect(() => {
-    if (isOpen) {
-      document.body.style.overflow = 'hidden';
-    } else {
-      document.body.style.overflow = 'unset';
-    }
-  }, [isOpen]);
-
-  useEffect(() => {
-    return () => {
-      document.body.style.overflow = 'unset';
-    };
-  }, []);
-
-  const closeModal = () => {
-    setIsOpen(false);
-  };
 
   if (!isOpen || !img || !bgImg) {
     return null;

@@ -1,5 +1,4 @@
 .stars-container {
-  background: radial-gradient(ellipse at bottom, #162f42 0%, #151722 100%);
   overflow: hidden;
 }
 
@@ -78,12 +77,12 @@
 }
 
 .rocket-circle {
-  position:absolute;
-  left: 7%;
-  top: 22%;
-  animation:infinite-spinning 8s ease-in-out infinite;
+  position: absolute;
+  right: 40%;
+  top: 25%;
+  animation:infinite-spinning 15s ease-in-out infinite;
   animation-timing-function:linear;
-  transform-origin: 140% 60%;
+  transform-origin: 120% 50%;
 }
 
 @keyframes infinite-spinning {

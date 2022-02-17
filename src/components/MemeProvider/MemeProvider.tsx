@@ -35,6 +35,7 @@ export type MemeProviderContextType = {
   lastMintedId: number;
   resetLastMinted: () => void;
   totalSupply: number;
+  mintStatus: MintStatus;
 };
 
 const MemeProviderContext = createContext<MemeProviderContextType>({} as MemeProviderContextType);
@@ -81,7 +82,6 @@ const MemeProvider: FC = ({ children }) => {
           const res = await upload(imgBase64);
           image = res.data.imgData;
           uploadedRef.current[imgBase64] = image;
-          setMintStatus('done');
         } catch (e: any) {
           setMintStatus('');
           toast.error(e);
@@ -140,7 +140,8 @@ const MemeProvider: FC = ({ children }) => {
       isMinting: mintStatus === 'minting',
       lastMintedId,
       resetLastMinted,
-      totalSupply
+      totalSupply,
+      mintStatus
     }),
     [generate, lastMintedId, mintStatus, resetLastMinted, totalSupply]
   );

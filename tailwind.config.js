@@ -42,6 +42,9 @@ module.exports = {
       boxShadow: {
         mdh: '0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.8)'
       },
+      dropShadow: {
+        bubble: '5px 5px 0px rgba(0,0,0,.5)'
+      },
       borderWidth: {
         3: '3px'
       },

@@ -1,17 +1,28 @@
 import { Dialog, Transition } from '@headlessui/react';
 import classNames from 'classnames';
-import React, { Fragment, ReactNode } from 'react';
+import React, { Fragment, ReactNode, useEffect } from 'react';
 
 type Props = {
   children: ReactNode;
   isOpen: boolean;
   onClose?: () => void;
   sizeClass?: string;
+  className?: string;
 };
 
 const noop = () => {};
 
-export const Modal = ({ onClose, isOpen, children, sizeClass }: Props) => {
+export const Modal = ({ onClose, isOpen, children, sizeClass, className }: Props) => {
+  useEffect(() => {
+    document.body.style.overflow = isOpen ? 'hidden' : 'unset';
+  }, [isOpen]);
+
+  useEffect(() => {
+    return () => {
+      document.body.style.overflow = 'unset';
+    };
+  }, []);
+
   return (
     <>
       <Transition appear show={isOpen} as={Fragment}>
@@ -43,7 +54,8 @@ export const Modal = ({ onClose, isOpen, children, sizeClass }: Props) => {
               <div
                 className={classNames(
                   'inline-block w-full p-6 my-8 overflow-hidden text-left align-middle transition-all transform shadow-xl rounded-xl bg-base-200',
-                  sizeClass || 'max-w-xl'
+                  sizeClass || 'max-w-xl',
+                  className
                 )}>
                 {children}
               </div>

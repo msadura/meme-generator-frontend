@@ -18,7 +18,8 @@ module.exports = {
       'meme-generator-frontend.vercel.app',
       'dogeartclub.mypinata.cloud',
       'storage.googleapis.com',
-      'cloudflare-ipfs.com'
+      'cloudflare-ipfs.com',
+      'dai1hr2knmld8.cloudfront.net'
     ]
   }
 };

@@ -35,3 +35,4 @@ export const MEME_PATH = 'm/';
 export const IMAGE_PATH = 'api/i/';
 export const OPENSEA_BASE = 'https://testnets.opensea.io/assets/mumbai/';
 export const OPENSEA_COLLECTION = 'https://testnets.opensea.io/collection/nft-mm-5uui6gjmvw';
+export const IMG_CLOUDFRONT = 'https://dai1hr2knmld8.cloudfront.net/';
