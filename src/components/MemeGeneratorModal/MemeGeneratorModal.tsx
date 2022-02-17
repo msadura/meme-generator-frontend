@@ -28,6 +28,10 @@ export function MemeGeneratorModal(): JSX.Element | null {
   const [text, setText] = useState(() => (mintStatus !== 'minting' ? textUploading : textMinting));
 
   useEffect(() => {
+    if (mintStatus === 'uploading') {
+      setUploadingSlide(true);
+    }
+
     if (prevMintStatus === 'uploading' && mintStatus === 'minting') {
       setTimeout(() => {
         setUploadingSlide(false);
