@@ -36,7 +36,7 @@ export function MemeGeneratorModal(): JSX.Element | null {
       setTimeout(() => {
         setUploadingSlide(false);
         setText(textMinting);
-      }, 500);
+      }, 200);
     }
   }, [mintStatus, prevMintStatus]);
 
@@ -77,6 +77,7 @@ export function MemeGeneratorModal(): JSX.Element | null {
               layout="fill"
               objectFit="contain"
               objectPosition="left bottom"
+              alt="Doge in Space"
             />
           </div>
         </div>

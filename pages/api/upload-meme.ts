@@ -1,4 +1,5 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
+import { uploadS3 } from '@app/api/aws/s3';
 import { doesImageExist } from '@app/api/doesImageExist';
 import { upload } from '@app/utils/pinata';
 import type { NextApiRequest, NextApiResponse } from 'next';
@@ -32,6 +33,9 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
     let imgData = '';
 
     const { hash, isDuplicate } = await upload(stream);
+
+    uploadS3(buff, hash);
+
     imgData = `ipfs://${hash}`;
 
     if (isDuplicate) {

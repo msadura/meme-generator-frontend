@@ -1,4 +1,5 @@
 import LogoText from '@app/components/LogoText/LogoText';
+import { useMemeImage } from '@app/hooks/useMemeImage';
 import { Meme } from '@app/types';
 import { getImageUrl } from '@app/utils/getImageUrl';
 import Image from 'next/image';
@@ -10,7 +11,7 @@ type Props = {
 };
 
 export const MemeThumb = ({ meme, size = 100 }: Props) => {
-  const [imgLoaded, setImgLoaded] = useState(false);
+  const { isLoaded, url, onError, onLoad } = useMemeImage(meme.imageHash);
 
   return (
     <div
@@ -18,17 +19,18 @@ export const MemeThumb = ({ meme, size = 100 }: Props) => {
       style={{ width: size, height: size }}>
       <div className="relative z-50 w-full h-full">
         <Image
-          src={getImageUrl(meme.imageHash, '', true)}
+          key={url}
+          src={url}
+          onLoadingComplete={onLoad}
+          onError={onError}
           layout="fill"
           objectFit="contain"
           objectPosition="center center"
           alt={meme.name}
-          onLoadingComplete={() => setImgLoaded(true)}
-          // TODO - load from cloudfront + onError ipfs
         />
       </div>
 
-      {!imgLoaded && (
+      {!isLoaded && (
         <div className="absolute inset-0 z-10">
           <div className="relative flex items-center justify-center flex-col gap-3 w-full h-full">
             <LogoText className="!w-32 opacity-50 logoSpinner" />

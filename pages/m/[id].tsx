@@ -14,6 +14,7 @@ import Spinner from '@app/components/Spinner';
 import MemePageFallback from '@app/components/MemePageFallback/MemePageFallback';
 import { useState, useEffect } from 'react';
 import LogoText from '@app/components/LogoText/LogoText';
+import { useMemeImage } from '@app/hooks/useMemeImage';
 
 type Props = {
   meme: Meme;
@@ -21,11 +22,7 @@ type Props = {
 
 const MemePage: NextPage<Props> = ({ meme }) => {
   const router = useRouter();
-  const [loaderHidden, setLoaderHidden] = useState(false);
-
-  useEffect(() => {
-    setLoaderHidden(false);
-  }, [meme?.id]);
+  const { isLoaded, url, onError, onLoad } = useMemeImage(meme.imageHash);
 
   if (router.isFallback) {
     return <MemePageFallback />;
@@ -63,11 +60,12 @@ const MemePage: NextPage<Props> = ({ meme }) => {
                 style={{ maxWidth: meme.width, maxHeight: meme.height }}>
                 <div className="z-20">
                   <Image
-                    key={`${meme.id}`}
-                    src={getImageUrl(meme.imageHash)}
+                    key={url}
+                    src={url}
+                    onLoadingComplete={onLoad}
+                    onError={onError}
                     layout="fill"
                     alt={meme.name}
-                    onLoadingComplete={() => setLoaderHidden(true)}
                     loading="eager"
                     objectFit="contain"
                     objectPosition="center center"
@@ -80,7 +78,7 @@ const MemePage: NextPage<Props> = ({ meme }) => {
                   className="max-w-full object-contain mx-auto relative z-10"
                   // onLoad={() => setLoaderHidden(true)}
                 /> */}
-                {!loaderHidden && (
+                {!isLoaded && (
                   <div className="absolute inset-0 flex items-center justify-center flex-col gap-5">
                     <div className="relative opacity-40">
                       <LogoText className="!w-40 opacity-50" />
