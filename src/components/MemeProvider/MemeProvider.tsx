@@ -18,6 +18,7 @@ import { useMemeUpload } from '@app/hooks/useMemeUpload';
 import usePendingTx from '@app/blockchain/usePendingTx';
 import getErrorMessage from '@app/blockchain/getErrorMessage';
 import { ethers } from 'ethers';
+import { useLatestMemes } from '@app/components/LatestMemes/LatestMemesProvider';
 
 type MintStatus = '' | 'uploading' | 'minting' | 'done';
 
@@ -59,6 +60,7 @@ const MemeProvider: FC = ({ children }) => {
   const uploadedRef = useRef<Record<string, string>>({});
   const [lastMintedId, setLastMintedId] = useState<number>(0);
   const [totalSupply, setTotalSupply] = useState(0);
+  const { refreshLatest } = useLatestMemes();
 
   const refreshTotalSupply = useCallback(async () => {
     try {
@@ -111,6 +113,7 @@ const MemeProvider: FC = ({ children }) => {
 
         toast.success(`Successfully generated your meme!`);
         setMintStatus('done');
+        refreshLatest();
         uploadedRef.current[imgBase64] = '';
       } catch (e: any) {
         setMintStatus('');
@@ -122,7 +125,7 @@ const MemeProvider: FC = ({ children }) => {
         toast.error(getErrorMessage(e));
       }
     },
-    [address, generatorContract, mintTx, upload]
+    [address, generatorContract, mintTx, refreshLatest, upload]
   );
 
   const resetLastMinted = useCallback(() => {

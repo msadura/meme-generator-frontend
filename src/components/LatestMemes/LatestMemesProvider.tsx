@@ -1,14 +1,4 @@
-import {
-  FC,
-  createContext,
-  useEffect,
-  useState,
-  useMemo,
-  useContext,
-  ReactNode,
-  useCallback
-} from 'react';
-import { ethers } from 'ethers';
+import { createContext, useState, useContext, ReactNode, useCallback } from 'react';
 import { Meme } from '@app/types';
 import axios from 'axios';
 

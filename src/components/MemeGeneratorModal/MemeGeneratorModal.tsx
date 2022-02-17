@@ -7,7 +7,6 @@ import Link from 'next/link';
 import ShareSection from '@app/components/ShareSection/ShareSection';
 import { Dialog, Transition } from '@headlessui/react';
 import { Modal } from '@app/components/Modal/Modal';
-import { BubbleRectFlat } from '@app/components/SpeechBubble/BubbleRectFlat';
 import { SpeechBubbleFlat } from '@app/components/SpeechBubble/SpeechBubbleFlat';
 import Image from 'next/image';
 import { IMG_CLOUDFRONT } from '@app/constants';
@@ -17,16 +16,10 @@ import useWindowSize, { BreakPoint } from '@app/hooks/useWindowSize';
 import classNames from 'classnames';
 import { usePrevious } from '@app/hooks/usePrevious';
 
-type Props = {
-  onMakeAnother?: () => void;
-  isMinting?: boolean;
-  isUploading?: boolean;
-};
-
 const textUploading = 'Woof! Time to launch your meme! Uploading...';
 const textMinting = 'Woof! Your meme will land on blockchain! Confirm the transaction...';
 
-export function MemeGeneratorModal({ isMinting, isUploading }: Props): JSX.Element | null {
+export function MemeGeneratorModal(): JSX.Element | null {
   const { hasSize } = useWindowSize();
   const [isOpen, setIsOpen] = useState(true);
   const { mintStatus } = useMeme();

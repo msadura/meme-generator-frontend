@@ -26,11 +26,11 @@ function MyApp({ Component, pageProps }: AppPropsWithLayout) {
     <GlobalProvider>
       <PublicProvider>
         <BlockchainProvider>
-          <MemeProvider>
-            <LatestMemesProvider>
+          <LatestMemesProvider>
+            <MemeProvider>
               <Component {...pageProps} />
-            </LatestMemesProvider>
-          </MemeProvider>
+            </MemeProvider>
+          </LatestMemesProvider>
 
           <ToastContainer />
         </BlockchainProvider>
