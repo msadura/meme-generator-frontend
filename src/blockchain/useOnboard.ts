@@ -35,7 +35,7 @@ export function useOnboard() {
 
   useEffect(() => {
     const checkPrevWallet = async () => {
-      const previouslySelectedWallet = window.localStorage.getItem('cuddles:selectedWallet');
+      const previouslySelectedWallet = window.localStorage.getItem('memes:selectedWallet');
 
       if (previouslySelectedWallet && onboard) {
         await onboard.walletSelect(previouslySelectedWallet);
