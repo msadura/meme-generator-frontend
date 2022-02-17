@@ -119,7 +119,9 @@ export async function getStaticPaths() {
   type Path = { params: { id: string } };
   let paths: Path[] = [];
   if (totalSupply > 0) {
-    paths = new Array(totalSupply).fill(true).map((_, i) => ({ params: { id: String(i + 1) } }));
+    paths = new Array(totalSupply > 5 ? 5 : totalSupply)
+      .fill(true)
+      .map((_, i) => ({ params: { id: String(i + 1) } }));
   }
 
   return {
