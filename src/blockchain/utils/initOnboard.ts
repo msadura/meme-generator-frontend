@@ -20,15 +20,18 @@ export function initOnboard(subscriptions: Subscriptions) {
     subscriptions,
     walletSelect: {
       wallets: [
-        { walletName: 'metamask' }
+        { walletName: 'metamask' },
         // {
         //   walletName: 'ledger',
         //   rpcUrl
         // },
-        // {
-        //   walletName: 'walletConnect',
-        //   infuraKey: INFURA_KEY
-        // }
+        {
+          walletName: 'walletConnect',
+          // infuraKey: INFURA_KEY,
+          rpc: {
+            80001: PUBLIC_RPC
+          }
+        }
       ]
     },
     walletCheck: [

@@ -23,7 +23,7 @@ const LatestMemesProvider = ({ children }: Props) => {
   const refreshLatest = useCallback(async () => {
     try {
       const res = await axios.get<Meme[]>('/api/latest');
-      setLatest(res.data);
+      setLatest(res.data.reverse());
     } catch (e) {}
   }, []);
 

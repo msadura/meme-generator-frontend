@@ -97,12 +97,13 @@ const BlockchainProvider: FC = ({ children }) => {
   // }, []);
 
   const connect = useCallback(async () => {
-    const connected = await onboard?.walletSelect();
+    await onboard?.walletSelect();
+    await onboard?.walletCheck();
 
-    if (connected && wallet.provider && !address) {
-      wallet.connect?.();
-    }
-  }, [address, onboard, wallet]);
+    // if (connected && wallet.provider && !address) {
+    //   wallet.connect?.();
+    // }
+  }, [onboard]);
 
   const blockchain = {
     provider,

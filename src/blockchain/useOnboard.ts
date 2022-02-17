@@ -36,11 +36,16 @@ export function useOnboard() {
   }, []);
 
   useEffect(() => {
-    const previouslySelectedWallet = window.localStorage.getItem('memes:selectedWallet');
+    const checkPrevWallet = async () => {
+      const previouslySelectedWallet = window.localStorage.getItem('cuddles:selectedWallet');
 
-    if (previouslySelectedWallet && onboard) {
-      onboard.walletSelect(previouslySelectedWallet);
-    }
+      if (previouslySelectedWallet && onboard) {
+        await onboard.walletSelect(previouslySelectedWallet);
+        await onboard.walletCheck();
+      }
+    };
+
+    checkPrevWallet();
   }, [onboard]);
 
   return {
