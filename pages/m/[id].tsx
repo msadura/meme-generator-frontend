@@ -22,7 +22,7 @@ type Props = {
 
 const MemePage: NextPage<Props> = ({ meme }) => {
   const router = useRouter();
-  const { isLoaded, url, onError, onLoad } = useMemeImage(meme.imageHash);
+  const { isLoaded, url, onError, onLoad } = useMemeImage(meme?.imageHash);
 
   if (router.isFallback) {
     return <MemePageFallback />;
