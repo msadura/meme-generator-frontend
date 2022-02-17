@@ -34,7 +34,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
 
     const { hash, isDuplicate } = await upload(stream);
 
-    uploadS3(buff, hash);
+    await uploadS3(buff, hash);
 
     imgData = `ipfs://${hash}`;
 
