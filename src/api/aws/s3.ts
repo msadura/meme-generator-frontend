@@ -3,8 +3,8 @@ import { FILE_EXTENSION } from '@app/constants';
 import AWS from 'aws-sdk';
 
 export const s3 = new AWS.S3({
-  accessKeyId: process.env.AWS_ACCESS_KEY,
-  secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY
+  accessKeyId: process.env.AWS_KEY,
+  secretAccessKey: process.env.AWS_SECRET
 });
 
 export const uploadS3 = async (body: string | Buffer, filename: string) => {
