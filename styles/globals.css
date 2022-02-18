@@ -144,3 +144,5 @@ body {
 .logoSpinner2 {
   animation: logoSpin 4s linear infinite;
 }
+
+.bn-onboard-custom.bn-onboard-modal { z-index: 99; }

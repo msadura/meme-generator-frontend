@@ -15,7 +15,7 @@ export function initOnboard(subscriptions: Subscriptions) {
     dappId,
     hideBranding: true,
     networkId,
-    networkName: 'Mumbai',
+    // networkName: 'Mumbai',
     darkMode: true,
     subscriptions,
     walletSelect: {
@@ -27,7 +27,7 @@ export function initOnboard(subscriptions: Subscriptions) {
         // },
         {
           walletName: 'walletConnect',
-          // infuraKey: INFURA_KEY,
+          infuraKey: INFURA_KEY,
           rpc: {
             80001: PUBLIC_RPC
           }
