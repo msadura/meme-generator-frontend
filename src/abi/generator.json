@@ -55,8 +55,7 @@
           { "internalType": "string", "name": "image", "type": "string" },
           { "internalType": "uint256", "name": "width", "type": "uint256" },
           { "internalType": "uint256", "name": "height", "type": "uint256" },
-          { "internalType": "string", "name": "theme", "type": "string" },
-          { "internalType": "string[]", "name": "hashtags", "type": "string[]" }
+          { "internalType": "string", "name": "theme", "type": "string" }
         ],
         "internalType": "struct IMemeBank.MemeTraits",
         "name": "meme",

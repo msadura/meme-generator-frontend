@@ -97,8 +97,7 @@ const MemeProvider: FC = ({ children }) => {
           image,
           params.width || 0,
           params.height || 0,
-          params.theme || '',
-          params.hashtags || []
+          params.theme || ''
         ]);
 
         generatorContract?.on('Generate', (from: string, tokenId: ethers.BigNumber) => {
