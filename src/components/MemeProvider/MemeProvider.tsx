@@ -77,7 +77,6 @@ const MemeProvider: FC = ({ children }) => {
 
   useEffect(() => {
     const listener = () => {
-      console.log('🔥', 'Transfer: refresh');
       refreshTotalSupply();
     };
 
@@ -90,7 +89,7 @@ const MemeProvider: FC = ({ children }) => {
 
   const fetchLatMintedFromTotalSupply = useCallback(async () => {
     const total = await refreshTotalSupply();
-    console.log('id:', total);
+
     if (!lastMintedIdRef.current && total) {
       setLastMintedId(total);
       lastMintedIdRef.current = total;
