@@ -59,6 +59,7 @@ const MemeProvider: FC = ({ children }) => {
   const mintTx = usePendingTx({});
   const uploadedRef = useRef<Record<string, string>>({});
   const [lastMintedId, setLastMintedId] = useState<number>(0);
+  const lastMintedIdRef = useRef(0);
   const [totalSupply, setTotalSupply] = useState(0);
   const { refreshLatest } = useLatestMemes();
 
@@ -66,14 +67,26 @@ const MemeProvider: FC = ({ children }) => {
     try {
       const total: ethers.BigNumber = await nftContract?.totalSupply();
       if (total) {
-        setTotalSupply(total.toNumber());
+        const totalNumber = total.toNumber();
+        setTotalSupply(totalNumber);
+
+        return totalNumber;
       }
     } catch (e) {}
   }, [nftContract]);
 
+  const fetchLatMintedFromTotalSupply = useCallback(async () => {
+    const total = await refreshTotalSupply();
+    if (!lastMintedIdRef.current && total) {
+      setLastMintedId(total);
+      lastMintedIdRef.current = total;
+    }
+  }, [refreshTotalSupply]);
+
   const generate = useCallback(
     async (imgBase64: string, params: MintParams = {}) => {
       setLastMintedId(0);
+      lastMintedIdRef.current = 0;
       let image = uploadedRef.current[imgBase64] || '';
       //for testing
       // setLastMintedId(1);
@@ -103,12 +116,14 @@ const MemeProvider: FC = ({ children }) => {
         generatorContract?.on('Generate', (from: string, tokenId: ethers.BigNumber) => {
           if (address?.toLowerCase() === String(from).toLowerCase()) {
             setLastMintedId(tokenId.toNumber());
+            lastMintedIdRef.current = tokenId.toNumber();
             generatorContract?.removeAllListeners();
           }
         });
 
         mintTx.setTransaction(tx);
         await tx.wait();
+        fetchLatMintedFromTotalSupply();
 
         toast.success(`Successfully generated your meme!`);
         setMintStatus('done');
