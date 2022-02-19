@@ -75,8 +75,22 @@ const MemeProvider: FC = ({ children }) => {
     } catch (e) {}
   }, [nftContract]);
 
+  useEffect(() => {
+    const listener = () => {
+      console.log('🔥', 'Transfer: refresh');
+      refreshTotalSupply();
+    };
+
+    nftContract?.on('Transfer', listener);
+
+    return () => {
+      nftContract?.removeListener('Transfer', listener);
+    };
+  }, [nftContract, refreshTotalSupply]);
+
   const fetchLatMintedFromTotalSupply = useCallback(async () => {
     const total = await refreshTotalSupply();
+    console.log('id:', total);
     if (!lastMintedIdRef.current && total) {
       setLastMintedId(total);
       lastMintedIdRef.current = total;
