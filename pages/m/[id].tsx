@@ -137,7 +137,7 @@ export async function getStaticProps({ params }: any) {
   try {
     meme = await loadMetadata(Number(id));
   } catch (e) {
-    console.log('🔥', e);
+    console.log('🔥e', e);
   }
 
   if (!meme) {
