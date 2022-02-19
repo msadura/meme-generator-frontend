@@ -139,7 +139,7 @@ const MemeProvider: FC = ({ children }) => {
         toast.error(getErrorMessage(e));
       }
     },
-    [address, generatorContract, mintTx, refreshLatest, upload]
+    [address, fetchLatMintedFromTotalSupply, generatorContract, mintTx, refreshLatest, upload]
   );
 
   const resetLastMinted = useCallback(() => {
