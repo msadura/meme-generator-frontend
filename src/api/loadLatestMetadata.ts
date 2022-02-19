@@ -10,7 +10,9 @@ export async function loadLatestMetadata() {
 
   try {
     const latestItems: { id: ethers.BigNumber; tokenURI: string }[] = await contract.getLatest();
-    return latestItems.map((i) => parseMetadata(i.tokenURI, i.id.toNumber()));
+    return latestItems
+      .filter((i) => !!i.tokenURI)
+      .map((i) => parseMetadata(i.tokenURI, i.id.toNumber()));
   } catch (e) {
     return null;
   }
