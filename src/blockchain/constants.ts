@@ -39,9 +39,9 @@ const CHAINS_CONFIG = {
 
 export const CHAINS: Record<ChainType, Chain> = {
   [ChainType.avax]: IS_DEV && USE_TESTNET_DEV ? CHAINS_CONFIG.avaxFuji : CHAINS_CONFIG.avax,
-  [ChainType.eth]: IS_DEV && USE_TESTNET_DEV ? CHAINS_CONFIG.mainnet : CHAINS_CONFIG.rinkeby,
-  [ChainType.matic]: IS_DEV && USE_TESTNET_DEV ? CHAINS_CONFIG.matic : CHAINS_CONFIG.mumbai,
+  [ChainType.eth]: IS_DEV && USE_TESTNET_DEV ? CHAINS_CONFIG.rinkeby : CHAINS_CONFIG.mainnet,
+  [ChainType.matic]: IS_DEV && USE_TESTNET_DEV ? CHAINS_CONFIG.mumbai : CHAINS_CONFIG.matic,
   [ChainType.mumbai]: CHAINS_CONFIG.mumbai
 };
 
-export const DESIRED_CHAIN = CHAINS_CONFIG.mumbai;
+export const DESIRED_CHAIN = CHAINS_CONFIG.matic;
