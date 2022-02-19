@@ -1,10 +1,9 @@
-import { CHAINS } from '@app/blockchain/constants';
-import { BLOCKNATIVE_API_KEY, CHAIN_TYPE, INFURA_KEY, PUBLIC_RPC } from '@app/constants';
+import { CHAINS, DESIRED_CHAIN } from '@app/blockchain/constants';
+import { BLOCKNATIVE_API_KEY } from '@app/constants';
 import Onboard from 'bnc-onboard';
 import { Subscriptions } from 'bnc-onboard/dist/src/interfaces';
 
-const networkId = CHAINS[CHAIN_TYPE].id;
-const rpcUrl = PUBLIC_RPC;
+const networkId = DESIRED_CHAIN.id;
 const dappId = BLOCKNATIVE_API_KEY;
 
 export function initOnboard(subscriptions: Subscriptions) {
@@ -21,15 +20,11 @@ export function initOnboard(subscriptions: Subscriptions) {
     walletSelect: {
       wallets: [
         { walletName: 'metamask' },
-        // {
-        //   walletName: 'ledger',
-        //   rpcUrl
-        // },
         {
           walletName: 'walletConnect',
-          infuraKey: INFURA_KEY,
+          infuraKey: DESIRED_CHAIN.infuraKey,
           rpc: {
-            80001: PUBLIC_RPC
+            80001: DESIRED_CHAIN.rpc
           }
         }
       ]

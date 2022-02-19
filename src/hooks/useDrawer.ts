@@ -6,7 +6,7 @@ import { ethers } from 'ethers';
 
 export function useDrawer(provider?: ethers.providers.Provider) {
   const { signer } = useBlockchain();
-  const drawerContract = useContract(drawer, CONTRACTS.drawer, signer || provider || null);
+  const drawerContract = useContract(drawer, CONTRACTS.traits, signer || provider || null);
 
   return drawerContract;
 }

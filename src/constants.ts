@@ -11,7 +11,7 @@ if (IS_DEV) {
 
 if (!HOST_URL) {
   //TODO - change to prod domain
-  HOST_URL = 'https://meme-generator-frontend.vercel.app/';
+  HOST_URL = 'https://memes.dogeartclub.com/';
 }
 
 export const DISCORD_URL = 'https://discord.gg/dogeartclub';
@@ -24,15 +24,10 @@ export const ETH_SYMBOL = 'ETH';
 export const IPFS_IMAGE_BASE = 'https://cloudflare-ipfs.com/ipfs/';
 
 export const MAX_IMAGE_SIZE = 1000;
-//use secured one for prod
-export const chain = 137;
-export const CHAIN_TYPE: ChainType = ChainType.matic;
-export const PUBLIC_RPC = 'https://polygon-mainnet.infura.io/v3/998804b23fd0421e9bbea7c41917c2b3';
-export const INFURA_KEY = '998804b23fd0421e9bbea7c41917c2b3';
 export const MEME_PATH = 'm/';
 export const IMAGE_PATH = 'api/i/';
 //TODO _UPDATE!!
-export const OPENSEA_BASE = 'https://testnets.opensea.io/assets/mumbai/';
+export const OPENSEA_BASE = 'https://opensea.io/assets/matic/';
 export const OPENSEA_COLLECTION = 'https://testnets.opensea.io/collection/nft-mm-5uui6gjmvw';
 export const IMG_CLOUDFRONT = 'https://dai1hr2knmld8.cloudfront.net/';
 export const MEME_CLOUDFRONT_PATH = 'meme/';

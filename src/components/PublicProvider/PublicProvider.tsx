@@ -1,8 +1,6 @@
-import { FC, createContext, useEffect, useState, useMemo, useContext } from 'react';
+import { FC, createContext, useMemo, useContext } from 'react';
 import { ethers } from 'ethers';
-import { toast } from 'react-toastify';
-import { CHAINS } from '@app/blockchain/constants';
-import { PUBLIC_RPC } from '@app/constants';
+import { DESIRED_CHAIN } from '@app/blockchain/constants';
 
 export type PublicProviderContextType = ethers.providers.StaticJsonRpcProvider;
 
@@ -14,7 +12,7 @@ export const usePublicProvider = () => useContext(PublicProviderContext);
 
 const PublicProvider: FC = ({ children }) => {
   const provider = useMemo(() => {
-    return new ethers.providers.StaticJsonRpcProvider(PUBLIC_RPC);
+    return new ethers.providers.StaticJsonRpcProvider(DESIRED_CHAIN.rpc);
   }, []);
 
   return (

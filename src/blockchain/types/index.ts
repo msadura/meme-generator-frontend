@@ -1,8 +1,10 @@
 export enum ChainType {
   avax = 'avax',
+  avaxFuji = 'avaxFuji',
   eth = 'eth',
   mumbai = 'mumbai',
-  matic = 'matic'
+  matic = 'matic',
+  rinkeby = 'rinkeby'
 }
 
 export type NetworkConfig = {
@@ -23,4 +25,6 @@ export type Chain = {
   name: string;
   token: string;
   config?: NetworkConfig;
+  rpc: string;
+  infuraKey?: string;
 };
