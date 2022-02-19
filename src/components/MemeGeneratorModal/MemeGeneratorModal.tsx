@@ -73,7 +73,7 @@ export function MemeGeneratorModal(): JSX.Element | null {
         <div className="absolute inset-0 flex flex-1">
           <div className="relative w-full max-w-[40%] flex mt-10 flex-1">
             <Image
-              src={`${IMG_CLOUDFRONT}doges/dogespace.png`}
+              src={`${IMG_CLOUDFRONT}doges/dogespace_sm.png`}
               layout="fill"
               objectFit="contain"
               objectPosition="left bottom"

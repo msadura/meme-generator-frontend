@@ -75,8 +75,21 @@ const MemeProvider: FC = ({ children }) => {
     } catch (e) {}
   }, [nftContract]);
 
+  useEffect(() => {
+    const listener = () => {
+      refreshTotalSupply();
+    };
+
+    nftContract?.on('Transfer', listener);
+
+    return () => {
+      nftContract?.removeListener('Transfer', listener);
+    };
+  }, [nftContract, refreshTotalSupply]);
+
   const fetchLatMintedFromTotalSupply = useCallback(async () => {
     const total = await refreshTotalSupply();
+
     if (!lastMintedIdRef.current && total) {
       setLastMintedId(total);
       lastMintedIdRef.current = total;
@@ -139,7 +152,7 @@ const MemeProvider: FC = ({ children }) => {
         toast.error(getErrorMessage(e));
       }
     },
-    [address, generatorContract, mintTx, refreshLatest, upload]
+    [address, fetchLatMintedFromTotalSupply, generatorContract, mintTx, refreshLatest, upload]
   );
 
   const resetLastMinted = useCallback(() => {

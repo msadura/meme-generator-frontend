@@ -126,7 +126,7 @@ export async function getStaticPaths() {
 
   return {
     paths,
-    fallback: true
+    fallback: 'blocking'
   };
 }
 
@@ -141,7 +141,8 @@ export async function getStaticProps({ params }: any) {
   }
 
   if (!meme) {
-    return { notFound: true };
+    throw `Meme with id: ${id} not found!`;
+    return { notFound: true, revalidate: 1 };
   }
 
   return {
