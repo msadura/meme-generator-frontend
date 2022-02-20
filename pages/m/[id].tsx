@@ -34,7 +34,7 @@ const MemePage: NextPage<Props> = ({ meme }) => {
         <title>{meme.name}</title>
         <meta
           name="description"
-          content="NFT Meme Generator by Doge Art Club. Mint memes as NFTs without coding, for free."
+          content="Proof Of Meme - NFT Meme Generator by Doge Art Club. Mint memes as NFTs without coding, for free."
         />
         <link rel="icon" href="/favicon.ico" />
 
@@ -44,7 +44,7 @@ const MemePage: NextPage<Props> = ({ meme }) => {
         <meta name="twitter:card" content="summary_large_image" />
         <meta
           property="og:description"
-          content="NFT Meme Generator by Doge Art Club. Mint memes as NFTs without coding, for free."
+          content="Proof Of Meme - NFT Meme Generator by Doge Art Club. Mint memes as NFTs without coding, for free."
         />
         <meta property="og:image" content={`${getImageUrl(meme.imageHash, false)}`} />
       </Head>
