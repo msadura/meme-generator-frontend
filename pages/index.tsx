@@ -7,6 +7,7 @@ import { Faq } from '@app/components/Faq/Faq';
 import { useRef } from 'react';
 import { Footer } from '@app/components/Footer/Footer';
 import { LatestMemesProvider } from '@app/components/LatestMemes/LatestMemesProvider';
+import { IMG_CLOUDFRONT } from '@app/constants';
 
 const Home: NextPage = () => {
   const faqRef = useRef<HTMLDivElement>(null);
@@ -17,9 +18,19 @@ const Home: NextPage = () => {
           <title>Proof of MEME</title>
           <meta
             name="description"
-            content="NFT Meme Generator by Doge Art Club. Mint memes as NFTs without coding, for free."
+            content="Proof Of Meme - NFT Meme Generator by Doge Art Club. Mint memes as NFTs without coding, for free."
           />
           <link rel="icon" href="/favicon.ico" />
+
+          <meta property="og:url" content="https://memes.art" />
+          <meta property="og:type" content="website" />
+          <meta property="og:title" content="Proof of Meme" />
+          <meta name="twitter:card" content="summary_large_image" />
+          <meta
+            property="og:description"
+            content="Proof Of Meme - NFT Meme Generator by Doge Art Club. Mint memes as NFTs without coding, for free."
+          />
+          <meta property="og:image" content={`${IMG_CLOUDFRONT}dac-main.jpeg`} />
         </Head>
 
         <Navbar />

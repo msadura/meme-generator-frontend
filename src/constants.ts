@@ -11,7 +11,7 @@ if (IS_DEV) {
 
 if (!HOST_URL) {
   //TODO - change to prod domain
-  HOST_URL = 'https://memes.dogeartclub.com/';
+  HOST_URL = 'https://memes.art/';
 }
 
 export const DISCORD_URL = 'https://discord.gg/dogeartclub';
@@ -28,7 +28,7 @@ export const MEME_PATH = 'm/';
 export const IMAGE_PATH = 'api/i/';
 //TODO _UPDATE!!
 export const OPENSEA_BASE = 'https://opensea.io/assets/matic/';
-export const OPENSEA_COLLECTION = 'https://testnets.opensea.io/collection/nft-mm-5uui6gjmvw';
+export const OPENSEA_COLLECTION = 'https://testnets.opensea.io/collection/proof-of-meme';
 export const IMG_CLOUDFRONT = 'https://dai1hr2knmld8.cloudfront.net/';
 export const MEME_CLOUDFRONT_PATH = 'meme/';
 export const FILE_EXTENSION = '.jpeg';
