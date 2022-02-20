@@ -46,7 +46,7 @@ const MemePage: NextPage<Props> = ({ meme }) => {
           property="og:description"
           content="NFT Meme Generator by Doge Art Club. Mint memes as NFTs without coding, for free."
         />
-        <meta property="og:image" content={`${getImageUrl(meme.imageHash)}`} />
+        <meta property="og:image" content={`${getImageUrl(meme.imageHash, false)}`} />
       </Head>
 
       <Navbar />
