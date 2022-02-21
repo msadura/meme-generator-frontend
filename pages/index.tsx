@@ -31,7 +31,7 @@ const Home: NextPage = () => {
             property="og:description"
             content="Proof Of Meme - NFT Meme Generator by Doge Art Club. Mint memes as NFTs without coding, for free."
           />
-          <meta property="og:image" content={`${IMG_CLOUDFRONT}/bg/memes.jpg`} />
+          <meta property="og:image" content={`${IMG_CLOUDFRONT}bg/memes.jpg`} />
         </Head>
 
         <Navbar />
