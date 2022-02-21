@@ -11,6 +11,7 @@ import { IMG_CLOUDFRONT } from '@app/constants';
 
 const Home: NextPage = () => {
   const faqRef = useRef<HTMLDivElement>(null);
+
   return (
     <div className="min-h-screen w-full flex flex-1 flex-col main-bg">
       <div className="bg-memes">
