@@ -5,7 +5,7 @@ import OpenseaImg from '@public/opensea.svg';
 import CopyImg from '@public/copy.svg';
 import Image from 'next/image';
 import { toast } from 'react-toastify';
-import { MEME_PATH, OPENSEA_BASE } from '@app/constants';
+import { HOST_URL, MEME_PATH, MEME_URL, OPENSEA_BASE } from '@app/constants';
 import { CONTRACTS } from '@app/addresses';
 import Button from '@app/components/Button/Button';
 import { SocialShare } from '@app/components/SocialShare/SocialShare';
@@ -15,15 +15,8 @@ type Props = {
 };
 
 export default function ShareSection({ id }: Props): JSX.Element {
-  const [memeUrl, setMemeUrl] = useState('');
   const openseaUrl = `${OPENSEA_BASE}${CONTRACTS.nft}/${id}`;
-
-  useEffect(() => {
-    const mUrl = `${window?.location.origin}/${MEME_PATH}${id}`;
-    if (mUrl) {
-      setMemeUrl(mUrl);
-    }
-  }, [id]);
+  const memeUrl = `${MEME_URL}${id}`;
 
   const copyShareUrl = async (url: string) => {
     try {
@@ -34,6 +27,7 @@ export default function ShareSection({ id }: Props): JSX.Element {
       toast.error('Could not copy link.');
     }
   };
+
   return (
     <>
       <div className="flex flex-row flex-wrap items-center justify-between mt-3">

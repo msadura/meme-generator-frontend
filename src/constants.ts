@@ -14,6 +14,7 @@ if (!HOST_URL) {
   HOST_URL = 'https://memes.art/';
 }
 
+const APP_URL = 'https://memes.art/';
 export const DISCORD_URL = 'https://discord.gg/dogeartclub';
 export const TWITTER_URL = 'https://twitter.com/DogeArtClub';
 export const INSTAGRAM_URL = 'https://www.instagram.com/dogeartclub';
@@ -25,6 +26,7 @@ export const IPFS_IMAGE_BASE = 'https://cloudflare-ipfs.com/ipfs/';
 
 export const MAX_IMAGE_SIZE = 1000;
 export const MEME_PATH = 'm/';
+export const MEME_URL = `${APP_URL}${MEME_PATH}`;
 export const IMAGE_PATH = 'api/i/';
 //TODO _UPDATE!!
 export const OPENSEA_BASE = 'https://opensea.io/assets/matic/';
