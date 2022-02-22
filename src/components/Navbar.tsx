@@ -34,9 +34,9 @@ export const Navbar = () => {
               <span className="ml-3 text-md md:text-2xl tracking-wider text-secondary-focus uppercase md:tracking-widest font-comic">
                 Proof of MEME
               </span>
-              <div className="badge badge-primary absolute -right-2 -bottom-2 md:bottom-4 transform rotate-12">
+              {/* <div className="badge badge-primary absolute -right-2 -bottom-2 md:bottom-4 transform rotate-12">
                 BETA
-              </div>
+              </div> */}
             </a>
           </Link>
           <button
