@@ -78,6 +78,7 @@ const MemeProvider: FC = ({ children }) => {
   useEffect(() => {
     const listener = () => {
       refreshTotalSupply();
+      refreshLatest();
     };
 
     nftContract?.on('Transfer', listener);
@@ -85,7 +86,7 @@ const MemeProvider: FC = ({ children }) => {
     return () => {
       nftContract?.removeListener('Transfer', listener);
     };
-  }, [nftContract, refreshTotalSupply]);
+  }, [nftContract, refreshLatest, refreshTotalSupply]);
 
   const fetchLatMintedFromTotalSupply = useCallback(async () => {
     const total = await refreshTotalSupply();
