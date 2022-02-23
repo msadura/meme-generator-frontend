@@ -102,23 +102,6 @@ export function MemeGenerator({ scrollToFaq }: Props): JSX.Element {
                     />
                   </a>
                 </div>
-
-                <div className="flex flex-col flex-1">
-                  <p className="text-lg text-primary-content font-semibold">Powered by:</p>
-                  <a
-                    className="w-[150px] p-3 bg-white rounded inline-flex items-center"
-                    href="https://polygon.technology/"
-                    title="View on OpenSea"
-                    target="_blank"
-                    rel="noreferrer">
-                    <Image
-                      src="https://docs.polygon.technology/img/polygon/polygon-logo.webp"
-                      alt="Polygon Technology"
-                      width={145}
-                      height={32}
-                    />
-                  </a>
-                </div>
               </div>
             </div>
           )}
