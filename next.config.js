@@ -19,7 +19,8 @@ module.exports = {
       'dogeartclub.mypinata.cloud',
       'storage.googleapis.com',
       'cloudflare-ipfs.com',
-      'dai1hr2knmld8.cloudfront.net'
+      'dai1hr2knmld8.cloudfront.net',
+      'docs.polygon.technology'
     ]
   }
 };

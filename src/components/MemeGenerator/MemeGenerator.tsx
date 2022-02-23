@@ -61,11 +61,11 @@ export function MemeGenerator({ scrollToFaq }: Props): JSX.Element {
                 <h2 className="font-network text-3xl md:text-4xl text-primary-content py-1 lg:py-3 text-shadow-glow">
                   Hello Dog!
                 </h2>
-                <p className="text-lg py-2 lg:pb-10">
+                <p className="text-lg py-2 lg:pb-3">
                   Unleash your inner Memelord and create the world&apos;s greatest memes! As NFTs.
                   For free.
                 </p>
-                <p className="text-lg py-3 pb-6 text-secondary-focus">
+                <p className="text-lg py-3 pb-3 text-secondary-focus">
                   LFG? Then pick the image and let&apos;s roll! Wanna dive deeper?{' '}
                   <a className="link" onClick={scrollToFaq}>
                     Read more in FAQ
@@ -79,17 +79,15 @@ export function MemeGenerator({ scrollToFaq }: Props): JSX.Element {
                 setRemoteUrl={setRemoteUrl}
               />
 
-              <div className="flex flex-row flex-wrap justify-between items-center md:items-start gap-5 mt-5">
+              <div className="flex flex-row flex-wrap justify-between items-center md:items-start gap-2 mt-5">
                 <div className="flex flex-col flex-1">
-                  <p className="text-lg text-primary-content py-3 font-semibold">Founded by:</p>
+                  <p className="text-lg text-primary-content font-semibold">Founded by:</p>
                   <a href={DAC_URL} title="View on OpenSea" target="_blank" rel="noreferrer">
                     <SecondaryBox className="!w-44 !px-0">Doge Art Club</SecondaryBox>
                   </a>
                 </div>
                 <div className="flex flex-col flex-1">
-                  <p className="text-lg text-primary-content py-3 font-semibold">
-                    Visit our gallery:
-                  </p>
+                  <p className="text-lg text-primary-content font-semibold">Visit our gallery:</p>
                   <a
                     className="w-[150px]"
                     href={OPENSEA_COLLECTION}
@@ -101,6 +99,23 @@ export function MemeGenerator({ scrollToFaq }: Props): JSX.Element {
                       alt="Available on OpenSea"
                       width={150}
                       height={53}
+                    />
+                  </a>
+                </div>
+
+                <div className="flex flex-col flex-1">
+                  <p className="text-lg text-primary-content font-semibold">Powered by:</p>
+                  <a
+                    className="w-[150px] p-3 bg-white rounded inline-flex items-center"
+                    href="https://polygon.technology/"
+                    title="View on OpenSea"
+                    target="_blank"
+                    rel="noreferrer">
+                    <Image
+                      src="https://docs.polygon.technology/img/polygon/polygon-logo.webp"
+                      alt="Polygon Technology"
+                      width={145}
+                      height={32}
                     />
                   </a>
                 </div>

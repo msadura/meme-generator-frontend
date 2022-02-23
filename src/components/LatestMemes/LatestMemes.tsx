@@ -22,7 +22,7 @@ export function LatestMemes() {
   const lastId = latest[latest.length - 1].id;
 
   return (
-    <div className="flex flex-col flex-1 mt-5">
+    <div className="flex flex-col flex-1">
       <Link href={`/m/${lastId}`}>
         <a className="text-lg text-primary-content py-3 font-semibold underline">
           View latest memes »
